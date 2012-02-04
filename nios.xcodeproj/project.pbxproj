@@ -10,12 +10,34 @@
 		C923186814DD661500646E0C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C923186714DD661500646E0C /* UIKit.framework */; };
 		C923186A14DD661500646E0C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C923186914DD661500646E0C /* Foundation.framework */; };
 		C923186C14DD661500646E0C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C923186B14DD661500646E0C /* CoreGraphics.framework */; };
-		C923187214DD661500646E0C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C923187014DD661500646E0C /* InfoPlist.strings */; };
 		C923187414DD661500646E0C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C923187314DD661500646E0C /* main.m */; };
-		C923187814DD661500646E0C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C923187714DD661500646E0C /* AppDelegate.m */; };
-		C923187B14DD661500646E0C /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C923187A14DD661500646E0C /* ViewController.m */; };
-		C923187E14DD661500646E0C /* ViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = C923187C14DD661500646E0C /* ViewController_iPhone.xib */; };
-		C923188114DD661500646E0C /* ViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = C923187F14DD661500646E0C /* ViewController_iPad.xib */; };
+		C923188A14DD670500646E0C /* Nios.m in Sources */ = {isa = PBXBuildFile; fileRef = C923188914DD670500646E0C /* Nios.m */; };
+		C92318AD14DD68DE00646E0C /* NSObject+SBJson.m in Sources */ = {isa = PBXBuildFile; fileRef = C923189214DD68DE00646E0C /* NSObject+SBJson.m */; };
+		C92318AE14DD68DE00646E0C /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = C923189514DD68DE00646E0C /* SBJsonParser.m */; };
+		C92318AF14DD68DE00646E0C /* SBJsonStreamParser.m in Sources */ = {isa = PBXBuildFile; fileRef = C923189714DD68DE00646E0C /* SBJsonStreamParser.m */; };
+		C92318B014DD68DE00646E0C /* SBJsonStreamParserAccumulator.m in Sources */ = {isa = PBXBuildFile; fileRef = C923189914DD68DE00646E0C /* SBJsonStreamParserAccumulator.m */; };
+		C92318B114DD68DE00646E0C /* SBJsonStreamParserAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = C923189B14DD68DE00646E0C /* SBJsonStreamParserAdapter.m */; };
+		C92318B214DD68DE00646E0C /* SBJsonStreamParserState.m in Sources */ = {isa = PBXBuildFile; fileRef = C923189D14DD68DE00646E0C /* SBJsonStreamParserState.m */; };
+		C92318B314DD68DE00646E0C /* SBJsonStreamWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = C923189F14DD68DE00646E0C /* SBJsonStreamWriter.m */; };
+		C92318B414DD68DE00646E0C /* SBJsonStreamWriterAccumulator.m in Sources */ = {isa = PBXBuildFile; fileRef = C92318A114DD68DE00646E0C /* SBJsonStreamWriterAccumulator.m */; };
+		C92318B514DD68DE00646E0C /* SBJsonStreamWriterState.m in Sources */ = {isa = PBXBuildFile; fileRef = C92318A314DD68DE00646E0C /* SBJsonStreamWriterState.m */; };
+		C92318B614DD68DE00646E0C /* SBJsonTokeniser.m in Sources */ = {isa = PBXBuildFile; fileRef = C92318A514DD68DE00646E0C /* SBJsonTokeniser.m */; };
+		C92318B714DD68DE00646E0C /* SBJsonUTF8Stream.m in Sources */ = {isa = PBXBuildFile; fileRef = C92318A714DD68DE00646E0C /* SBJsonUTF8Stream.m */; };
+		C92318B814DD68DE00646E0C /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = C92318A914DD68DE00646E0C /* SBJsonWriter.m */; };
+		C92318B914DD68DE00646E0C /* WebViewJavascriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = C92318AC14DD68DE00646E0C /* WebViewJavascriptBridge.m */; };
+		C92318BD14DD69D200646E0C /* Nios_fs.m in Sources */ = {isa = PBXBuildFile; fileRef = C92318BC14DD69D200646E0C /* Nios_fs.m */; };
+		C92318C514DD6B5500646E0C /* Nios_fs.js in Resources */ = {isa = PBXBuildFile; fileRef = C92318C314DD6B3D00646E0C /* Nios_fs.js */; };
+		C92318CD14DD6D4200646E0C /* Nios.js in Resources */ = {isa = PBXBuildFile; fileRef = C92318CB14DD6D3900646E0C /* Nios.js */; };
+		C92318D714DD6D9F00646E0C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C92318D314DD6D9F00646E0C /* AppDelegate.m */; };
+		C92318D914DD6D9F00646E0C /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C92318D614DD6D9F00646E0C /* ViewController.m */; };
+		C92318DA14DD6DBD00646E0C /* index.js in Resources */ = {isa = PBXBuildFile; fileRef = C92318D414DD6D9F00646E0C /* index.js */; };
+		C96C1DA914DD7B8300343FC1 /* ViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = C96C1DA714DD7B8300343FC1 /* ViewController_iPad.xib */; };
+		C96C1DAA14DD7B8300343FC1 /* ViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = C96C1DA814DD7B8300343FC1 /* ViewController_iPhone.xib */; };
+		C9B9C6B514DDA1820038F761 /* cycle.js in Sources */ = {isa = PBXBuildFile; fileRef = C9B9C6B014DDA1820038F761 /* cycle.js */; };
+		C9B9C6B614DDA1820038F761 /* json.js in Sources */ = {isa = PBXBuildFile; fileRef = C9B9C6B114DDA1820038F761 /* json.js */; };
+		C9B9C6B714DDA1820038F761 /* json2.js in Sources */ = {isa = PBXBuildFile; fileRef = C9B9C6B214DDA1820038F761 /* json2.js */; };
+		C9B9C6B814DDA1820038F761 /* json_parse.js in Sources */ = {isa = PBXBuildFile; fileRef = C9B9C6B314DDA1820038F761 /* json_parse.js */; };
+		C9B9C6B914DDA1820038F761 /* json_parse_state.js in Sources */ = {isa = PBXBuildFile; fileRef = C9B9C6B414DDA1820038F761 /* json_parse_state.js */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,16 +45,54 @@
 		C923186714DD661500646E0C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		C923186914DD661500646E0C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		C923186B14DD661500646E0C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		C923186F14DD661500646E0C /* nios-Info.plist */ = {isa = PBXFileReference; path = "nios-Info.plist"; sourceTree = "<group>"; };
-		C923187114DD661500646E0C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		C923186F14DD661500646E0C /* nios-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "nios-Info.plist"; sourceTree = "<group>"; };
 		C923187314DD661500646E0C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		C923187514DD661500646E0C /* nios-Prefix.pch */ = {isa = PBXFileReference; path = "nios-Prefix.pch"; sourceTree = "<group>"; };
-		C923187614DD661500646E0C /* AppDelegate.h */ = {isa = PBXFileReference; path = AppDelegate.h; sourceTree = "<group>"; };
-		C923187714DD661500646E0C /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		C923187914DD661500646E0C /* ViewController.h */ = {isa = PBXFileReference; path = ViewController.h; sourceTree = "<group>"; };
-		C923187A14DD661500646E0C /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		C923187D14DD661500646E0C /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController_iPhone.xib; sourceTree = "<group>"; };
-		C923188014DD661500646E0C /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController_iPad.xib; sourceTree = "<group>"; };
+		C923187514DD661500646E0C /* nios-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "nios-Prefix.pch"; sourceTree = "<group>"; };
+		C923188814DD670500646E0C /* Nios.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Nios.h; path = nios/Nios.h; sourceTree = "<group>"; };
+		C923188914DD670500646E0C /* Nios.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Nios.m; path = nios/Nios.m; sourceTree = "<group>"; };
+		C923189114DD68DE00646E0C /* NSObject+SBJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJson.h"; sourceTree = "<group>"; };
+		C923189214DD68DE00646E0C /* NSObject+SBJson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SBJson.m"; sourceTree = "<group>"; };
+		C923189314DD68DE00646E0C /* SBJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJson.h; sourceTree = "<group>"; };
+		C923189414DD68DE00646E0C /* SBJsonParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonParser.h; sourceTree = "<group>"; };
+		C923189514DD68DE00646E0C /* SBJsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonParser.m; sourceTree = "<group>"; };
+		C923189614DD68DE00646E0C /* SBJsonStreamParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamParser.h; sourceTree = "<group>"; };
+		C923189714DD68DE00646E0C /* SBJsonStreamParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamParser.m; sourceTree = "<group>"; };
+		C923189814DD68DE00646E0C /* SBJsonStreamParserAccumulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamParserAccumulator.h; sourceTree = "<group>"; };
+		C923189914DD68DE00646E0C /* SBJsonStreamParserAccumulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamParserAccumulator.m; sourceTree = "<group>"; };
+		C923189A14DD68DE00646E0C /* SBJsonStreamParserAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamParserAdapter.h; sourceTree = "<group>"; };
+		C923189B14DD68DE00646E0C /* SBJsonStreamParserAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamParserAdapter.m; sourceTree = "<group>"; };
+		C923189C14DD68DE00646E0C /* SBJsonStreamParserState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamParserState.h; sourceTree = "<group>"; };
+		C923189D14DD68DE00646E0C /* SBJsonStreamParserState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamParserState.m; sourceTree = "<group>"; };
+		C923189E14DD68DE00646E0C /* SBJsonStreamWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamWriter.h; sourceTree = "<group>"; };
+		C923189F14DD68DE00646E0C /* SBJsonStreamWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamWriter.m; sourceTree = "<group>"; };
+		C92318A014DD68DE00646E0C /* SBJsonStreamWriterAccumulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamWriterAccumulator.h; sourceTree = "<group>"; };
+		C92318A114DD68DE00646E0C /* SBJsonStreamWriterAccumulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamWriterAccumulator.m; sourceTree = "<group>"; };
+		C92318A214DD68DE00646E0C /* SBJsonStreamWriterState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamWriterState.h; sourceTree = "<group>"; };
+		C92318A314DD68DE00646E0C /* SBJsonStreamWriterState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamWriterState.m; sourceTree = "<group>"; };
+		C92318A414DD68DE00646E0C /* SBJsonTokeniser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonTokeniser.h; sourceTree = "<group>"; };
+		C92318A514DD68DE00646E0C /* SBJsonTokeniser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonTokeniser.m; sourceTree = "<group>"; };
+		C92318A614DD68DE00646E0C /* SBJsonUTF8Stream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonUTF8Stream.h; sourceTree = "<group>"; };
+		C92318A714DD68DE00646E0C /* SBJsonUTF8Stream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonUTF8Stream.m; sourceTree = "<group>"; };
+		C92318A814DD68DE00646E0C /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
+		C92318A914DD68DE00646E0C /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
+		C92318AB14DD68DE00646E0C /* WebViewJavascriptBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewJavascriptBridge.h; sourceTree = "<group>"; };
+		C92318AC14DD68DE00646E0C /* WebViewJavascriptBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewJavascriptBridge.m; sourceTree = "<group>"; };
+		C92318BB14DD69D200646E0C /* Nios_fs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Nios_fs.h; sourceTree = "<group>"; };
+		C92318BC14DD69D200646E0C /* Nios_fs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Nios_fs.m; sourceTree = "<group>"; };
+		C92318C314DD6B3D00646E0C /* Nios_fs.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = Nios_fs.js; sourceTree = "<group>"; };
+		C92318CB14DD6D3900646E0C /* Nios.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = Nios.js; path = nios/Nios.js; sourceTree = "<group>"; };
+		C92318D214DD6D9F00646E0C /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		C92318D314DD6D9F00646E0C /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		C92318D414DD6D9F00646E0C /* index.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = index.js; sourceTree = "<group>"; };
+		C92318D514DD6D9F00646E0C /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		C92318D614DD6D9F00646E0C /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		C96C1DA714DD7B8300343FC1 /* ViewController_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewController_iPad.xib; sourceTree = "<group>"; };
+		C96C1DA814DD7B8300343FC1 /* ViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewController_iPhone.xib; sourceTree = "<group>"; };
+		C9B9C6B014DDA1820038F761 /* cycle.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = cycle.js; sourceTree = "<group>"; };
+		C9B9C6B114DDA1820038F761 /* json.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = json.js; sourceTree = "<group>"; };
+		C9B9C6B214DDA1820038F761 /* json2.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = json2.js; sourceTree = "<group>"; };
+		C9B9C6B314DDA1820038F761 /* json_parse.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = json_parse.js; sourceTree = "<group>"; };
+		C9B9C6B414DDA1820038F761 /* json_parse_state.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = json_parse_state.js; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,12 +139,8 @@
 		C923186D14DD661500646E0C /* nios */ = {
 			isa = PBXGroup;
 			children = (
-				C923187614DD661500646E0C /* AppDelegate.h */,
-				C923187714DD661500646E0C /* AppDelegate.m */,
-				C923187914DD661500646E0C /* ViewController.h */,
-				C923187A14DD661500646E0C /* ViewController.m */,
-				C923187C14DD661500646E0C /* ViewController_iPhone.xib */,
-				C923187F14DD661500646E0C /* ViewController_iPad.xib */,
+				C923188714DD66ED00646E0C /* nios */,
+				C92318D114DD6D9E00646E0C /* example */,
 				C923186E14DD661500646E0C /* Supporting Files */,
 			);
 			path = nios;
@@ -94,11 +150,111 @@
 			isa = PBXGroup;
 			children = (
 				C923186F14DD661500646E0C /* nios-Info.plist */,
-				C923187014DD661500646E0C /* InfoPlist.strings */,
 				C923187314DD661500646E0C /* main.m */,
 				C923187514DD661500646E0C /* nios-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		C923188714DD66ED00646E0C /* nios */ = {
+			isa = PBXGroup;
+			children = (
+				C923188F14DD68DE00646E0C /* deps */,
+				C92318BA14DD69C900646E0C /* fs */,
+				C923188814DD670500646E0C /* Nios.h */,
+				C923188914DD670500646E0C /* Nios.m */,
+				C92318CB14DD6D3900646E0C /* Nios.js */,
+			);
+			name = nios;
+			sourceTree = "<group>";
+		};
+		C923188F14DD68DE00646E0C /* deps */ = {
+			isa = PBXGroup;
+			children = (
+				C9B9C6AF14DDA1820038F761 /* json2 */,
+				C923189014DD68DE00646E0C /* SBJson */,
+				C92318AA14DD68DE00646E0C /* WebViewJavascriptBridge */,
+			);
+			name = deps;
+			path = nios/deps;
+			sourceTree = "<group>";
+		};
+		C923189014DD68DE00646E0C /* SBJson */ = {
+			isa = PBXGroup;
+			children = (
+				C923189114DD68DE00646E0C /* NSObject+SBJson.h */,
+				C923189214DD68DE00646E0C /* NSObject+SBJson.m */,
+				C923189314DD68DE00646E0C /* SBJson.h */,
+				C923189414DD68DE00646E0C /* SBJsonParser.h */,
+				C923189514DD68DE00646E0C /* SBJsonParser.m */,
+				C923189614DD68DE00646E0C /* SBJsonStreamParser.h */,
+				C923189714DD68DE00646E0C /* SBJsonStreamParser.m */,
+				C923189814DD68DE00646E0C /* SBJsonStreamParserAccumulator.h */,
+				C923189914DD68DE00646E0C /* SBJsonStreamParserAccumulator.m */,
+				C923189A14DD68DE00646E0C /* SBJsonStreamParserAdapter.h */,
+				C923189B14DD68DE00646E0C /* SBJsonStreamParserAdapter.m */,
+				C923189C14DD68DE00646E0C /* SBJsonStreamParserState.h */,
+				C923189D14DD68DE00646E0C /* SBJsonStreamParserState.m */,
+				C923189E14DD68DE00646E0C /* SBJsonStreamWriter.h */,
+				C923189F14DD68DE00646E0C /* SBJsonStreamWriter.m */,
+				C92318A014DD68DE00646E0C /* SBJsonStreamWriterAccumulator.h */,
+				C92318A114DD68DE00646E0C /* SBJsonStreamWriterAccumulator.m */,
+				C92318A214DD68DE00646E0C /* SBJsonStreamWriterState.h */,
+				C92318A314DD68DE00646E0C /* SBJsonStreamWriterState.m */,
+				C92318A414DD68DE00646E0C /* SBJsonTokeniser.h */,
+				C92318A514DD68DE00646E0C /* SBJsonTokeniser.m */,
+				C92318A614DD68DE00646E0C /* SBJsonUTF8Stream.h */,
+				C92318A714DD68DE00646E0C /* SBJsonUTF8Stream.m */,
+				C92318A814DD68DE00646E0C /* SBJsonWriter.h */,
+				C92318A914DD68DE00646E0C /* SBJsonWriter.m */,
+			);
+			path = SBJson;
+			sourceTree = "<group>";
+		};
+		C92318AA14DD68DE00646E0C /* WebViewJavascriptBridge */ = {
+			isa = PBXGroup;
+			children = (
+				C92318AB14DD68DE00646E0C /* WebViewJavascriptBridge.h */,
+				C92318AC14DD68DE00646E0C /* WebViewJavascriptBridge.m */,
+			);
+			path = WebViewJavascriptBridge;
+			sourceTree = "<group>";
+		};
+		C92318BA14DD69C900646E0C /* fs */ = {
+			isa = PBXGroup;
+			children = (
+				C92318BB14DD69D200646E0C /* Nios_fs.h */,
+				C92318BC14DD69D200646E0C /* Nios_fs.m */,
+				C92318C314DD6B3D00646E0C /* Nios_fs.js */,
+			);
+			name = fs;
+			path = nios/fs;
+			sourceTree = "<group>";
+		};
+		C92318D114DD6D9E00646E0C /* example */ = {
+			isa = PBXGroup;
+			children = (
+				C92318D214DD6D9F00646E0C /* AppDelegate.h */,
+				C92318D314DD6D9F00646E0C /* AppDelegate.m */,
+				C92318D414DD6D9F00646E0C /* index.js */,
+				C92318D514DD6D9F00646E0C /* ViewController.h */,
+				C92318D614DD6D9F00646E0C /* ViewController.m */,
+				C96C1DA714DD7B8300343FC1 /* ViewController_iPad.xib */,
+				C96C1DA814DD7B8300343FC1 /* ViewController_iPhone.xib */,
+			);
+			path = example;
+			sourceTree = "<group>";
+		};
+		C9B9C6AF14DDA1820038F761 /* json2 */ = {
+			isa = PBXGroup;
+			children = (
+				C9B9C6B014DDA1820038F761 /* cycle.js */,
+				C9B9C6B114DDA1820038F761 /* json.js */,
+				C9B9C6B214DDA1820038F761 /* json2.js */,
+				C9B9C6B314DDA1820038F761 /* json_parse.js */,
+				C9B9C6B414DDA1820038F761 /* json_parse_state.js */,
+			);
+			path = json2;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -151,9 +307,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C923187214DD661500646E0C /* InfoPlist.strings in Resources */,
-				C923187E14DD661500646E0C /* ViewController_iPhone.xib in Resources */,
-				C923188114DD661500646E0C /* ViewController_iPad.xib in Resources */,
+				C92318DA14DD6DBD00646E0C /* index.js in Resources */,
+				C92318CD14DD6D4200646E0C /* Nios.js in Resources */,
+				C92318C514DD6B5500646E0C /* Nios_fs.js in Resources */,
+				C96C1DA914DD7B8300343FC1 /* ViewController_iPad.xib in Resources */,
+				C96C1DAA14DD7B8300343FC1 /* ViewController_iPhone.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -165,39 +323,32 @@
 			buildActionMask = 2147483647;
 			files = (
 				C923187414DD661500646E0C /* main.m in Sources */,
-				C923187814DD661500646E0C /* AppDelegate.m in Sources */,
-				C923187B14DD661500646E0C /* ViewController.m in Sources */,
+				C923188A14DD670500646E0C /* Nios.m in Sources */,
+				C92318AD14DD68DE00646E0C /* NSObject+SBJson.m in Sources */,
+				C92318AE14DD68DE00646E0C /* SBJsonParser.m in Sources */,
+				C92318AF14DD68DE00646E0C /* SBJsonStreamParser.m in Sources */,
+				C92318B014DD68DE00646E0C /* SBJsonStreamParserAccumulator.m in Sources */,
+				C92318B114DD68DE00646E0C /* SBJsonStreamParserAdapter.m in Sources */,
+				C92318B214DD68DE00646E0C /* SBJsonStreamParserState.m in Sources */,
+				C92318B314DD68DE00646E0C /* SBJsonStreamWriter.m in Sources */,
+				C92318B414DD68DE00646E0C /* SBJsonStreamWriterAccumulator.m in Sources */,
+				C92318B514DD68DE00646E0C /* SBJsonStreamWriterState.m in Sources */,
+				C92318B614DD68DE00646E0C /* SBJsonTokeniser.m in Sources */,
+				C92318B714DD68DE00646E0C /* SBJsonUTF8Stream.m in Sources */,
+				C92318B814DD68DE00646E0C /* SBJsonWriter.m in Sources */,
+				C92318B914DD68DE00646E0C /* WebViewJavascriptBridge.m in Sources */,
+				C92318BD14DD69D200646E0C /* Nios_fs.m in Sources */,
+				C92318D714DD6D9F00646E0C /* AppDelegate.m in Sources */,
+				C92318D914DD6D9F00646E0C /* ViewController.m in Sources */,
+				C9B9C6B514DDA1820038F761 /* cycle.js in Sources */,
+				C9B9C6B614DDA1820038F761 /* json.js in Sources */,
+				C9B9C6B714DDA1820038F761 /* json2.js in Sources */,
+				C9B9C6B814DDA1820038F761 /* json_parse.js in Sources */,
+				C9B9C6B914DDA1820038F761 /* json_parse_state.js in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		C923187014DD661500646E0C /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C923187114DD661500646E0C /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		C923187C14DD661500646E0C /* ViewController_iPhone.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C923187D14DD661500646E0C /* en */,
-			);
-			name = ViewController_iPhone.xib;
-			sourceTree = "<group>";
-		};
-		C923187F14DD661500646E0C /* ViewController_iPad.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C923188014DD661500646E0C /* en */,
-			);
-			name = ViewController_iPad.xib;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		C923188214DD661500646E0C /* Debug */ = {
@@ -286,6 +437,7 @@
 				C923188614DD661500646E0C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

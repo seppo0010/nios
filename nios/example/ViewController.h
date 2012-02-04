@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Nios.h"
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController {
+	Nios* nios;
+}
 
 @end
