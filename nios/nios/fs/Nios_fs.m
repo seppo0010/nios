@@ -9,6 +9,9 @@
 #import "Nios_fs.h"
 #include <fcntl.h>
 #include <sys/stat.h>
+#include <utime.h>
+#include <sys/time.h>
+#include <signal.h>
 
 @implementation Nios_fs
 
@@ -133,7 +136,7 @@
 
 + (id) readFile:(NSArray*)params {
 	NSString* path = [self fullPathforPath:[params objectAtIndex:0]];
-
+	
 	BOOL directory;
 	if (![[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&directory]) {
 		return [NSArray arrayWithObject:[self errorForCode:ENOENT forFile:[params objectAtIndex:0]]];
@@ -141,7 +144,7 @@
 	if (directory) {
 		return [NSArray arrayWithObject:[self errorForCode:EISDIR forFile:[params objectAtIndex:0]]];
 	}
-
+	
 	id ret = [NSData dataWithContentsOfFile:path];
 	if ([[params objectAtIndex:1] isKindOfClass:[NSNull class]]) {
 	} else if ([[params objectAtIndex:1] isEqualToString:@"utf8"]) {
@@ -150,6 +153,31 @@
 		ret = [[[NSString alloc] initWithData:ret encoding:NSASCIIStringEncoding] autorelease];
 	}
 	return [NSArray arrayWithObjects:[NSNull null], ret, nil];
+}
+
++ (id) writeFile:(NSArray*)params {
+	NSString* path = [self fullPathforPath:[params objectAtIndex:0]];
+	id data = [params objectAtIndex:1];
+	id encoding = [params objectAtIndex:2];
+	
+	if ([encoding isKindOfClass:[NSNull class]] || [encoding isEqual:@"utf8"]) {
+		data = [data dataUsingEncoding:NSUTF8StringEncoding];
+	} else if ([encoding isEqualToString:@"ascii"]) {
+		data = [data dataUsingEncoding:NSASCIIStringEncoding];
+	}
+
+	NSError* error;
+	BOOL success = [(NSData*)data writeToFile:path options:NSDataWritingAtomic error:&error];
+	if (success) {
+		return [NSArray arrayWithObject:[NSNull null]];
+	} else {
+		return [NSArray arrayWithObjects:[NSDictionary dictionaryWithObjectsAndKeys:
+										  [error description], @"message",
+										  [NSNumber numberWithInt:error.code], @"errno",
+										  [params objectAtIndex:0], @"path",
+										  nil],
+				nil];
+	}
 }
 
 + (id) rename:(NSArray*)params {
@@ -299,6 +327,203 @@
 	struct stat st;
 	fstat(fd, &st);
 	return [NSArray arrayWithObjects:[NSNull null], [self statFromStruct:&st], nil];
+}
+
++ (id) link:(NSArray*)params {
+	NSString* path = [self fullPathforPath:[params objectAtIndex:0]];
+	NSString* targetPath = [self fullPathforPath:[params objectAtIndex:1]];
+	
+	int result = link([path UTF8String], [targetPath UTF8String]);
+	if (result != 0) {
+		return [NSArray arrayWithObject:[self errorForCode:result forFile:path]];
+	}
+	return [NSArray arrayWithObject:[NSNull null]];
+}
+
++ (id) symlink:(NSArray*)params {
+	NSString* path = [self fullPathforPath:[params objectAtIndex:0]];
+	NSString* targetPath = [self fullPathforPath:[params objectAtIndex:1]];
+	
+	int result = symlink([path UTF8String], [targetPath UTF8String]);
+	if (result != 0) {
+		return [NSArray arrayWithObject:[self errorForCode:result forFile:path]];
+	}
+	return [NSArray arrayWithObject:[NSNull null]];
+}
+
++ (id) readlink:(NSArray*)params {
+	NSString* path = [self fullPathforPath:[params objectAtIndex:0]];
+    char buff[PATH_MAX + 1];
+    ssize_t len = readlink([path UTF8String], buff, sizeof(buff)-1);
+    if (len != -1) {
+		buff[len] = '\0';
+		return [NSArray arrayWithObjects:
+				[NSNull null],
+				[NSString stringWithCString:buff encoding:NSUTF8StringEncoding],
+				nil];
+    } else {
+		return [NSArray arrayWithObject:[self errorForCode:len forFile:path]];
+    }
+}
+
++ (id) realpath:(NSArray*)params {
+	NSString* path = [self fullPathforPath:[params objectAtIndex:0]];
+    char buff[PATH_MAX + 1];
+    char *res = realpath([path UTF8String], buff);
+    if (res) {
+        return [NSArray arrayWithObjects:
+				[NSNull null],
+				[NSString stringWithCString:res encoding:NSUTF8StringEncoding],
+				nil];
+	} else {
+		return [NSArray arrayWithObject:[self errorForCode:-1 forFile:path]];
+	}
+}
+
++ (id) unlink:(NSArray*)params {
+	NSString* path = [self fullPathforPath:[params objectAtIndex:0]];
+	int result = unlink([path UTF8String]);
+	if (result == 0) {
+		return [NSArray arrayWithObject:[NSNull null]];
+	} else {
+		return [NSArray arrayWithObject:[self errorForCode:result forFile:path]];
+	}
+}
+
++ (id) rmdir:(NSArray*)params {
+	NSString* path = [self fullPathforPath:[params objectAtIndex:0]];
+	int result = rmdir([path UTF8String]);
+	if (result == 0) {
+		return [NSArray arrayWithObject:[NSNull null]];
+	} else {
+		return [NSArray arrayWithObject:[self errorForCode:result forFile:path]];
+	}
+}
+
++ (id) mkdir:(NSArray*)params {
+	NSString* path = [self fullPathforPath:[params objectAtIndex:0]];
+	mode_t mode = [[params objectAtIndex:1] intValue];
+	if (mode == 0) {
+		mode = 0777;
+	}
+	int result = mkdir([path UTF8String], mode);
+	if (result == 0) {
+		return [NSArray arrayWithObject:[NSNull null]];
+	} else {
+		return [NSArray arrayWithObject:[self errorForCode:result forFile:path]];
+	}
+}
+
++ (id) readdir:(NSArray*)params {
+	NSString* path = [self fullPathforPath:[params objectAtIndex:0]];
+	NSError* error;
+	NSArray* files = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:path error:&error];
+	if (error) {
+		return [NSArray arrayWithObjects:[NSDictionary dictionaryWithObjectsAndKeys:
+										  [error description], @"message",
+										  [NSNumber numberWithInt:error.code], @"errno",
+										  [params objectAtIndex:0], @"path",
+										  nil],
+				nil];
+	} else {
+		return [NSArray arrayWithObjects:[NSNull null], files, nil];
+	}
+}
+
++ (id) close:(NSArray*)params {
+	int fd = [[params objectAtIndex:0] intValue];
+	int result = close(fd);
+	if (result == 0) {
+		return [NSArray arrayWithObject:[NSNull null]];
+	} else {
+		return [NSArray arrayWithObject:[self errorForCode:result forFile:nil]];
+	}
+}
+
++ (id) utimes:(NSArray*)params {
+	NSString* path = [params objectAtIndex:0];
+	time_t atime = [[params objectAtIndex:1] longValue];
+	time_t mtime = [[params objectAtIndex:2] longValue];
+	struct utimbuf buf;
+	buf.actime = atime;
+	buf.modtime = mtime;
+	int result = utime([path UTF8String], &buf);
+	if (result == 0) {
+		return [NSArray arrayWithObject:[NSNull null]];
+	} else {
+		return [NSArray arrayWithObject:[self errorForCode:result forFile:path]];
+	}
+}
+
++ (id) futimes:(NSArray*)params {
+	int fd = [[params objectAtIndex:0] intValue];
+	time_t atime = [[params objectAtIndex:1] longValue];
+	time_t mtime = [[params objectAtIndex:2] longValue];
+	struct timeval times[2];
+	times[0].tv_sec = atime;
+	times[0].tv_usec = 0;
+	times[1].tv_sec = mtime;
+	times[1].tv_usec = 0;
+	int result = futimes(fd, times);
+	if (result == 0) {
+		return [NSArray arrayWithObject:[NSNull null]];
+	} else {
+		return [NSArray arrayWithObject:[self errorForCode:result forFile:nil]];
+	}
+}
+
++ (id) fsync:(NSArray*)params {
+	int fd = [[params objectAtIndex:0] intValue];
+	int result = fsync(fd);
+	if (result == 0) {
+		return [NSArray arrayWithObject:[NSNull null]];
+	} else {
+		return [NSArray arrayWithObject:[self errorForCode:result forFile:nil]];
+	}
+}
+
++ (id) write:(NSArray*)params {
+	// FIXME: not sure if the seek is properly done
+	// FIXME: not sure if binary data is properly parsed from json
+	int fd = [[params objectAtIndex:0] intValue];
+	NSData* buffer = [[params objectAtIndex:1] dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES];
+	long offset = [[params objectAtIndex:2] longValue];
+	long length = [[params objectAtIndex:3] longValue];
+	id position = [params objectAtIndex:4];
+	if ([position isKindOfClass:[NSNull class]] == FALSE) {
+		lseek(fd, offset, [position intValue]);
+		offset = 0;
+	}
+	ssize_t written = pwrite(fd, [buffer bytes], length, offset);
+	if (written == -1) {
+		// TODO: how to fetch errno?
+		return [NSArray arrayWithObjects:[self errorForCode:-1 forFile:nil], [NSNumber numberWithInt:0], nil];
+	} else {
+		return [NSArray arrayWithObjects:[NSNull null], [NSNumber numberWithLong:written], buffer, nil];
+	}
+
+}
+
++ (id) read:(NSArray*)params {
+	// FIXME: not sure if the seek is properly done
+	// FIXME: not sure if binary data is properly parsed from json
+	int fd = [[params objectAtIndex:0] intValue];
+	NSData* buffer = [[params objectAtIndex:1] dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES];
+	long offset = [[params objectAtIndex:2] longValue];
+	long length = [[params objectAtIndex:3] longValue];
+	id position = [params objectAtIndex:4];
+	if ([position isKindOfClass:[NSNull class]] == FALSE) {
+		lseek(fd, offset, [position intValue]);
+		offset = 0;
+	}
+	// FIXME: this cast to void* is...
+	ssize_t bytesRead = pread(fd, (void*)[buffer bytes], offset, length);
+	if (bytesRead == -1) {
+		// TODO: how to fetch errno?
+		return [NSArray arrayWithObjects:[self errorForCode:-1 forFile:nil], [NSNumber numberWithInt:0], nil];
+	} else {
+		return [NSArray arrayWithObjects:[NSNull null], [NSNumber numberWithLong:bytesRead], buffer, nil];
+	}
 }
 
 @end

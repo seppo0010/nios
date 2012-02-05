@@ -47,3 +47,57 @@ exports.lstat = function(path, callback) {
 exports.fstat = function(path, callback) {
 	Nios_call("Nios_fs", "fstat", [fd], callback);
 }
+exports.link = function(srcpath, dstpath, callback) {
+	Nios_call("Nios_fs", "link", [srcpath, dstpath], callback);
+}
+exports.symlink = function(linkdata, path, type, callback) {
+	Nios_call("Nios_fs", "symlink", [linkdata, path, type], callback);
+}
+exports.readlink = function(path, callback) {
+	Nios_call("Nios_fs", "readlink", [path], callback);
+}
+exports.realpath = function(path, callback) {
+	Nios_call("Nios_fs", "realpath", [path], callback);
+}
+exports.unlink = function(path, callback) {
+	Nios_call("Nios_fs", "unlink", [path], callback);
+}
+exports.rmdir = function(path, callback) {
+	Nios_call("Nios_fs", "rmdir", [path], callback);
+}
+exports.mkdir = function(path, mode, callback) {
+	Nios_call("Nios_fs", "mkdir", [path, mode], callback);
+}
+exports.readdir = function(path, callback) {
+	Nios_call("Nios_fs", "readdir", [path], callback);
+}
+exports.close = function(fd, callback) {
+	Nios_call("Nios_fs", "close", [fd], callback);
+}
+exports.utimes = function(path, atime, mtime, callback) {
+	Nios_call("Nios_fs", "utimes", [path, atime, mtime], callback);
+}
+exports.futimes = function(fd, atime, mtime, callback) {
+	Nios_call("Nios_fs", "futimes", [fd, atime, mtime], callback);
+}
+exports.fsync = function(fd, callback) {
+	Nios_call("Nios_fs", "fsync", [fd], callback);
+}
+exports.write = function(fd, buffer, offset, length, position, callback) {
+	Nios_call("Nios_fs", "write", [fd, buffer, offset, length, position], callback);
+}
+exports.read = function(fd, buffer, offset, length, position, callback) {
+	Nios_call("Nios_fs", "read", [fd, buffer, offset, length, position], callback);
+}
+exports.writeFile = function(filename, data, encoding, callback) {
+	Nios_call("Nios_fs", "writeFile", [filename, data, encoding], callback);
+}
+exports.watchFile = function(filename, options, callback) {
+	Nios_call("Nios_fs", "watchFile", [filename, options], callback);
+}
+exports.unwatchFile = function(filename) {
+	Nios_call("Nios_fs", "unwatchFile", [filename]);
+}
+exports.watch = function(filename, options, callback) {
+	Nios_call("Nios_fs", "watch", [filename, options], callback);
+}
