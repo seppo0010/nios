@@ -19,7 +19,7 @@
 						[params objectAtIndex:1], @"flags",
 						[params objectAtIndex:2], @"mode",
 						nil];
-	return fd;
+	return [NSArray arrayWithObjects:[NSNull null], fd, nil];
 }
 
 @end

@@ -38,7 +38,7 @@ document.addEventListener('WebViewJavascriptBridgeReady', function onBridgeReady
 	WebViewJavascriptBridge.setMessageHandler(function(message) {
 		var response = JSON.parse(message);
 		if (response.callback) {
-			Nios_callbacks[response.callback](response.returnValue);
+			Nios_callbacks[response.callback].apply(null, response.returnValue);
 			delete Nios_callbacks[response.callback];
 		}
 	});
