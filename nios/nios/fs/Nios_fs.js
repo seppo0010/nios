@@ -41,3 +41,9 @@ exports.fchmod = function(fd, mode, callback) {
 exports.stat = function(path, callback) {
 	Nios_call("Nios_fs", "stat", [path], callback);
 }
+exports.lstat = function(path, callback) {
+	Nios_call("Nios_fs", "lstat", [path], callback);
+}
+exports.fstat = function(path, callback) {
+	Nios_call("Nios_fs", "fstat", [fd], callback);
+}
