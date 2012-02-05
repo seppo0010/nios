@@ -1,7 +1,7 @@
 var fs = require('fs');
-fs.readFile('a', null,function(err, data) {
+fs.stat('b', function(err, stats) {
 	if (err)
-		alert("failed to open")
+		alert("failed to open " + err)
 	else
-		alert("was opened " + data);
+		alert("was opened " + JSON.stringify(stats));
 })
