@@ -1,7 +1,7 @@
 var fs = require('fs');
-fs.open('a', "r", null, function(err, fd) {
+fs.readFile('a', null,function(err, data) {
 	if (err)
 		alert("failed to open")
 	else
-		alert("was opened " + fd);
+		alert("was opened " + data);
 })

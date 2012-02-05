@@ -22,6 +22,8 @@ function require(filename) {
 	return exports;
 }
 
+var Buffer = ArrayBuffer;
+
 var Nios_callbacks = {}
 var Nios_lastcallback = 0;
 
@@ -36,7 +38,13 @@ var Nios_call = function(className, method, parameters, callback) {
 
 document.addEventListener('WebViewJavascriptBridgeReady', function onBridgeReady() {
 	WebViewJavascriptBridge.setMessageHandler(function(message) {
-		var response = JSON.parse(message);
+		try {
+			var response = JSON.parse(message.replace(/\\\\/g, "\\"));
+		} catch (e) {
+			alert(e);
+			return;
+		}
+
 		if (response.callback) {
 			Nios_callbacks[response.callback].apply(null, response.returnValue);
 			delete Nios_callbacks[response.callback];

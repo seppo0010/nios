@@ -38,6 +38,7 @@
 		C97E5DF414DDFA67000A10F1 /* json2.js in Resources */ = {isa = PBXBuildFile; fileRef = C9B9C6B214DDA1820038F761 /* json2.js */; };
 		C97E5DF514DDFA67000A10F1 /* json_parse.js in Resources */ = {isa = PBXBuildFile; fileRef = C9B9C6B314DDA1820038F761 /* json_parse.js */; };
 		C97E5DF614DDFA67000A10F1 /* json_parse_state.js in Resources */ = {isa = PBXBuildFile; fileRef = C9B9C6B414DDA1820038F761 /* json_parse_state.js */; };
+		C97E5DFF14DE178B000A10F1 /* NSData+proxyForJson.m in Sources */ = {isa = PBXBuildFile; fileRef = C97E5DFE14DE178B000A10F1 /* NSData+proxyForJson.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -88,6 +89,8 @@
 		C92318D614DD6D9F00646E0C /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		C96C1DA714DD7B8300343FC1 /* ViewController_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewController_iPad.xib; sourceTree = "<group>"; };
 		C96C1DA814DD7B8300343FC1 /* ViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewController_iPhone.xib; sourceTree = "<group>"; };
+		C97E5DFE14DE178B000A10F1 /* NSData+proxyForJson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSData+proxyForJson.m"; path = "nios/patches/NSData+proxyForJson.m"; sourceTree = "<group>"; };
+		C97E5E0014DE17B8000A10F1 /* NSData+proxyForJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSData+proxyForJson.h"; path = "nios/patches/NSData+proxyForJson.h"; sourceTree = "<group>"; };
 		C9B9C6B014DDA1820038F761 /* cycle.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = cycle.js; sourceTree = "<group>"; };
 		C9B9C6B114DDA1820038F761 /* json.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = json.js; sourceTree = "<group>"; };
 		C9B9C6B214DDA1820038F761 /* json2.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = json2.js; sourceTree = "<group>"; };
@@ -159,6 +162,7 @@
 		C923188714DD66ED00646E0C /* nios */ = {
 			isa = PBXGroup;
 			children = (
+				C97E5DFB14DE1766000A10F1 /* patches */,
 				C923188F14DD68DE00646E0C /* deps */,
 				C92318BA14DD69C900646E0C /* fs */,
 				C923188814DD670500646E0C /* Nios.h */,
@@ -243,6 +247,15 @@
 				C96C1DA814DD7B8300343FC1 /* ViewController_iPhone.xib */,
 			);
 			path = example;
+			sourceTree = "<group>";
+		};
+		C97E5DFB14DE1766000A10F1 /* patches */ = {
+			isa = PBXGroup;
+			children = (
+				C97E5E0014DE17B8000A10F1 /* NSData+proxyForJson.h */,
+				C97E5DFE14DE178B000A10F1 /* NSData+proxyForJson.m */,
+			);
+			name = patches;
 			sourceTree = "<group>";
 		};
 		C9B9C6AF14DDA1820038F761 /* json2 */ = {
@@ -345,6 +358,7 @@
 				C92318BD14DD69D200646E0C /* Nios_fs.m in Sources */,
 				C92318D714DD6D9F00646E0C /* AppDelegate.m in Sources */,
 				C92318D914DD6D9F00646E0C /* ViewController.m in Sources */,
+				C97E5DFF14DE178B000A10F1 /* NSData+proxyForJson.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
