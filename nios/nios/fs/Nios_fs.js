@@ -14,3 +14,6 @@ exports.readFile = function(filename, encoding, callback) {
 	}
 	Nios_call("Nios_fs", "readFile", [filename, encoding], tmp_callback);
 }
+exports.rename = function(source, target, callback) {
+	Nios_call("Nios_fs", "rename", [source, target], callback);
+}

@@ -69,4 +69,33 @@
 	return [NSArray arrayWithObjects:[NSNull null], ret, nil];
 }
 
++ (id) rename:(NSArray*)params {
+    NSArray* paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString* documentsPath = [paths objectAtIndex:0];
+	NSString* path = [documentsPath stringByAppendingString:[NSString stringWithFormat:@"/%@", [params objectAtIndex:0]]];
+	NSString* targetPath = [documentsPath stringByAppendingString:[NSString stringWithFormat:@"/%@", [params objectAtIndex:1]]];
+	
+	if (![[NSFileManager defaultManager] fileExistsAtPath:path]) {
+		return [NSArray arrayWithObjects:[NSDictionary dictionaryWithObjectsAndKeys:
+										  [NSString stringWithFormat:@"ENOENT, No such file or directory \'%@\'", [params objectAtIndex:0]], @"message",
+										  [NSNumber numberWithInt:34], @"errno",
+										  @"ENOENT", @"code",
+										  [params objectAtIndex:0], @"path",
+										  nil],
+				nil];
+	}
+
+	NSError* error;
+	BOOL success = [[NSFileManager defaultManager] moveItemAtPath:path toPath:targetPath error:&error];
+	if (!success) {
+		return [NSArray arrayWithObjects:[NSDictionary dictionaryWithObjectsAndKeys:
+										  [error description], @"message",
+										  [NSNumber numberWithInt:error.code], @"errno",
+										  [params objectAtIndex:0], @"path",
+										  nil],
+				nil];
+	}
+	return [NSArray arrayWithObject:[NSNull null]];
+}
+
 @end
