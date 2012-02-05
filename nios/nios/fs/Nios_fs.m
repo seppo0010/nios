@@ -10,12 +10,16 @@
 
 @implementation Nios_fs
 
-+ (id) open:(NSArray*)params {
++ (NSString*) fullPathforPath:(NSString*)path {
     NSArray* paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString* documentsPath = [paths objectAtIndex:0];
-	NSString* path = [NSString stringWithFormat:@"/%@", [params objectAtIndex:0]];
+	return [NSString stringWithFormat:@"/%@", path];
+}
+
++ (id) open:(NSArray*)params {
+	NSString* path = [self fullPathforPath:[params objectAtIndex:0]];
 	NSDictionary* fd = [[NSDictionary alloc] initWithObjectsAndKeys:
-						[documentsPath stringByAppendingString:path], @"path",
+						path, @"path",
 						[params objectAtIndex:1], @"flags",
 						[params objectAtIndex:2], @"mode",
 						nil];
@@ -35,9 +39,7 @@
 }
 
 + (id) readFile:(NSArray*)params {
-    NSArray* paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString* documentsPath = [paths objectAtIndex:0];
-	NSString* path = [documentsPath stringByAppendingString:[NSString stringWithFormat:@"/%@", [params objectAtIndex:0]]];
+	NSString* path = [self fullPathforPath:[params objectAtIndex:0]];
 
 	BOOL directory;
 	if (![[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&directory]) {
@@ -70,10 +72,8 @@
 }
 
 + (id) rename:(NSArray*)params {
-    NSArray* paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString* documentsPath = [paths objectAtIndex:0];
-	NSString* path = [documentsPath stringByAppendingString:[NSString stringWithFormat:@"/%@", [params objectAtIndex:0]]];
-	NSString* targetPath = [documentsPath stringByAppendingString:[NSString stringWithFormat:@"/%@", [params objectAtIndex:1]]];
+	NSString* path = [self fullPathforPath:[params objectAtIndex:0]];
+	NSString* targetPath = [self fullPathforPath:[params objectAtIndex:1]];
 	
 	if (![[NSFileManager defaultManager] fileExistsAtPath:path]) {
 		return [NSArray arrayWithObjects:[NSDictionary dictionaryWithObjectsAndKeys:
@@ -84,7 +84,7 @@
 										  nil],
 				nil];
 	}
-
+	
 	NSError* error;
 	BOOL success = [[NSFileManager defaultManager] moveItemAtPath:path toPath:targetPath error:&error];
 	if (!success) {
