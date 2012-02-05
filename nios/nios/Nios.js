@@ -28,14 +28,18 @@ var Nios_lastcallback = 0;
 var Nios_call = function(className, method, parameters, callback) {
 	var registered_callback = null;
 	if (callback) {
-		var registered_callback = Nios_lastcallback++;
+		var registered_callback = ++Nios_lastcallback;
 		Nios_callbacks[registered_callback] = callback;
 	}
-	WebViewJavascriptBridge.sendMessage(({"class": className, "method": method, "parameters": parameters, "callback": registered_callback}).toJSON())
+	WebViewJavascriptBridge.sendMessage(JSON.stringify({"class": className, "method": method, "parameters": parameters, "callback": registered_callback}))
 }
 
 document.addEventListener('WebViewJavascriptBridgeReady', function onBridgeReady() {
 	WebViewJavascriptBridge.setMessageHandler(function(message) {
-		alert('Received message: ' + message)
+		var response = JSON.parse(message);
+		if (response.callback) {
+			Nios_callbacks[response.callback](response.returnValue);
+			delete Nios_callbacks[response.callback];
+		}
 	});
 }, false);

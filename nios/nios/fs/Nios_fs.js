@@ -1,3 +1,3 @@
 exports.open = function(path, flags, mode, callback) {
-	WebViewJavascriptBridge.sendMessage(JSON.stringify({}));
+	Nios_call("Nios_fs", "open", [path, flags, mode], callback);
 }

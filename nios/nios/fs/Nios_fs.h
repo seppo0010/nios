@@ -8,18 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-@interface Nios_fs_fd : NSObject {
-	NSString* path;
-	NSString* flags;
-	NSString* mode;
-}
-
-@property (retain) NSString* path;
-@property (retain) NSString* flags;
-@property (retain) NSString* mode;
-
-@end
-
 @interface Nios_fs : NSObject
 
 @end

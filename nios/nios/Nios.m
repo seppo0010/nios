@@ -50,7 +50,7 @@
 	NSDictionary* call = [message JSONValue];
 	Class class = NSClassFromString([call valueForKey:@"class"]);
 	id ret = [class performSelector:sel_getUid([[NSString stringWithFormat:@"%@:", [call valueForKey:@"method"]] UTF8String]) withObject:[call valueForKey:@"parameters"]];
-	if ([call valueForKey:@"callback"]) {
+	if (![[call valueForKey:@"callback"] isKindOfClass:[NSNull class]]) {
 		[javascriptBridge sendMessage:[[NSDictionary dictionaryWithObjectsAndKeys:ret, @"returnValue", [call valueForKey:@"callback"], @"callback", nil] JSONRepresentation] toWebView:_webView];
 	}
 }

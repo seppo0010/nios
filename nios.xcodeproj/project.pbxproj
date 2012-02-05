@@ -33,11 +33,11 @@
 		C92318DA14DD6DBD00646E0C /* index.js in Resources */ = {isa = PBXBuildFile; fileRef = C92318D414DD6D9F00646E0C /* index.js */; };
 		C96C1DA914DD7B8300343FC1 /* ViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = C96C1DA714DD7B8300343FC1 /* ViewController_iPad.xib */; };
 		C96C1DAA14DD7B8300343FC1 /* ViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = C96C1DA814DD7B8300343FC1 /* ViewController_iPhone.xib */; };
-		C9B9C6B514DDA1820038F761 /* cycle.js in Sources */ = {isa = PBXBuildFile; fileRef = C9B9C6B014DDA1820038F761 /* cycle.js */; };
-		C9B9C6B614DDA1820038F761 /* json.js in Sources */ = {isa = PBXBuildFile; fileRef = C9B9C6B114DDA1820038F761 /* json.js */; };
-		C9B9C6B714DDA1820038F761 /* json2.js in Sources */ = {isa = PBXBuildFile; fileRef = C9B9C6B214DDA1820038F761 /* json2.js */; };
-		C9B9C6B814DDA1820038F761 /* json_parse.js in Sources */ = {isa = PBXBuildFile; fileRef = C9B9C6B314DDA1820038F761 /* json_parse.js */; };
-		C9B9C6B914DDA1820038F761 /* json_parse_state.js in Sources */ = {isa = PBXBuildFile; fileRef = C9B9C6B414DDA1820038F761 /* json_parse_state.js */; };
+		C97E5DF214DDFA67000A10F1 /* cycle.js in Resources */ = {isa = PBXBuildFile; fileRef = C9B9C6B014DDA1820038F761 /* cycle.js */; };
+		C97E5DF314DDFA67000A10F1 /* json.js in Resources */ = {isa = PBXBuildFile; fileRef = C9B9C6B114DDA1820038F761 /* json.js */; };
+		C97E5DF414DDFA67000A10F1 /* json2.js in Resources */ = {isa = PBXBuildFile; fileRef = C9B9C6B214DDA1820038F761 /* json2.js */; };
+		C97E5DF514DDFA67000A10F1 /* json_parse.js in Resources */ = {isa = PBXBuildFile; fileRef = C9B9C6B314DDA1820038F761 /* json_parse.js */; };
+		C97E5DF614DDFA67000A10F1 /* json_parse_state.js in Resources */ = {isa = PBXBuildFile; fileRef = C9B9C6B414DDA1820038F761 /* json_parse_state.js */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -307,6 +307,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C97E5DF214DDFA67000A10F1 /* cycle.js in Resources */,
+				C97E5DF314DDFA67000A10F1 /* json.js in Resources */,
+				C97E5DF414DDFA67000A10F1 /* json2.js in Resources */,
+				C97E5DF514DDFA67000A10F1 /* json_parse.js in Resources */,
+				C97E5DF614DDFA67000A10F1 /* json_parse_state.js in Resources */,
 				C92318DA14DD6DBD00646E0C /* index.js in Resources */,
 				C92318CD14DD6D4200646E0C /* Nios.js in Resources */,
 				C92318C514DD6B5500646E0C /* Nios_fs.js in Resources */,
@@ -340,11 +345,6 @@
 				C92318BD14DD69D200646E0C /* Nios_fs.m in Sources */,
 				C92318D714DD6D9F00646E0C /* AppDelegate.m in Sources */,
 				C92318D914DD6D9F00646E0C /* ViewController.m in Sources */,
-				C9B9C6B514DDA1820038F761 /* cycle.js in Sources */,
-				C9B9C6B614DDA1820038F761 /* json.js in Sources */,
-				C9B9C6B714DDA1820038F761 /* json2.js in Sources */,
-				C9B9C6B814DDA1820038F761 /* json_parse.js in Sources */,
-				C9B9C6B914DDA1820038F761 /* json_parse_state.js in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
