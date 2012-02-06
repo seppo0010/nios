@@ -92,12 +92,12 @@ exports.read = function(fd, buffer, offset, length, position, callback) {
 exports.writeFile = function(filename, data, encoding, callback) {
 	Nios_call("Nios_fs", "writeFile", [filename, data, encoding], callback);
 }
-exports.watchFile = function(filename, options, callback) {
-	Nios_call("Nios_fs", "watchFile", [filename, options], callback);
+exports.watchFile = function(filename, options, listener) {
+	Nios_call("Nios_fs", "watchFile", [filename, options, Nios_registerCallback(listener)]);
 }
 exports.unwatchFile = function(filename) {
 	Nios_call("Nios_fs", "unwatchFile", [filename]);
 }
-exports.watch = function(filename, options, callback) {
-	Nios_call("Nios_fs", "watch", [filename, options], callback);
+exports.watch = function(filename, options, listener) {
+	Nios_call("Nios_fs", "watch", [filename, options, Nios_registerCallback(listener)]);
 }

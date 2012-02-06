@@ -7,11 +7,13 @@
 //
 
 #import "Nios_fs.h"
+#import "Nios.h"
 #include <fcntl.h>
-#include <sys/stat.h>
 #include <utime.h>
-#include <sys/time.h>
 #include <signal.h>
+#include <sys/stat.h>
+#include <sys/time.h>
+#include <sys/event.h>
 
 @implementation Nios_fs
 
@@ -123,18 +125,37 @@
 			nil];
 }
 
-+ (id) open:(NSArray*)params {
++ (id) open:(NSArray*)params nios:(Nios*)nios {
 	NSString* path = [self fullPathforPath:[params objectAtIndex:0]];
+	NSString* flags = [params objectAtIndex:1];
 	BOOL directory;
-	if ([[[params objectAtIndex:2] valueForKey:@"flags"] isEqualToString:@"r"] && ![[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&directory]) {
+	if ([flags isEqualToString:@"r"] && ![[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&directory]) {
 		return [NSArray arrayWithObject:[self errorForCode:ENOENT forFile:[params objectAtIndex:0]]];
 	}
-
-	int fp = open([path UTF8String], [[params objectAtIndex:1] intValue], [[params objectAtIndex:2] intValue]);
+	
+	int oflag = 0;
+	if ([flags isEqualToString:@"r"]) {
+		oflag = O_RDONLY;
+	} else if ([flags isEqualToString:@"r+"]) {
+		oflag = O_RDONLY | O_CREAT;
+	} else if ([flags isEqualToString:@"w"]) {
+		oflag = O_WRONLY | O_CREAT;
+	} else if ([flags isEqualToString:@"w+"]) {
+		oflag = O_RDWR | O_CREAT;
+	} else if ([flags isEqualToString:@"a"]) {
+		oflag = O_WRONLY | O_APPEND | O_CREAT;
+	} else if ([flags isEqualToString:@"a"]) {
+		oflag = O_RDWR| O_APPEND | O_CREAT;
+	} else {
+		// TODO: handle me
+		return nil;
+	}
+	
+	int fp = open([path UTF8String], oflag, [[params objectAtIndex:2] intValue]);
 	return [NSNumber numberWithInt:fp];
 }
 
-+ (id) readFile:(NSArray*)params {
++ (id) readFile:(NSArray*)params nios:(Nios*)nios {
 	NSString* path = [self fullPathforPath:[params objectAtIndex:0]];
 	
 	BOOL directory;
@@ -155,7 +176,7 @@
 	return [NSArray arrayWithObjects:[NSNull null], ret, nil];
 }
 
-+ (id) writeFile:(NSArray*)params {
++ (id) writeFile:(NSArray*)params nios:(Nios*)nios {
 	NSString* path = [self fullPathforPath:[params objectAtIndex:0]];
 	id data = [params objectAtIndex:1];
 	id encoding = [params objectAtIndex:2];
@@ -165,7 +186,7 @@
 	} else if ([encoding isEqualToString:@"ascii"]) {
 		data = [data dataUsingEncoding:NSASCIIStringEncoding];
 	}
-
+	
 	NSError* error;
 	BOOL success = [(NSData*)data writeToFile:path options:NSDataWritingAtomic error:&error];
 	if (success) {
@@ -180,7 +201,7 @@
 	}
 }
 
-+ (id) rename:(NSArray*)params {
++ (id) rename:(NSArray*)params nios:(Nios*)nios {
 	NSString* path = [self fullPathforPath:[params objectAtIndex:0]];
 	NSString* targetPath = [self fullPathforPath:[params objectAtIndex:1]];
 	
@@ -201,7 +222,7 @@
 	return [NSArray arrayWithObject:[NSNull null]];
 }
 
-+ (id) truncate:(NSArray*)params {
++ (id) truncate:(NSArray*)params nios:(Nios*)nios {
 	NSString* path = [self fullPathforPath:[params objectAtIndex:0]];
 	int result = truncate([path UTF8String], [[params objectAtIndex:1] intValue]);
 	if (result != 0) {
@@ -210,7 +231,7 @@
 	return [NSArray arrayWithObject:[NSNull null]];
 }
 
-+ (id) chown:(NSArray*)params {
++ (id) chown:(NSArray*)params nios:(Nios*)nios {
 	NSString* path = [self fullPathforPath:[params objectAtIndex:0]];
 	
 	int result = chown([path UTF8String], (unsigned int)[[params objectAtIndex:1] unsignedIntValue], (unsigned int)[[params objectAtIndex:2] unsignedIntValue]);
@@ -220,7 +241,7 @@
 	return [NSArray arrayWithObject:[NSNull null]];
 }
 
-+ (id) lchown:(NSArray*)params {
++ (id) lchown:(NSArray*)params nios:(Nios*)nios {
 	NSString* path = [self fullPathforPath:[params objectAtIndex:0]];
 	
 	int result = lchown([path UTF8String], (unsigned int)[[params objectAtIndex:1] unsignedIntValue], (unsigned int)[[params objectAtIndex:2] unsignedIntValue]);
@@ -230,7 +251,7 @@
 	return [NSArray arrayWithObject:[NSNull null]];
 }
 
-+ (id) fchown:(NSArray*)params {
++ (id) fchown:(NSArray*)params nios:(Nios*)nios {
 	int fd = [[params objectAtIndex:0] intValue];
 	
 	int result = fchown(fd, (unsigned int)[[params objectAtIndex:1] unsignedIntValue], (unsigned int)[[params objectAtIndex:2] unsignedIntValue]);
@@ -240,7 +261,7 @@
 	return [NSArray arrayWithObject:[NSNull null]];
 }
 
-+ (id) chmod:(NSArray*)params {
++ (id) chmod:(NSArray*)params nios:(Nios*)nios {
 	NSString* path = [self fullPathforPath:[params objectAtIndex:0]];
 	
 	int result = chmod([path UTF8String], (unsigned int)[[params objectAtIndex:1] unsignedIntValue]);
@@ -250,7 +271,7 @@
 	return [NSArray arrayWithObject:[NSNull null]];
 }
 
-+ (id) lchmod:(NSArray*)params {
++ (id) lchmod:(NSArray*)params nios:(Nios*)nios {
 	NSString* path = [self fullPathforPath:[params objectAtIndex:0]];
 	
 	int result = lchmod([path UTF8String], (unsigned int)[[params objectAtIndex:1] unsignedIntValue]);
@@ -260,7 +281,7 @@
 	return [NSArray arrayWithObject:[NSNull null]];
 }
 
-+ (id) fchmod:(NSArray*)params {
++ (id) fchmod:(NSArray*)params nios:(Nios*)nios {
 	int fd = [[params objectAtIndex:0] intValue];
 	
 	int result = fchmod(fd, (unsigned int)[[params objectAtIndex:1] unsignedIntValue]);
@@ -297,7 +318,7 @@
 			nil];
 }
 
-+ (id) stat:(NSArray*)params {
++ (id) stat:(NSArray*)params nios:(Nios*)nios {
 	NSString* path = [self fullPathforPath:[params objectAtIndex:0]];
 	
 	if (![[NSFileManager defaultManager] fileExistsAtPath:path]) {
@@ -309,7 +330,7 @@
 	return [NSArray arrayWithObjects:[NSNull null], [self statFromStruct:&st], nil];
 }
 
-+ (id) lstat:(NSArray*)params {
++ (id) lstat:(NSArray*)params nios:(Nios*)nios {
 	NSString* path = [self fullPathforPath:[params objectAtIndex:0]];
 	
 	if (![[NSFileManager defaultManager] fileExistsAtPath:path]) {
@@ -321,7 +342,7 @@
 	return [NSArray arrayWithObjects:[NSNull null], [self statFromStruct:&st], nil];
 }
 
-+ (id) fstat:(NSArray*)params {
++ (id) fstat:(NSArray*)params nios:(Nios*)nios {
 	int fd = [[params objectAtIndex:0] intValue];
 	
 	struct stat st;
@@ -329,7 +350,7 @@
 	return [NSArray arrayWithObjects:[NSNull null], [self statFromStruct:&st], nil];
 }
 
-+ (id) link:(NSArray*)params {
++ (id) link:(NSArray*)params nios:(Nios*)nios {
 	NSString* path = [self fullPathforPath:[params objectAtIndex:0]];
 	NSString* targetPath = [self fullPathforPath:[params objectAtIndex:1]];
 	
@@ -340,7 +361,7 @@
 	return [NSArray arrayWithObject:[NSNull null]];
 }
 
-+ (id) symlink:(NSArray*)params {
++ (id) symlink:(NSArray*)params nios:(Nios*)nios {
 	NSString* path = [self fullPathforPath:[params objectAtIndex:0]];
 	NSString* targetPath = [self fullPathforPath:[params objectAtIndex:1]];
 	
@@ -351,7 +372,7 @@
 	return [NSArray arrayWithObject:[NSNull null]];
 }
 
-+ (id) readlink:(NSArray*)params {
++ (id) readlink:(NSArray*)params nios:(Nios*)nios {
 	NSString* path = [self fullPathforPath:[params objectAtIndex:0]];
     char buff[PATH_MAX + 1];
     ssize_t len = readlink([path UTF8String], buff, sizeof(buff)-1);
@@ -366,7 +387,7 @@
     }
 }
 
-+ (id) realpath:(NSArray*)params {
++ (id) realpath:(NSArray*)params nios:(Nios*)nios {
 	NSString* path = [self fullPathforPath:[params objectAtIndex:0]];
     char buff[PATH_MAX + 1];
     char *res = realpath([path UTF8String], buff);
@@ -380,7 +401,7 @@
 	}
 }
 
-+ (id) unlink:(NSArray*)params {
++ (id) unlink:(NSArray*)params nios:(Nios*)nios {
 	NSString* path = [self fullPathforPath:[params objectAtIndex:0]];
 	int result = unlink([path UTF8String]);
 	if (result == 0) {
@@ -390,7 +411,7 @@
 	}
 }
 
-+ (id) rmdir:(NSArray*)params {
++ (id) rmdir:(NSArray*)params nios:(Nios*)nios {
 	NSString* path = [self fullPathforPath:[params objectAtIndex:0]];
 	int result = rmdir([path UTF8String]);
 	if (result == 0) {
@@ -400,7 +421,7 @@
 	}
 }
 
-+ (id) mkdir:(NSArray*)params {
++ (id) mkdir:(NSArray*)params nios:(Nios*)nios {
 	NSString* path = [self fullPathforPath:[params objectAtIndex:0]];
 	mode_t mode = [[params objectAtIndex:1] intValue];
 	if (mode == 0) {
@@ -414,7 +435,7 @@
 	}
 }
 
-+ (id) readdir:(NSArray*)params {
++ (id) readdir:(NSArray*)params nios:(Nios*)nios {
 	NSString* path = [self fullPathforPath:[params objectAtIndex:0]];
 	NSError* error;
 	NSArray* files = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:path error:&error];
@@ -430,7 +451,7 @@
 	}
 }
 
-+ (id) close:(NSArray*)params {
++ (id) close:(NSArray*)params nios:(Nios*)nios {
 	int fd = [[params objectAtIndex:0] intValue];
 	int result = close(fd);
 	if (result == 0) {
@@ -440,7 +461,7 @@
 	}
 }
 
-+ (id) utimes:(NSArray*)params {
++ (id) utimes:(NSArray*)params nios:(Nios*)nios {
 	NSString* path = [params objectAtIndex:0];
 	time_t atime = [[params objectAtIndex:1] longValue];
 	time_t mtime = [[params objectAtIndex:2] longValue];
@@ -455,7 +476,7 @@
 	}
 }
 
-+ (id) futimes:(NSArray*)params {
++ (id) futimes:(NSArray*)params nios:(Nios*)nios {
 	int fd = [[params objectAtIndex:0] intValue];
 	time_t atime = [[params objectAtIndex:1] longValue];
 	time_t mtime = [[params objectAtIndex:2] longValue];
@@ -472,7 +493,7 @@
 	}
 }
 
-+ (id) fsync:(NSArray*)params {
++ (id) fsync:(NSArray*)params nios:(Nios*)nios {
 	int fd = [[params objectAtIndex:0] intValue];
 	int result = fsync(fd);
 	if (result == 0) {
@@ -482,7 +503,7 @@
 	}
 }
 
-+ (id) write:(NSArray*)params {
++ (id) write:(NSArray*)params nios:(Nios*)nios {
 	// FIXME: not sure if the seek is properly done
 	// FIXME: not sure if binary data is properly parsed from json
 	int fd = [[params objectAtIndex:0] intValue];
@@ -501,10 +522,10 @@
 	} else {
 		return [NSArray arrayWithObjects:[NSNull null], [NSNumber numberWithLong:written], buffer, nil];
 	}
-
+	
 }
 
-+ (id) read:(NSArray*)params {
++ (id) read:(NSArray*)params nios:(Nios*)nios {
 	// FIXME: not sure if the seek is properly done
 	// FIXME: not sure if binary data is properly parsed from json
 	int fd = [[params objectAtIndex:0] intValue];
@@ -524,6 +545,80 @@
 	} else {
 		return [NSArray arrayWithObjects:[NSNull null], [NSNumber numberWithLong:bytesRead], buffer, nil];
 	}
+}
+
++ (void) postWatch:(NSDictionary*)info {
+	Nios* nios = [info valueForKey:@"nios"];
+	[nios sendMessage:[NSDictionary dictionaryWithObjectsAndKeys:[NSArray arrayWithObjects:nil], @"parameters", [info valueForKey:@"listener"], @"callback", @"1", @"keepCallback", nil]];
+}
+
++ (void) watchFileInBackground:(NSDictionary*)info {
+	NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+	NSString* path = [info valueForKey:@"path"];
+	int timeout = [[info valueForKey:@"timeout"] intValue];
+	int kq = kqueue();
+    if (kq == -1) {
+		NSLog(@"Watch failed on line %d", __LINE__);
+		[pool release];
+        return;
+    }
+	
+	int fd = open([path UTF8String], O_RDONLY);
+	struct kevent ke;
+    EV_SET(&ke,
+           /* the file we are monitoring */ fd,
+           /* we monitor vnode changes */ EVFILT_VNODE,
+           /* when the file is written add an event, and then clear the
+			condition so it doesn't re- fire */ EV_ADD | EV_CLEAR,
+           /* just care about writes to the file */ NOTE_WRITE,
+           /* don't care about value */ 0, NULL);
+    int r = kevent(kq, /* register list */  &ke, 1, /* event list */  NULL, 0, /* timeout */ NULL);
+    
+    if (r == -1) {
+		NSLog(@"Watch failed on line %d", __LINE__);
+		[pool release];
+		close(fd);
+        return;
+    }
+	
+	struct timespec debounce_timeout;
+    /* Set debounce timeout to 0.5 seconds */
+    debounce_timeout.tv_sec = timeout;
+    debounce_timeout.tv_nsec = 0;
+	
+	do {
+		r = kevent(kq,
+                   /* register list */ NULL, 0,
+                   /* event list */ &ke, 1,
+                   /* timeout */ &debounce_timeout);
+		
+		if (r == -1) {
+			NSLog(@"Watch failed on line %d", __LINE__);
+			[pool release];
+			close(fd);
+			return;
+		}
+		if (r >= 1) {
+			[self performSelectorOnMainThread:@selector(postWatch:) withObject:info waitUntilDone:YES];
+		}
+	} while (1);
+
+	close(fd);
+	[pool release];
+}
+
++ (id) watchFile:(NSArray*)params nios:(Nios*)nios {
+	NSString* path = [self fullPathforPath:[params objectAtIndex:0]];
+	[self performSelectorInBackground:@selector(watchFileInBackground:) withObject:
+	 [NSDictionary dictionaryWithObjectsAndKeys:
+	  nios, @"nios",
+	  path, @"path",
+	  [[params objectAtIndex:1] valueForKey:@"timeout"], @"timeout",
+	  [params objectAtIndex:2], @"listener",
+	  nil
+	  ]
+	 ];
+	return nil;
 }
 
 @end

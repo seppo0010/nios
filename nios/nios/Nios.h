@@ -16,5 +16,6 @@
 
 - (Nios*) initWithScriptName:(NSString*)fileName;
 - (Nios*) initWithScriptPath:(NSString*)scriptPath;
+- (void) sendMessage:(NSDictionary*)message;
 
 @end

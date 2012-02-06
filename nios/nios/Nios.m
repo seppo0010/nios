@@ -46,12 +46,16 @@
 	[super dealloc];
 }
 
+- (void) sendMessage:(NSDictionary*)message {
+	[javascriptBridge sendMessage:[message JSONRepresentation] toWebView:webView];
+}
+
 - (void)javascriptBridge:(WebViewJavascriptBridge *)bridge receivedMessage:(NSString *)message fromWebView:(UIWebView *)_webView {
 	NSDictionary* call = [message JSONValue];
 	Class class = NSClassFromString([call valueForKey:@"class"]);
-	id ret = [class performSelector:sel_getUid([[NSString stringWithFormat:@"%@:", [call valueForKey:@"method"]] UTF8String]) withObject:[call valueForKey:@"parameters"]];
+	id ret = [class performSelector:sel_getUid([[NSString stringWithFormat:@"%@:nios:", [call valueForKey:@"method"]] UTF8String]) withObject:[call valueForKey:@"parameters"] withObject:self];
 	if (![[call valueForKey:@"callback"] isKindOfClass:[NSNull class]]) {
-		[javascriptBridge sendMessage:[[NSDictionary dictionaryWithObjectsAndKeys:ret, @"returnValue", [call valueForKey:@"callback"], @"callback", nil] JSONRepresentation] toWebView:_webView];
+		[javascriptBridge sendMessage:[[NSDictionary dictionaryWithObjectsAndKeys:ret, @"parameters", [call valueForKey:@"callback"], @"callback", nil] JSONRepresentation] toWebView:_webView];
 	}
 }
 
