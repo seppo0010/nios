@@ -1,7 +1,10 @@
 exports.Stats = function(data) {
 	for (var k in data) {
 		if (data.hasOwnProperty(k)) {
-			this[k] = data[k];
+			if (k == 'mtime' || k == 'atime' || k == 'ctime')
+				this[k] = new Date(parseInt(data[k]));
+			else
+				this[k] = data[k];
 		}
 	}
 }
@@ -47,16 +50,22 @@ exports.fchmod = function(fd, mode, callback) {
 	Nios_call("Nios_fs", "fchmod", [fd, mode], callback);
 }
 exports.stat = function(path, callback) {
-	Nios_call("Nios_fs", "stat", [path], function (err, stats) {
+	Nios_call("Nios_fs", "stat", [path], callback ? function (err, stats) {
 		stats = new exports.Stats(stats);
-		if (callback) callback(err, stats);
-	});
+		callback(err, stats);
+	} : null);
 }
 exports.lstat = function(path, callback) {
-	Nios_call("Nios_fs", "lstat", [path], callback);
+	Nios_call("Nios_fs", "lstat", [path],  callback ? function (err, stats) {
+		stats = new exports.Stats(stats);
+		callback(err, stats);
+	} : null);
 }
 exports.fstat = function(path, callback) {
-	Nios_call("Nios_fs", "fstat", [fd], callback);
+	Nios_call("Nios_fs", "fstat", [fd],  callback ? function (err, stats) {
+		stats = new exports.Stats(stats);
+		callback(err, stats);
+	} : null);
 }
 exports.link = function(srcpath, dstpath, callback) {
 	Nios_call("Nios_fs", "link", [srcpath, dstpath], callback);
@@ -104,7 +113,9 @@ exports.writeFile = function(filename, data, encoding, callback) {
 	Nios_call("Nios_fs", "writeFile", [filename, data, encoding], callback);
 }
 exports.watchFile = function(filename, options, listener) {
-	Nios_call("Nios_fs", "watchFile", [filename, options, Nios_registerCallback(listener)]);
+	Nios_call("Nios_fs", "watchFile", [filename, options, Nios_registerCallback(function (curr, prev) {
+		listener(new exports.Stats(curr), new exports.Stats(prev));
+	})]);
 }
 exports.unwatchFile = function(filename) {
 	Nios_call("Nios_fs", "unwatchFile", [filename]);

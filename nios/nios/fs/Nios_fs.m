@@ -540,7 +540,7 @@
 
 + (void) postWatch:(NSDictionary*)info {
 	Nios* nios = [info valueForKey:@"nios"];
-	[nios sendMessage:[NSDictionary dictionaryWithObjectsAndKeys:[NSArray arrayWithObjects:nil], @"parameters", [info valueForKey:@"listener"], @"callback", @"1", @"keepCallback", nil]];
+	[nios sendMessage:[NSDictionary dictionaryWithObjectsAndKeys:[NSArray arrayWithObjects:[info valueForKey:@"newStat"], [info valueForKey:@"lastStat"], nil], @"parameters", [info valueForKey:@"listener"], @"callback", @"1", @"keepCallback", nil]];
 }
 
 + (void) watchFileInBackground:(NSDictionary*)info {
@@ -555,6 +555,12 @@
     }
 	
 	int fd = open([path UTF8String], O_RDONLY);
+
+	struct stat st;
+	fstat(fd, &st);
+	NSDictionary* lastStat = [self statFromStruct:&st];
+	NSDictionary* newStat;
+
 	struct kevent ke;
     EV_SET(&ke,
            /* the file we are monitoring */ fd,
@@ -577,6 +583,7 @@
     debounce_timeout.tv_sec = timeout;
     debounce_timeout.tv_nsec = 0;
 	
+	NSMutableDictionary* callbackInfo = [[info mutableCopy] autorelease];
 	do {
 		r = kevent(kq,
                    /* register list */ NULL, 0,
@@ -590,7 +597,13 @@
 			return;
 		}
 		if (r >= 1) {
-			[self performSelectorOnMainThread:@selector(postWatch:) withObject:info waitUntilDone:YES];
+			struct stat st;
+			fstat(fd, &st);
+			newStat = [self statFromStruct:&st];
+			[callbackInfo setValue:lastStat forKey:@"lastStat"];
+			[callbackInfo setValue:newStat forKey:@"newStat"];
+			[self performSelectorOnMainThread:@selector(postWatch:) withObject:callbackInfo waitUntilDone:YES];
+			lastStat = newStat;
 		}
 	} while (1);
 
