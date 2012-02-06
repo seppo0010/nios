@@ -1,3 +1,11 @@
+exports.Stats = function(data) {
+	for (var k in data) {
+		if (data.hasOwnProperty(k)) {
+			this[k] = data[k];
+		}
+	}
+}
+
 exports.open = function(path, flags, mode, callback) {
 	Nios_call("Nios_fs", "open", [path, flags, mode], callback);
 }
@@ -39,7 +47,10 @@ exports.fchmod = function(fd, mode, callback) {
 	Nios_call("Nios_fs", "fchmod", [fd, mode], callback);
 }
 exports.stat = function(path, callback) {
-	Nios_call("Nios_fs", "stat", [path], callback);
+	Nios_call("Nios_fs", "stat", [path], function (err, stats) {
+		stats = new exports.Stats(stats);
+		if (callback) callback(err, stats);
+	});
 }
 exports.lstat = function(path, callback) {
 	Nios_call("Nios_fs", "lstat", [path], callback);
@@ -101,3 +112,59 @@ exports.unwatchFile = function(filename) {
 exports.watch = function(filename, options, listener) {
 	Nios_call("Nios_fs", "watch", [filename, options, Nios_registerCallback(listener)]);
 }
+
+var constants = {
+	O_APPEND: 0x0008,	
+	O_CREAT: 0x0200,
+	O_DIRECTORY: 0x100000,
+	O_EXCL: 0x0800,
+	O_NOCTTY: 0x20000,
+	O_NOFOLLOW: 0x0100,
+	O_RDONLY: 0x0000,
+	O_RDWR: 0x0002,
+	O_SYMLINK: 0x200000,
+	O_SYNC: 0x0080,
+	O_TRUNC: 0x0400,
+	O_WRONLY: 0x0001,
+	S_IFMT: 0170000,
+	S_IFIFO: 0010000,
+	S_IFCHR: 0020000,
+	S_IFDIR: 0040000,
+	S_IFBLK: 0060000,
+	S_IFREG: 0100000,
+	S_IFLNK: 0120000,
+	S_IFSOCK: 0140000,
+	S_IFWHT: 0160000
+}
+
+exports.Stats.prototype._checkModeProperty = function(property) {
+	return ((this.mode & constants.S_IFMT) === property);
+};
+
+exports.Stats.prototype.isDirectory = function() {
+	return this._checkModeProperty(constants.S_IFDIR);
+};
+
+exports.Stats.prototype.isFile = function() {
+	return this._checkModeProperty(constants.S_IFREG);
+};
+
+exports.Stats.prototype.isBlockDevice = function() {
+	return this._checkModeProperty(constants.S_IFBLK);
+};
+
+exports.Stats.prototype.isCharacterDevice = function() {
+	return this._checkModeProperty(constants.S_IFCHR);
+};
+
+exports.Stats.prototype.isSymbolicLink = function() {
+	return this._checkModeProperty(constants.S_IFLNK);
+};
+
+exports.Stats.prototype.isFIFO = function() {
+	return this._checkModeProperty(constants.S_IFIFO);
+};
+
+exports.Stats.prototype.isSocket = function() {
+	return this._checkModeProperty(constants.S_IFSOCK);
+};

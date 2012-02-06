@@ -292,29 +292,20 @@
 }
 
 + (id) statFromStruct:(struct stat*)st {
-	NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
-	[dateFormatter setLocale:[[[NSLocale alloc] initWithLocaleIdentifier:@"en_US"] autorelease]];
-	[dateFormatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
-	[dateFormatter setDateFormat:@"E', 'd' 'MMM' 'yyyy' 'HH':'mm':'ss' 'zzz"];
-	NSString* atime = [dateFormatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:st->st_atimespec.tv_sec]];
-	NSString* mtime = [dateFormatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:st->st_mtimespec.tv_sec]];
-	NSString* ctime = [dateFormatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:st->st_ctimespec.tv_sec]];
-	[dateFormatter release];
-	return [NSArray arrayWithObjects:[NSNull null], [NSDictionary dictionaryWithObjectsAndKeys:
-													 [NSNumber numberWithUnsignedInt:st->st_dev], @"dev",
-													 [NSNumber numberWithUnsignedLong:st->st_ino], @"ino",
-													 [NSNumber numberWithUnsignedInt:st->st_mode], @"mode",
-													 [NSNumber numberWithUnsignedInt:st->st_nlink], @"nlink",
-													 [NSNumber numberWithUnsignedInt:st->st_uid], @"uid",
-													 [NSNumber numberWithUnsignedInt:st->st_gid], @"gid",
-													 [NSNumber numberWithUnsignedInt:st->st_rdev], @"rdev",
-													 [NSNumber numberWithUnsignedLong:st->st_size], @"size",
-													 [NSNumber numberWithUnsignedInt:st->st_blksize], @"blksize",
-													 [NSNumber numberWithUnsignedLong:st->st_blocks], @"blocks",
-													 atime, @"atime",
-													 mtime, @"mtime",
-													 ctime, @"ctime",
-													 nil],
+	return [NSDictionary dictionaryWithObjectsAndKeys:
+			[NSNumber numberWithUnsignedInt:st->st_dev], @"dev",
+			[NSNumber numberWithUnsignedLong:st->st_ino], @"ino",
+			[NSNumber numberWithUnsignedInt:st->st_mode], @"mode",
+			[NSNumber numberWithUnsignedInt:st->st_nlink], @"nlink",
+			[NSNumber numberWithUnsignedInt:st->st_uid], @"uid",
+			[NSNumber numberWithUnsignedInt:st->st_gid], @"gid",
+			[NSNumber numberWithUnsignedInt:st->st_rdev], @"rdev",
+			[NSNumber numberWithUnsignedLong:st->st_size], @"size",
+			[NSNumber numberWithUnsignedInt:st->st_blksize], @"blksize",
+			[NSNumber numberWithUnsignedLong:st->st_blocks], @"blocks",
+			[NSNumber numberWithLong:st->st_atimespec.tv_sec * 1000], @"atime",
+			[NSNumber numberWithLong:st->st_mtimespec.tv_sec * 1000], @"mtime",
+			[NSNumber numberWithLong:st->st_ctimespec.tv_sec * 1000], @"ctime",
 			nil];
 }
 
