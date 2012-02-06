@@ -7,12 +7,13 @@
 //
 
 #import "Nios_console.h"
+#import "Nios.h"
 
 @implementation Nios_console
 
-+ (id) log:(NSArray*)parameters {
++ (id) log:(NSArray*)parameters nios:(Nios*)nios {
 	NSLog(@"%@", [parameters objectAtIndex:0]);
-	return [NSNull null];
+	return nil;
 }
 
 @end
