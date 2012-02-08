@@ -78,7 +78,7 @@ static int lastId = 1;
 		}
 	}
 	if ([socket beginReceiving:&error]) {
-		return [NSArray arrayWithObjects:[NSNumber numberWithInt:delegate.socketId], [socket localHost], nil];
+		return [NSArray arrayWithObjects:[NSNumber numberWithInt:delegate.socketId], [socket localHost], [NSNumber numberWithInt:[socket localPort]], nil];
 	} else {
 		// TODO: error handling
 		[dict removeObjectForKey:key];

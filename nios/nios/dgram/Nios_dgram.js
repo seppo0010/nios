@@ -23,6 +23,9 @@ var util = require('util');
 var events = require('events');
 
 UDP = function() {
+	this.getsockname = function () {
+		return { address: this.socketname, port: this.socketport }
+	}
 }
 
 // lazily loaded
@@ -114,12 +117,20 @@ exports.createSocket = function(type, listener) {
 
 Socket.prototype.bind = function(port, address) {
 	var self = this;
-	Nios_call("Nios_dgram", "bind", [port, address], function (socketId, sockname) {
-		self.socketId = socketId;
-		self.socketname = socketname;	  
+	var listener = function (event, params) {
+		this.emit(event, params);
+	}
+	Nios_call("Nios_dgram", "bind", [port, address, listener], function (socketId, socketname, socketport) {
+		self._handle.socketId = socketId;
+		self._handle.socketname = socketname;
+		self._handle.socketport = socketport;
+		self.emit("listening");
 	});
 };
 
+Socket.prototype.getsockname = function () {
+	return [this.socketname, this.port];
+}
 
 // thin wrapper around `send`, here for compatibility with dgram_legacy.js
 Socket.prototype.sendto = function(buffer,
