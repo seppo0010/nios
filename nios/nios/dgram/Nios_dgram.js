@@ -26,6 +26,36 @@ UDP = function() {
 	this.getsockname = function () {
 		return { address: this.socketname, port: this.socketport }
 	}
+	this.recvStart = function () {
+		if (this.socketId) {
+			Nios_call("Nios_dgram", "recvStart", [this.socketId]);
+		}
+	}
+	this.recvStop = function () {
+		if (this.socketId) {
+			Nios_call("Nios_dgram", "recvStop", [this.socketId]);
+		}
+	}
+	this.send = function (buf, offset, length, port, address, callback) {
+		if (this.socketId == null) {
+			var self = this;
+			var listener = Nios_registerCallback(function (event, params) {
+				self.emit(event, string_to_buffer(params[0]), params[1]);
+			});
+			Nios_call("Nios_dgram", "create", [listener], function (err, socketId, socketname) {
+				if (err) {
+					return;
+				}
+
+				self.socketId = socketId;
+					  alert(socketId);
+				self.socketname = socketname;
+				self.send(buf, offset, length, port, address, callback);
+			});
+		} else {
+			Nios_call("Nios_dgram", "send", [this.socketId, buffer_to_string(buf), offset, length, port, address], callback);
+		}
+	}
 }
 
 // lazily loaded
@@ -41,7 +71,6 @@ function noop() {
 function isIP(address) {
 	if (!net)
 		net = require('net');
-	
 	return net.isIP(address);
 }
 
@@ -116,6 +145,7 @@ exports.createSocket = function(type, listener) {
 
 
 Socket.prototype.bind = function(port, address) {
+	this._bound = true;
 	var self = this;
 	var listener = Nios_registerCallback(function (event, params) {
 		self.emit(event, string_to_buffer(params[0]), params[1]);
@@ -161,7 +191,7 @@ Socket.prototype.send = function(buffer,
 	
 	self._healthCheck();
 	self._startReceiving();
-	
+
 	self._handle.lookup(address, function(err, ip) {
 						if (err) {
 						if (callback) callback(err);
@@ -295,7 +325,7 @@ Socket.prototype._healthCheck = function() {
 Socket.prototype._startReceiving = function() {
 	if (this._receiving)
 		return;
-	
+
 	if (!this._bound) {
 		this.bind(); // bind to random port
 		

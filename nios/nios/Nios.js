@@ -44,8 +44,6 @@ require.resolve = function(filename) {
 
 require.cache = {};
 
-var Buffer = ArrayBuffer;
-
 var console = {
 	log: function(str) {
 		Nios_call("Nios_console", "log", [str]);
@@ -193,7 +191,17 @@ document.addEventListener('WebViewJavascriptBridgeReady', function onBridgeReady
 function string_to_buffer(data) {
 	var buffer = new Buffer(data.length);
 	for (var i = 0; i < data.length; i++) {
-		buffer[i] = data[i];
+		buffer[i] = data.charCodeAt(i);
 	}
 	return buffer;
 }
+
+function buffer_to_string(buf) {
+	var str = '';
+	for (var i = 0; i < buf.length; i++) {
+		str += String.fromCharCode(buf[i]);
+	}
+	return str;
+}
+
+require('Buffer')

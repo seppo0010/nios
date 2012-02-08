@@ -50,7 +50,22 @@ withFilterContext:(id)filterContext {
 static NSMutableDictionary* dict = nil;
 static int lastId = 1;
 
-+ (id)bind:(NSArray*)params nios:(Nios*)nios {
++ (id)recvStart:(NSArray*)params nios:(Nios*)nios {
+	Nios_dgram* connection = [dict valueForKey:[NSString stringWithFormat:@"%d", [params objectAtIndex:0]]];
+	NSError* error = nil;
+	if (![connection.socket beginReceiving:&error]) {
+		// TODO: handle
+	}
+	return nil;
+}
+
++ (id)recvStop:(NSArray*)params nios:(Nios*)nios {
+	Nios_dgram* connection = [dict valueForKey:[NSString stringWithFormat:@"%d", [params objectAtIndex:0]]];
+	[connection.socket pauseReceiving];
+	return nil;
+}
+
++ (id)create:(NSArray*)params nios:(Nios*)nios {
 	if (dict == nil) {
 		dict = [[NSMutableDictionary alloc] initWithCapacity:1024];
 	}
@@ -61,24 +76,37 @@ static int lastId = 1;
 	delegate.socket = socket;
 	delegate.nios = nios;
 	delegate.socketId = lastId;
+	[dict setValue:delegate forKey:[NSString stringWithFormat:@"%d", lastId++]];
+	return [NSArray arrayWithObjects:[NSNull null], [NSNumber numberWithInt:delegate.socketId], [delegate.socket localHost], nil];
+}
+
++ (id)bind:(NSArray*)params nios:(Nios*)nios {
+	int socketId = [[[self create:[NSArray arrayWithObject:[params lastObject]] nios:nios] objectAtIndex:1] intValue];
+	NSString* key = [NSString stringWithFormat:@"%d", socketId];
+	Nios_dgram* delegate = [dict valueForKey:key];
+	
 	NSError* error;
-	int port = [[params objectAtIndex:0] intValue];
-	NSString* key = [NSString stringWithFormat:@"%d", lastId++];
-	if ([socket bindToPort:port error:&error]) {
-		[dict setValue:delegate forKey:key];
+	int port;
+	if ([[params objectAtIndex:0] isKindOfClass:[NSNull class]]) {
+		port = 12345;
+		// TODO: random port
 	} else {
+		port = [[params objectAtIndex:0] intValue];
+	}
+	if (![delegate.socket bindToPort:port error:&error]) {
 		// TODO: error handling
+		[dict removeObjectForKey:key];
 		return nil;
 	}
 	if (![[params objectAtIndex:1] isKindOfClass:[NSNull class]]) {
-		if (![socket bindToAddress:[[params objectAtIndex:1] dataUsingEncoding:NSUTF8StringEncoding] error:&error]) {
+		if (![delegate.socket bindToAddress:[[params objectAtIndex:1] dataUsingEncoding:NSUTF8StringEncoding] error:&error]) {
 			// TODO: error handling
 			[dict removeObjectForKey:key];
 			return nil;
 		}
 	}
-	if ([socket beginReceiving:&error]) {
-		return [NSArray arrayWithObjects:[NSNumber numberWithInt:delegate.socketId], [socket localHost], [NSNumber numberWithInt:[socket localPort]], nil];
+	if ([delegate.socket beginReceiving:&error]) {
+		return [NSArray arrayWithObjects:[NSNumber numberWithInt:delegate.socketId], [delegate.socket localHost], [NSNumber numberWithInt:[delegate.socket localPort]], nil];
 	} else {
 		// TODO: error handling
 		[dict removeObjectForKey:key];
@@ -87,7 +115,7 @@ static int lastId = 1;
 }
 
 + (id)send:(NSArray*)params nios:(Nios*)nios {
-	Nios_dgram* connection = [dict valueForKey:[NSString stringWithFormat:@"%d", [params objectAtIndex:0]]];
+	Nios_dgram* connection = [dict valueForKey:[NSString stringWithFormat:@"%d", [[params objectAtIndex:0] intValue]]];
 	NSData* data = [[params objectAtIndex:1] dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES];
 	NSRange range;
 	range.location = [[params objectAtIndex:2] unsignedIntValue]; 

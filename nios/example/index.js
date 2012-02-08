@@ -9,20 +9,14 @@ fs.watchFile('b', { timeout: 10 }, function(curr, prev) {
 */
 try {
 	var util = require("util");
-var dgram = require("dgram");
-var server = dgram.createSocket("udp4");
 
-server.on("message", function (msg, rinfo) {
-		  console.log("server got: " + msg + " from " +
-					  rinfo.address + ":" + rinfo.port);
-		  });
-
-server.on("listening", function () {
-		  var address = server.address();
-		  console.log("server listening " +
-					  address.address + ":" + address.port);
-		  });
-server.bind(41234);
-
+	
+	var dgram = require('dgram');
+	var message = new Buffer("Some bytes");
+	var client = dgram.createSocket("udp4");
+	client.send(message, 0, message.length, 41234, "localhost", function(err, bytes) {
+				client.close();
+				});
 }catch(e) {
+	alert(e);
 }
