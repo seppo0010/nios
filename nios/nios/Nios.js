@@ -46,16 +46,16 @@ require.cache = {};
 
 var console = {
 	log: function(str) {
-		Nios_call("Nios_console", "log", [str]);
+		Nios_call("Nios_console", "log", [Array.prototype.slice.call(arguments, 0).join(' ')]);
 	},
 	info: function(str) {
-		Nios_call("Nios_console", "log", [str]);
+		Nios_call("Nios_console", "log", [Array.prototype.slice.call(arguments, 0).join(' ')]);
 	},
 	warn: function(str) {
-		Nios_call("Nios_console", "logerror", [str]);
+		Nios_call("Nios_console", "logerror", [Array.prototype.slice.call(arguments, 0).join(' ')]);
 	},
 	error: function(str) {
-		Nios_call("Nios_console", "logerror", [str]);
+		Nios_call("Nios_console", "logerror", [Array.prototype.slice.call(arguments, 0).join(' ')]);
 	},
 	dir: function(obj) {
 		// TODO
