@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C916E3C114DF80BF00061D01 /* Nios_process.m in Sources */ = {isa = PBXBuildFile; fileRef = C916E3C014DF80BF00061D01 /* Nios_process.m */; };
 		C923186814DD661500646E0C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C923186714DD661500646E0C /* UIKit.framework */; };
 		C923186A14DD661500646E0C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C923186914DD661500646E0C /* Foundation.framework */; };
 		C923186C14DD661500646E0C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C923186B14DD661500646E0C /* CoreGraphics.framework */; };
@@ -33,6 +34,14 @@
 		C92318DA14DD6DBD00646E0C /* index.js in Resources */ = {isa = PBXBuildFile; fileRef = C92318D414DD6D9F00646E0C /* index.js */; };
 		C96C1DA914DD7B8300343FC1 /* ViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = C96C1DA714DD7B8300343FC1 /* ViewController_iPad.xib */; };
 		C96C1DAA14DD7B8300343FC1 /* ViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = C96C1DA814DD7B8300343FC1 /* ViewController_iPhone.xib */; };
+		C97E0B0914E1EAE6000CB6A3 /* Nios_dgram.m in Sources */ = {isa = PBXBuildFile; fileRef = C97E0B0814E1EAE6000CB6A3 /* Nios_dgram.m */; };
+		C97E0B0C14E1EBC7000CB6A3 /* Nios_dgram.js in Resources */ = {isa = PBXBuildFile; fileRef = C97E0B0A14E1EBB2000CB6A3 /* Nios_dgram.js */; };
+		C97E0B0E14E2093B000CB6A3 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C97E0B0D14E2093B000CB6A3 /* CFNetwork.framework */; };
+		C97E0B0F14E216D7000CB6A3 /* util.js in Resources */ = {isa = PBXBuildFile; fileRef = C917829B14E0696D006E8852 /* util.js */; };
+		C97E0B1214E21802000CB6A3 /* NativeModule.js in Resources */ = {isa = PBXBuildFile; fileRef = C97E0B1014E21794000CB6A3 /* NativeModule.js */; };
+		C97E0B1314E21855000CB6A3 /* events.js in Resources */ = {isa = PBXBuildFile; fileRef = C917828714E0696D006E8852 /* events.js */; };
+		C97E0B1D14E21BE0000CB6A3 /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = C97E0B1A14E21BE0000CB6A3 /* GCDAsyncSocket.m */; };
+		C97E0B1E14E21BE0000CB6A3 /* GCDAsyncUdpSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = C97E0B1C14E21BE0000CB6A3 /* GCDAsyncUdpSocket.m */; };
 		C97E5DF214DDFA67000A10F1 /* cycle.js in Resources */ = {isa = PBXBuildFile; fileRef = C9B9C6B014DDA1820038F761 /* cycle.js */; };
 		C97E5DF314DDFA67000A10F1 /* json.js in Resources */ = {isa = PBXBuildFile; fileRef = C9B9C6B114DDA1820038F761 /* json.js */; };
 		C97E5DF414DDFA67000A10F1 /* json2.js in Resources */ = {isa = PBXBuildFile; fileRef = C9B9C6B214DDA1820038F761 /* json2.js */; };
@@ -43,6 +52,41 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C916E3BF14DF80BF00061D01 /* Nios_process.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Nios_process.h; sourceTree = "<group>"; };
+		C916E3C014DF80BF00061D01 /* Nios_process.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Nios_process.m; sourceTree = "<group>"; };
+		C917827B14E0696D006E8852 /* _debugger.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = _debugger.js; sourceTree = "<group>"; };
+		C917827C14E0696D006E8852 /* _linklist.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = _linklist.js; sourceTree = "<group>"; };
+		C917827D14E0696D006E8852 /* assert.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = assert.js; sourceTree = "<group>"; };
+		C917828014E0696D006E8852 /* child_process.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = child_process.js; sourceTree = "<group>"; };
+		C917828114E0696D006E8852 /* cluster.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = cluster.js; sourceTree = "<group>"; };
+		C917828214E0696D006E8852 /* console.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = console.js; sourceTree = "<group>"; };
+		C917828314E0696D006E8852 /* constants.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = constants.js; sourceTree = "<group>"; };
+		C917828414E0696D006E8852 /* crypto.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = crypto.js; sourceTree = "<group>"; };
+		C917828514E0696D006E8852 /* dgram.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = dgram.js; sourceTree = "<group>"; };
+		C917828614E0696D006E8852 /* dns.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = dns.js; sourceTree = "<group>"; };
+		C917828714E0696D006E8852 /* events.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = events.js; sourceTree = "<group>"; };
+		C917828814E0696D006E8852 /* freelist.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = freelist.js; sourceTree = "<group>"; };
+		C917828914E0696D006E8852 /* fs.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = fs.js; sourceTree = "<group>"; };
+		C917828A14E0696D006E8852 /* http.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = http.js; sourceTree = "<group>"; };
+		C917828B14E0696D006E8852 /* https.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = https.js; sourceTree = "<group>"; };
+		C917828C14E0696D006E8852 /* module.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = module.js; sourceTree = "<group>"; };
+		C917828D14E0696D006E8852 /* net.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = net.js; sourceTree = "<group>"; };
+		C917828E14E0696D006E8852 /* os.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = os.js; sourceTree = "<group>"; };
+		C917828F14E0696D006E8852 /* path.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = path.js; sourceTree = "<group>"; };
+		C917829014E0696D006E8852 /* punycode.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = punycode.js; sourceTree = "<group>"; };
+		C917829114E0696D006E8852 /* querystring.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = querystring.js; sourceTree = "<group>"; };
+		C917829214E0696D006E8852 /* readline.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = readline.js; sourceTree = "<group>"; };
+		C917829314E0696D006E8852 /* repl.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = repl.js; sourceTree = "<group>"; };
+		C917829414E0696D006E8852 /* stream.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = stream.js; sourceTree = "<group>"; };
+		C917829514E0696D006E8852 /* string_decoder.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = string_decoder.js; sourceTree = "<group>"; };
+		C917829614E0696D006E8852 /* sys.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = sys.js; sourceTree = "<group>"; };
+		C917829714E0696D006E8852 /* timers.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = timers.js; sourceTree = "<group>"; };
+		C917829814E0696D006E8852 /* tls.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = tls.js; sourceTree = "<group>"; };
+		C917829914E0696D006E8852 /* tty.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = tty.js; sourceTree = "<group>"; };
+		C917829A14E0696D006E8852 /* url.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = url.js; sourceTree = "<group>"; };
+		C917829B14E0696D006E8852 /* util.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = util.js; sourceTree = "<group>"; };
+		C917829C14E0696D006E8852 /* vm.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = vm.js; sourceTree = "<group>"; };
+		C917829D14E0696D006E8852 /* zlib.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = zlib.js; sourceTree = "<group>"; };
 		C923186314DD661500646E0C /* nios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = nios.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C923186714DD661500646E0C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		C923186914DD661500646E0C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -90,6 +134,15 @@
 		C92318D614DD6D9F00646E0C /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		C96C1DA714DD7B8300343FC1 /* ViewController_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewController_iPad.xib; sourceTree = "<group>"; };
 		C96C1DA814DD7B8300343FC1 /* ViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewController_iPhone.xib; sourceTree = "<group>"; };
+		C97E0B0714E1EAE6000CB6A3 /* Nios_dgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Nios_dgram.h; sourceTree = "<group>"; };
+		C97E0B0814E1EAE6000CB6A3 /* Nios_dgram.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Nios_dgram.m; sourceTree = "<group>"; };
+		C97E0B0A14E1EBB2000CB6A3 /* Nios_dgram.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = Nios_dgram.js; sourceTree = "<group>"; };
+		C97E0B0D14E2093B000CB6A3 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		C97E0B1014E21794000CB6A3 /* NativeModule.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = NativeModule.js; path = nios/NativeModule.js; sourceTree = "<group>"; };
+		C97E0B1914E21BE0000CB6A3 /* GCDAsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDAsyncSocket.h; sourceTree = "<group>"; };
+		C97E0B1A14E21BE0000CB6A3 /* GCDAsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDAsyncSocket.m; sourceTree = "<group>"; };
+		C97E0B1B14E21BE0000CB6A3 /* GCDAsyncUdpSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDAsyncUdpSocket.h; sourceTree = "<group>"; };
+		C97E0B1C14E21BE0000CB6A3 /* GCDAsyncUdpSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDAsyncUdpSocket.m; sourceTree = "<group>"; };
 		C97E5DFE14DE178B000A10F1 /* NSData+proxyForJson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSData+proxyForJson.m"; path = "nios/patches/NSData+proxyForJson.m"; sourceTree = "<group>"; };
 		C97E5E0014DE17B8000A10F1 /* NSData+proxyForJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSData+proxyForJson.h"; path = "nios/patches/NSData+proxyForJson.h"; sourceTree = "<group>"; };
 		C97E5E0214DEB18F000A10F1 /* Nios_console.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Nios_console.h; sourceTree = "<group>"; };
@@ -106,6 +159,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C97E0B0E14E2093B000CB6A3 /* CFNetwork.framework in Frameworks */,
 				C923186814DD661500646E0C /* UIKit.framework in Frameworks */,
 				C923186A14DD661500646E0C /* Foundation.framework in Frameworks */,
 				C923186C14DD661500646E0C /* CoreGraphics.framework in Frameworks */,
@@ -115,6 +169,57 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C916E3BD14DF80B100061D01 /* process */ = {
+			isa = PBXGroup;
+			children = (
+				C916E3BF14DF80BF00061D01 /* Nios_process.h */,
+				C916E3C014DF80BF00061D01 /* Nios_process.m */,
+			);
+			name = process;
+			path = nios/process;
+			sourceTree = "<group>";
+		};
+		C917827714E06888006E8852 /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				C917827B14E0696D006E8852 /* _debugger.js */,
+				C917827C14E0696D006E8852 /* _linklist.js */,
+				C917827D14E0696D006E8852 /* assert.js */,
+				C917828014E0696D006E8852 /* child_process.js */,
+				C917828114E0696D006E8852 /* cluster.js */,
+				C917828214E0696D006E8852 /* console.js */,
+				C917828314E0696D006E8852 /* constants.js */,
+				C917828414E0696D006E8852 /* crypto.js */,
+				C917828514E0696D006E8852 /* dgram.js */,
+				C917828614E0696D006E8852 /* dns.js */,
+				C917828714E0696D006E8852 /* events.js */,
+				C917828814E0696D006E8852 /* freelist.js */,
+				C917828914E0696D006E8852 /* fs.js */,
+				C917828A14E0696D006E8852 /* http.js */,
+				C917828B14E0696D006E8852 /* https.js */,
+				C917828C14E0696D006E8852 /* module.js */,
+				C917828D14E0696D006E8852 /* net.js */,
+				C917828E14E0696D006E8852 /* os.js */,
+				C917828F14E0696D006E8852 /* path.js */,
+				C917829014E0696D006E8852 /* punycode.js */,
+				C917829114E0696D006E8852 /* querystring.js */,
+				C917829214E0696D006E8852 /* readline.js */,
+				C917829314E0696D006E8852 /* repl.js */,
+				C917829414E0696D006E8852 /* stream.js */,
+				C917829514E0696D006E8852 /* string_decoder.js */,
+				C917829614E0696D006E8852 /* sys.js */,
+				C917829714E0696D006E8852 /* timers.js */,
+				C917829814E0696D006E8852 /* tls.js */,
+				C917829914E0696D006E8852 /* tty.js */,
+				C917829A14E0696D006E8852 /* url.js */,
+				C917829B14E0696D006E8852 /* util.js */,
+				C917829C14E0696D006E8852 /* vm.js */,
+				C917829D14E0696D006E8852 /* zlib.js */,
+			);
+			name = lib;
+			path = nios/lib;
+			sourceTree = "<group>";
+		};
 		C923185814DD661500646E0C = {
 			isa = PBXGroup;
 			children = (
@@ -135,6 +240,7 @@
 		C923186614DD661500646E0C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C97E0B0D14E2093B000CB6A3 /* CFNetwork.framework */,
 				C923186714DD661500646E0C /* UIKit.framework */,
 				C923186914DD661500646E0C /* Foundation.framework */,
 				C923186B14DD661500646E0C /* CoreGraphics.framework */,
@@ -167,11 +273,15 @@
 			children = (
 				C97E5DFB14DE1766000A10F1 /* patches */,
 				C923188F14DD68DE00646E0C /* deps */,
+				C917827714E06888006E8852 /* lib */,
 				C97E5E0114DEB184000A10F1 /* console */,
+				C97E0B0614E1EAE5000CB6A3 /* dgram */,
 				C92318BA14DD69C900646E0C /* fs */,
+				C916E3BD14DF80B100061D01 /* process */,
 				C923188814DD670500646E0C /* Nios.h */,
 				C923188914DD670500646E0C /* Nios.m */,
 				C92318CB14DD6D3900646E0C /* Nios.js */,
+				C97E0B1014E21794000CB6A3 /* NativeModule.js */,
 			);
 			name = nios;
 			sourceTree = "<group>";
@@ -179,6 +289,7 @@
 		C923188F14DD68DE00646E0C /* deps */ = {
 			isa = PBXGroup;
 			children = (
+				C97E0AFE14E1E5A9000CB6A3 /* CocoaAsyncSocket */,
 				C9B9C6AF14DDA1820038F761 /* json2 */,
 				C923189014DD68DE00646E0C /* SBJson */,
 				C92318AA14DD68DE00646E0C /* WebViewJavascriptBridge */,
@@ -251,6 +362,36 @@
 				C96C1DA814DD7B8300343FC1 /* ViewController_iPhone.xib */,
 			);
 			path = example;
+			sourceTree = "<group>";
+		};
+		C97E0AFE14E1E5A9000CB6A3 /* CocoaAsyncSocket */ = {
+			isa = PBXGroup;
+			children = (
+				C97E0B1814E21BE0000CB6A3 /* GCD */,
+			);
+			path = CocoaAsyncSocket;
+			sourceTree = "<group>";
+		};
+		C97E0B0614E1EAE5000CB6A3 /* dgram */ = {
+			isa = PBXGroup;
+			children = (
+				C97E0B0714E1EAE6000CB6A3 /* Nios_dgram.h */,
+				C97E0B0814E1EAE6000CB6A3 /* Nios_dgram.m */,
+				C97E0B0A14E1EBB2000CB6A3 /* Nios_dgram.js */,
+			);
+			name = dgram;
+			path = nios/dgram;
+			sourceTree = "<group>";
+		};
+		C97E0B1814E21BE0000CB6A3 /* GCD */ = {
+			isa = PBXGroup;
+			children = (
+				C97E0B1914E21BE0000CB6A3 /* GCDAsyncSocket.h */,
+				C97E0B1A14E21BE0000CB6A3 /* GCDAsyncSocket.m */,
+				C97E0B1B14E21BE0000CB6A3 /* GCDAsyncUdpSocket.h */,
+				C97E0B1C14E21BE0000CB6A3 /* GCDAsyncUdpSocket.m */,
+			);
+			path = GCD;
 			sourceTree = "<group>";
 		};
 		C97E5DFB14DE1766000A10F1 /* patches */ = {
@@ -334,6 +475,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C97E0B1314E21855000CB6A3 /* events.js in Resources */,
+				C97E0B1214E21802000CB6A3 /* NativeModule.js in Resources */,
+				C97E0B0F14E216D7000CB6A3 /* util.js in Resources */,
+				C97E0B0C14E1EBC7000CB6A3 /* Nios_dgram.js in Resources */,
 				C97E5DF214DDFA67000A10F1 /* cycle.js in Resources */,
 				C97E5DF314DDFA67000A10F1 /* json.js in Resources */,
 				C97E5DF414DDFA67000A10F1 /* json2.js in Resources */,
@@ -374,6 +519,10 @@
 				C92318D914DD6D9F00646E0C /* ViewController.m in Sources */,
 				C97E5DFF14DE178B000A10F1 /* NSData+proxyForJson.m in Sources */,
 				C97E5E0414DEB18F000A10F1 /* Nios_console.m in Sources */,
+				C916E3C114DF80BF00061D01 /* Nios_process.m in Sources */,
+				C97E0B0914E1EAE6000CB6A3 /* Nios_dgram.m in Sources */,
+				C97E0B1D14E21BE0000CB6A3 /* GCDAsyncSocket.m in Sources */,
+				C97E0B1E14E21BE0000CB6A3 /* GCDAsyncUdpSocket.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

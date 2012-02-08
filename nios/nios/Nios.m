@@ -32,8 +32,19 @@
 		javascriptBridge = [[WebViewJavascriptBridge javascriptBridgeWithDelegate:self] retain];
 		webView.delegate = javascriptBridge;
 
+		NSString* architecture = @"unknown";
+#ifdef __i386__
+		architecture = @"i386";
+#endif
+#ifdef __ARM_ARCH_7A__
+		architecture = @"armv7";
+#endif
+#ifdef __arm__
+		architecture = @"arm";
+#endif
+
 		NSString* modulesPath = [[[NSBundle mainBundle] pathForResource:@"Nios" ofType:@"js"] stringByDeletingLastPathComponent];
-		NSString* htmlString = [NSString stringWithFormat:@"<script>window.NIOS_BASEPATH = [\"%@\"];</script><script src=\"file://%@\"></script><script src=\"file://%@\"></script><script>document.addEventListener('WebViewJavascriptBridgeReady', function() { require_fullpath(\"%@\"); });</script>", modulesPath, [[[[NSBundle mainBundle] pathForResource:@"Nios" ofType:@"js"]stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding] stringByReplacingOccurrencesOfString:@" " withString:@"%20"], [[[[NSBundle mainBundle] pathForResource:@"json2" ofType:@"js"]stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding] stringByReplacingOccurrencesOfString:@" " withString:@"%20"], scriptPath];
+		NSString* htmlString = [NSString stringWithFormat:@"<script>window.NIOS_BASEPATH = [\"%@\"];</script><script src=\"file://%@\"></script><script src=\"file://%@\"></script><script>document.addEventListener('WebViewJavascriptBridgeReady', function() { Nios_initialize('%@', '%@'); require_fullpath(\"%@\"); });</script>", modulesPath, [[[[NSBundle mainBundle] pathForResource:@"Nios" ofType:@"js"]stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding] stringByReplacingOccurrencesOfString:@" " withString:@"%20"], [[[[NSBundle mainBundle] pathForResource:@"json2" ofType:@"js"]stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding] stringByReplacingOccurrencesOfString:@" " withString:@"%20"], architecture, [[UIDevice currentDevice] model], scriptPath];
 		[webView loadHTMLString:htmlString baseURL:nil];
 	}
 	return self;
