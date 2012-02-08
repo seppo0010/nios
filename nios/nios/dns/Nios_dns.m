@@ -16,7 +16,7 @@
 
 @implementation Nios_dns
 
-+ (NSString*) lookup:(NSString*)host ipv:(int)v {
++ (NSString*) lookup:(NSString*)host ipv:(int*)v {
 	NSError *error = nil;
 	
 	NSData *address4 = nil;
@@ -94,14 +94,16 @@
 			}
 		}
 	}
-	if (v == 4) {
+	if (*v == 4) {
 		return [GCDAsyncSocket hostFromAddress:address4];
-	} else if (v == 6) {
+	} else if (*v == 6) {
 		return [GCDAsyncSocket hostFromAddress:address6];
 	}
 	if (address4) {
+		*v = 4;
 		return [GCDAsyncSocket hostFromAddress:address4];
 	} else if (address6) {
+		*v = 6;
 		return [GCDAsyncSocket hostFromAddress:address6];
 	}
 	return nil;
@@ -116,9 +118,9 @@
 			ipv = 6;
 		}
 	}
-	NSString* result = [self lookup:[params objectAtIndex:0] ipv:ipv];
+	NSString* result = [self lookup:[params objectAtIndex:0] ipv:&ipv];
 	if (result) {
-		return [NSArray arrayWithObjects:[NSNull null], result, nil];
+		return [NSArray arrayWithObjects:[NSNull null], result, [NSNumber numberWithInt:ipv], nil];
 	}
 	return nil;
 }
