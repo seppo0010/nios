@@ -39,12 +39,12 @@
 - (void)udpSocket:(GCDAsyncUdpSocket *)sock didReceiveData:(NSData *)data
 	  fromAddress:(NSData *)address
 withFilterContext:(id)filterContext {
-	[nios sendMessage:[NSDictionary dictionaryWithObjectsAndKeys:[NSArray arrayWithObject:[NSDictionary dictionaryWithObjectsAndKeys: [NSArray arrayWithObjects:data, [NSDictionary dictionaryWithObjectsAndKeys:address, @"address", [NSNumber numberWithInt:socket.localPort], @"port", [NSNumber numberWithInt:[data length]], @"size", nil], nil], @"parameters", [NSString stringWithFormat:@"%d", socketId], @"socketId", @"message", @"event", nil]], @"parameters", listener, @"callback", @"1", @"keepCallback", nil]];
+	[nios sendMessage:[NSDictionary dictionaryWithObjectsAndKeys:[NSArray arrayWithObjects:@"message", [NSArray arrayWithObjects:data, [NSDictionary dictionaryWithObjectsAndKeys:[GCDAsyncUdpSocket hostFromAddress:address], @"address", [NSNumber numberWithInt:socket.localPort], @"port", [NSNumber numberWithInt:[data length]], @"size", nil], nil], nil], @"parameters", listener, @"callback", @"1", @"keepCallback", nil]];
 }
 
 - (void)udpSocketDidClose:(GCDAsyncUdpSocket *)sock withError:(NSError *)error {
 	//TODO: send error
-	[nios sendMessage:[NSDictionary dictionaryWithObjectsAndKeys:[NSArray arrayWithObject:[NSDictionary dictionaryWithObjectsAndKeys: [NSString stringWithFormat:@"%d", socketId], @"socketId", @"close", @"event", nil]], @"parameters", listener, @"callback", @"1", @"keepCallback", nil]];
+	[nios sendMessage:[NSDictionary dictionaryWithObjectsAndKeys:[NSArray arrayWithObject:@"close"], @"parameters", listener, @"callback", @"1", @"keepCallback", nil]];
 }
 
 static NSMutableDictionary* dict = nil;

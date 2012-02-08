@@ -117,9 +117,9 @@ exports.createSocket = function(type, listener) {
 
 Socket.prototype.bind = function(port, address) {
 	var self = this;
-	var listener = function (event, params) {
-		this.emit(event, params);
-	}
+	var listener = Nios_registerCallback(function (event, params) {
+		self.emit(event, string_to_buffer(params[0]), params[1]);
+	});
 	Nios_call("Nios_dgram", "bind", [port, address, listener], function (socketId, socketname, socketport) {
 		self._handle.socketId = socketId;
 		self._handle.socketname = socketname;

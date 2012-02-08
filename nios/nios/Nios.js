@@ -189,3 +189,11 @@ document.addEventListener('WebViewJavascriptBridgeReady', function onBridgeReady
 		}
 	});
 }, false);
+
+function string_to_buffer(data) {
+	var buffer = new Buffer(data.length);
+	for (var i = 0; i < data.length; i++) {
+		buffer[i] = data[i];
+	}
+	return buffer;
+}
