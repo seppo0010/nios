@@ -16,4 +16,9 @@
 	return nil;
 }
 
++ (id) logerror:(NSArray*)parameters nios:(Nios*)nios {
+	NSLog(@"%@", [parameters objectAtIndex:0]);
+	return nil;
+}
+
 @end
