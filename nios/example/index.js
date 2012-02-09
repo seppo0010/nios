@@ -8,15 +8,25 @@ fs.watchFile('b', { timeout: 10 }, function(curr, prev) {
 });
 */
 try {
-	var util = require("util");
-
+	var net = require('net');
 	
-	var dgram = require('dgram');
-	var message = new Buffer("Some bytes");
-	var client = dgram.createSocket("udp4");
-	client.send(message, 0, message.length, 41234, "localhost", function(err, bytes) {
-				client.close();
+	var server = net.createServer(function (socket) {
+		socket.addListener("connect", function () {
+			socket.write('username: ');
+			socket.on('data',function(data){
+				var username = data.toString().replace('\n','');
+				socket.write('password: ');
+				socket.on('data',function(data){
+					var password = data.toString().replace('\n','');
+					// verify authentication here
+					// Do more stuff
 				});
+			});
+		});
+	});
+	
+	alert(server.listen);
+	server.listen('8000','localhost');
 }catch(e) {
 	alert(e);
 }
