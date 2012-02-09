@@ -48,7 +48,6 @@ UDP = function() {
 				}
 
 				self.socketId = socketId;
-					  alert(socketId);
 				self.socketname = socketname;
 				self.send(buf, offset, length, port, address, callback);
 			});
