@@ -1,43 +1,51 @@
 window.NIOS_BASEPATH = window.NIOS_BASEPATH || [];
 
-var module = {
-	deprecate: function (deprecate) {
-		console.warn(deprecate + ' is deprecated');
-	}
-}
 function require_fullpath(path) {
-	var xhReq = new XMLHttpRequest();
+	var module = {
+		deprecate: function (deprecate) {
+			console.warn(deprecate + ' is deprecated');
+		},
+		exports: {}
+	}
 	var exports = {};
+	var xhReq = new XMLHttpRequest();
 	xhReq.open("GET", "file://" + encodeURI(path), false);
 	xhReq.send(null);
 	if (xhReq.responseText) {
-		eval(xhReq.responseText);
+		try {
+			eval(xhReq.responseText);
+		} catch (e) { alert("Unable to import module '" + path + "' " + e); }
+		for (var k in module.exports) { exports[k] = module.exports[k]; }
 		return exports;
+	} else {
+		alert("Module not found at '" + path + "'");
 	}
-	return false;
+	return {};
 }
 
 function require(filename) {
-	if (require.cache[filename]) return;
 	if (filename.substr(-3) == '.js') filename = filename.substr(0, -3);
 	var exports = {};
-	var prefix = ['Nios_', ''];
-	for (var k in NIOS_BASEPATH) {
-		for (var i in prefix) {
-			var ret = require_fullpath(NIOS_BASEPATH[k] + "/" + prefix[i] + filename + ".js");
-			if (ret == false) continue;
-			return ret;
-		}
-	}
-	return exports;
+	var resolved = require.resolve(filename);
+	if (!resolved) return null;
+	if (require.cache[resolved]) return require.cache[resolved];
+	require.cache[resolved] = require_fullpath(resolved);;
+	return require.cache[resolved];
 }
 
 require.resolve = function(filename) {
 	var exports = {};
+	var prefix = ['Nios_', ''];
 	for (var k in NIOS_BASEPATH) {
-		var ret = require_fullpath(NIOS_BASEPATH[k] + "/Nios_" + filename + ".js");
-		if (ret == false) continue;
-		return NIOS_BASEPATH[k] + "/Nios_" + filename + ".js";
+		for (var i in prefix) {
+			var path = NIOS_BASEPATH[k] + "/" + prefix[i] + filename + ".js";
+			var xhReq = new XMLHttpRequest();
+			xhReq.open("HEAD", "file://" + encodeURI(path), false);
+			xhReq.send(null);
+			var ret = xhReq.responseText;
+			if (ret == false) continue;
+			return NIOS_BASEPATH[k] + "/" + prefix[i] + filename + ".js";
+		}
 	}
 	return null;
 }
@@ -79,6 +87,7 @@ var Nios_initialize = function (arch, platform) {
 	process.arch = arch;
 	process.platform = platform;
 	process.startDate = new Date();
+	process.env = { NODE_DEBUG: 0 }
 }
 var Nios_callbacks = {}
 var Nios_lastcallback = 0;
