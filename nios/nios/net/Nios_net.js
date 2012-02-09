@@ -791,7 +791,6 @@ function listen(self, address, port, addressType) {
 	} else {
 		self._listen2(address, port, addressType);
 	}*/
-	alert(5);
 	var listener = Nios_registerCallback(function (event, params) {
 										 self.emit(event, string_to_buffer(params[0]), params[1]);
 										 });

@@ -25,7 +25,6 @@ try {
 		});
 	});
 	
-	alert(server.listen);
 	server.listen('8000','localhost');
 }catch(e) {
 	alert(e);
