@@ -1,0 +1,5 @@
+body { font-weight: bold; }
+.done { color: green; }
+.impossible { color: red; }
+.todo { color: gold; }
+

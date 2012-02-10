@@ -1,0 +1,720 @@
+<head>
+  <title>Current status</title>
+  <link href='style.css' rel='stylesheet' type='text/css' />
+</head>
+<body>
+  <ul>
+    <li>
+      process
+      <ul>
+        <li class='todo'>Event: 'exit'</li>
+        <li class='todo'>Event: 'uncaughtException'</li>
+        <li class='todo'>Signal Events</li>
+        <li class='todo'>process.stdout</li>
+        <li class='todo'>process.stderr</li>
+        <li class='todo'>process.stdin</li>
+        <li class='impossible'>process.argv</li>
+        <li class='impossible'>process.execPath</li>
+        <li class='impossible'>process.chdir(directory)</li>
+        <li class='impossible'>process.cwd()</li>
+        <li class='todo'>process.env</li>
+        <li class='done'>process.exit([code])</li>
+        <li class='impossible'>process.getgid()</li>
+        <li class='impossible'>process.setgid(id)</li>
+        <li class='impossible'>process.getuid()</li>
+        <li class='impossible'>process.setuid(id)</li>
+        <li class='done'>process.version</li>
+        <li class='done'>process.versions</li>
+        <li class='impossible'>process.installPrefix</li>
+        <li class='impossible'>process.kill(pid, [signal])</li>
+        <li class='todo'>process.pid</li>
+        <li class='todo'>process.title</li>
+        <li class='done'>process.arch</li>
+        <li class='done'>process.platform</li>
+        <li class='impossible'>process.memoryUsage()</li>
+        <li class='todo'>process.nextTick(callback)</li>
+        <li class='todo'>process.umask([mask])</li>
+        <li class='done'>process.uptime()</li>
+      </ul>
+    </li>
+    <li>
+      console
+      <ul>
+        <li class='done'>console.log()</li>
+        <li class='done'>console.info()</li>
+        <li class='done'>console.warn()</li>
+        <li class='done'>console.error()</li>
+        <li class='todo'>console.dir(obj)</li>
+        <li class='done'>console.time(label)</li>
+        <li class='done'>console.timeEnd(label)</li>
+        <li class='impossible'>console.trace()</li>
+        <li class='todo'>console.assert()</li>
+      </ul>
+    </li>
+    <li>
+      Buffer
+      <ul>
+        <li class='done'>new Buffer(size)</li>
+        <li class='todo'>new Buffer(array)</li>
+        <li class='todo'>new Buffer(str, [encoding])</li>
+        <li class='todo'>buffer.write(string, [offset], [length], [encoding])</li>
+        <li class='todo'>buffer.toString(encoding, [start], [end])</li>
+        <li class='todo'>buffer[index]</li>
+        <li class='todo'>Buffer.isBuffer(obj)</li>
+        <li class='todo'>Buffer.byteLength(string, [encoding])</li>
+        <li class='todo'>buffer.length</li>
+        <li class='todo'>buffer.copy(targetBuffer, [targetStart], [sourceStart], [sourceEnd])</li>
+        <li class='todo'>buffer.slice([start], [end])</li>
+        <li class='todo'>buffer.readUInt8(offset, [noAssert])</li>
+        <li class='todo'>buffer.readUInt16LE(offset, [noAssert])</li>
+        <li class='todo'>buffer.readUInt16BE(offset, [noAssert])</li>
+        <li class='todo'>buffer.readUInt32LE(offset, [noAssert])</li>
+        <li class='todo'>buffer.readUInt32BE(offset, [noAssert])</li>
+        <li class='todo'>buffer.readInt8(offset, [noAssert])</li>
+        <li class='todo'>buffer.readInt16LE(offset, [noAssert])</li>
+        <li class='todo'>buffer.readInt16BE(offset, [noAssert])</li>
+        <li class='todo'>buffer.readInt32LE(offset, [noAssert])</li>
+        <li class='todo'>buffer.readInt32BE(offset, [noAssert])</li>
+        <li class='todo'>buffer.readFloatLE(offset, [noAssert])</li>
+        <li class='todo'>buffer.readFloatBE(offset, [noAssert])</li>
+        <li class='todo'>buffer.readDoubleLE(offset, [noAssert])</li>
+        <li class='todo'>buffer.readDoubleBE(offset, [noAssert])</li>
+        <li class='todo'>buffer.writeUInt8(value, offset, [noAssert])</li>
+        <li class='todo'>buffer.writeUInt16LE(value, offset, [noAssert])</li>
+        <li class='todo'>buffer.writeUInt16BE(value, offset, [noAssert])</li>
+        <li class='todo'>buffer.writeUInt32LE(value, offset, [noAssert])</li>
+        <li class='todo'>buffer.writeUInt32BE(value, offset, [noAssert])</li>
+        <li class='todo'>buffer.writeInt8(value, offset, [noAssert])</li>
+        <li class='todo'>buffer.writeInt16LE(value, offset, [noAssert])</li>
+        <li class='todo'>buffer.writeInt16BE(value, offset, [noAssert])</li>
+        <li class='todo'>buffer.writeInt32LE(value, offset, [noAssert])</li>
+        <li class='todo'>buffer.writeInt32BE(value, offset, [noAssert])</li>
+        <li class='todo'>buffer.writeFloatLE(value, offset, [noAssert])</li>
+        <li class='todo'>buffer.writeFloatBE(value, offset, [noAssert])</li>
+        <li class='todo'>buffer.writeDoubleLE(value, offset, [noAssert])</li>
+        <li class='todo'>buffer.writeDoubleBE(value, offset, [noAssert])</li>
+        <li class='todo'>buffer.fill(value, [offset], [end])</li>
+        <li class='todo'>INSPECT_MAX_BYTES</li>
+      </ul>
+      <li class='done'>require()</li>
+      <li class='todo'>require.resolve()</li>
+      <li class='done'>require.cache</li>
+      <li class='todo'>__filename</li>
+      <li class='todo'>__dirname</li>
+      <li class='todo'>module</li>
+      <li class='done'>exports</li>
+      <li class='done'>setTimeout(cb, ms)</li>
+      <li class='done'>clearTimeout(t)</li>
+      <li class='done'>setInterval(cb, ms)</li>
+      <li class='done'>clearInterval(t)</li>
+      <li>
+        util
+        <ul>
+          <li class='done'>util.format()</li>
+          <li class='done'>util.debug(string)</li>
+          <li class='done'>util.log(string)</li>
+          <li class='done'>util.inspect(object, [showHidden], [depth], [colors])</li>
+          <li class='done'>util.isArray(object)</li>
+          <li class='done'>util.isRegExp(object)</li>
+          <li class='done'>util.isDate(object)</li>
+          <li class='done'>util.isError(object)</li>
+          <li class='done'>util.pump(readableStream, writableStream, [callback])</li>
+          <li class='todo'>util.inherits(constructor, superConstructor)</li>
+        </ul>
+      </li>
+      <li>
+        events
+        <ul>
+          <li>
+            events.EventEmitter
+            <ul>
+              <li class='done'>emitter.addListener(event, listener)</li>
+              <li class='done'>emitter.on(event, listener)</li>
+              <li class='done'>emitter.once(event, listener)</li>
+              <li class='done'>emitter.removeListener(event, listener)</li>
+              <li class='done'>emitter.removeAllListeners([event])</li>
+              <li class='done'>emitter.setMaxListeners(n)</li>
+              <li class='done'>emitter.listeners(event)</li>
+              <li class='done'>emitter.emit(event, [arg1], [arg2], [...])</li>
+              <li class='done'>Event: 'newListener'</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>
+        Streams
+        <ul>
+          <li>
+            Readable Stream
+            <ul>
+              <li class='todo'>Event: 'data'</li>
+              <li class='todo'>Event: 'end'</li>
+              <li class='todo'>Event: 'error'</li>
+              <li class='todo'>Event: 'close'</li>
+              <li class='todo'>stream.readable</li>
+              <li class='todo'>stream.setEncoding(encoding)</li>
+              <li class='todo'>stream.pause()</li>
+              <li class='todo'>stream.resume()</li>
+              <li class='todo'>stream.destroy()</li>
+              <li class='todo'>stream.destroySoon()</li>
+              <li class='todo'>stream.pipe(destination, [options])</li>
+            </ul>
+          </li>
+          <li>
+            Writable Stream
+            <ul>
+              <li class='todo'>Event: 'drain'</li>
+              <li class='todo'>Event: 'error'</li>
+              <li class='todo'>Event: 'close'</li>
+              <li class='todo'>Event: 'pipe'</li>
+              <li class='todo'>stream.writable</li>
+              <li class='todo'>stream.write(string, [encoding], [fd])</li>
+              <li class='todo'>stream.write(buffer)</li>
+              <li class='todo'>stream.end()</li>
+              <li class='todo'>stream.end(string, encoding)</li>
+              <li class='todo'>stream.end(buffer)</li>
+              <li class='todo'>stream.destroy()</li>
+              <li class='todo'>stream.destroySoon()</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>
+        Crypto
+        <ul>
+          <li class='todo'>crypto.createCredentials(details)</li>
+          <li class='todo'>crypto.createHash(algorithm)</li>
+          <li class='todo'>hash.update(data, [input_encoding])</li>
+          <li class='todo'>hash.digest([encoding])</li>
+          <li class='todo'>crypto.createHmac(algorithm, key)</li>
+          <li class='todo'>hmac.update(data)</li>
+          <li class='todo'>hmac.digest([encoding])</li>
+          <li class='todo'>crypto.createCipher(algorithm, password)</li>
+          <li class='todo'>crypto.createCipheriv(algorithm, key, iv)</li>
+          <li class='todo'>cipher.update(data, [input_encoding], [output_encoding])</li>
+          <li class='todo'>cipher.final([output_encoding])</li>
+          <li class='todo'>crypto.createDecipher(algorithm, password)</li>
+          <li class='todo'>crypto.createDecipheriv(algorithm, key, iv)</li>
+          <li class='todo'>decipher.update(data, [input_encoding], [output_encoding])</li>
+          <li class='todo'>decipher.final([output_encoding])</li>
+          <li class='todo'>crypto.createSign(algorithm)</li>
+          <li class='todo'>signer.update(data)</li>
+          <li class='todo'>signer.sign(private_key, [output_format])</li>
+          <li class='todo'>crypto.createVerify(algorithm)</li>
+          <li class='todo'>verifier.update(data)</li>
+          <li class='todo'>verifier.verify(object, signature, [signature_format])</li>
+          <li class='todo'>crypto.createDiffieHellman(prime_length)</li>
+          <li class='todo'>crypto.createDiffieHellman(prime, [encoding])</li>
+          <li class='todo'>diffieHellman.generateKeys([encoding])</li>
+          <li class='todo'>diffieHellman.computeSecret(other_public_key, [input_encoding], [output_encoding])</li>
+          <li class='todo'>diffieHellman.getPrime([encoding])</li>
+          <li class='todo'>diffieHellman.getGenerator([encoding])</li>
+          <li class='todo'>diffieHellman.getPublicKey([encoding])</li>
+          <li class='todo'>diffieHellman.getPrivateKey([encoding])</li>
+          <li class='todo'>diffieHellman.setPublicKey(public_key, [encoding])</li>
+          <li class='todo'>diffieHellman.setPrivateKey(public_key, [encoding])</li>
+          <li class='todo'>pbkdf2(password, salt, iterations, keylen, callback)</li>
+          <li class='todo'>randomBytes(size, [callback])</li>
+        </ul>
+      </li>
+      <li>
+        TLS (SSL)
+        <ul>
+          <li class='todo'>tls.createServer(options, [secureConnectionListener])</li>
+          <li class='todo'>tls.connect(port, [host], [options], [secureConnectListener])</li>
+        </ul>
+      </li>
+      <li>
+        <li class='todo'>pair = tls.createSecurePair([credentials], [isServer], [requestCert], [rejectUnauthorized])</li>
+        <ul>
+          <li class='todo'>Event: 'secure'</li>
+        </ul>
+      </li>
+      <li>
+        tls.Server
+        <ul>
+          <li class='todo'>Event: 'secureConnection'</li>
+          <li class='todo'>Event: 'clientError'</li>
+          <li class='todo'>server.listen(port, [host], [callback])</li>
+          <li class='todo'>server.close()</li>
+          <li class='todo'>server.address()</li>
+          <li class='todo'>server.addContext(hostname, credentials)</li>
+          <li class='todo'>server.maxConnections</li>
+          <li class='todo'>server.connections</li>
+        </ul>
+      </li>
+      <li>
+        tls.CleartextStream
+        <ul>
+          <li class='todo'>Event: 'secureConnect'</li>
+          <li class='todo'>cleartextStream.authorized</li>
+          <li class='todo'>cleartextStream.authorizationError</li>
+          <li class='todo'>cleartextStream.getPeerCertificate()</li>
+          <li class='todo'>cleartextStream.address()</li>
+          <li class='todo'>cleartextStream.remoteAddress</li>
+          <li class='todo'>cleartextStream.remotePort</li>
+        </ul>
+      </li>
+      <li>
+        File System
+        <ul>
+          <li class='done'>fs.rename(path1, path2, [callback])</li>
+          <li class='todo'>fs.renameSync(path1, path2)</li>
+          <li class='done'>fs.truncate(fd, len, [callback])</li>
+          <li class='todo'>fs.truncateSync(fd, len)</li>
+          <li class='done'>fs.chown(path, uid, gid, [callback])</li>
+          <li class='todo'>fs.chownSync(path, uid, gid)</li>
+          <li class='done'>fs.fchown(fd, uid, gid, [callback])</li>
+          <li class='todo'>fs.fchownSync(fd, uid, gid)</li>
+          <li class='done'>fs.lchown(path, uid, gid, [callback])</li>
+          <li class='todo'>fs.lchownSync(path, uid, gid)</li>
+          <li class='done'>fs.chmod(path, mode, [callback])</li>
+          <li class='todo'>fs.chmodSync(path, mode)</li>
+          <li class='done'>fs.fchmod(fd, mode, [callback])</li>
+          <li class='todo'>fs.fchmodSync(fd, mode)</li>
+          <li class='done'>fs.lchmod(path, mode, [callback])</li>
+          <li class='todo'>fs.lchmodSync(path, mode)</li>
+          <li class='done'>fs.stat(path, [callback])</li>
+          <li class='done'>fs.lstat(path, [callback])</li>
+          <li class='done'>fs.fstat(fd, [callback])</li>
+          <li class='todo'>fs.statSync(path)</li>
+          <li class='todo'>fs.lstatSync(path)</li>
+          <li class='todo'>fs.fstatSync(fd)</li>
+          <li class='done'>fs.link(srcpath, dstpath, [callback])</li>
+          <li class='todo'>fs.linkSync(srcpath, dstpath)</li>
+          <li class='done'>fs.symlink(linkdata, path, [type], [callback])</li>
+          <li class='todo'>fs.symlinkSync(linkdata, path, [type])</li>
+          <li class='done'>fs.readlink(path, [callback])</li>
+          <li class='todo'>fs.readlinkSync(path)</li>
+          <li class='done'>fs.realpath(path, [callback])</li>
+          <li class='todo'>fs.realpathSync(path)</li>
+          <li class='done'>fs.unlink(path, [callback])</li>
+          <li class='todo'>fs.unlinkSync(path)</li>
+          <li class='done'>fs.rmdir(path, [callback])</li>
+          <li class='todo'>fs.rmdirSync(path)</li>
+          <li class='done'>fs.mkdir(path, [mode], [callback])</li>
+          <li class='todo'>fs.mkdirSync(path, [mode])</li>
+          <li class='done'>fs.readdir(path, [callback])</li>
+          <li class='todo'>fs.readdirSync(path)</li>
+          <li class='done'>fs.close(fd, [callback])</li>
+          <li class='todo'>fs.closeSync(fd)</li>
+          <li class='done'>fs.open(path, flags, [mode], [callback])</li>
+          <li class='todo'>fs.openSync(path, flags, [mode])</li>
+          <li class='done'>fs.utimes(path, atime, mtime, [callback])</li>
+          <li class='todo'>fs.utimesSync(path, atime, mtime)</li>
+          <li class='done'>fs.futimes(fd, atime, mtime, [callback])</li>
+          <li class='todo'>fs.futimesSync(fd, atime, mtime)</li>
+          <li class='done'>fs.fsync(fd, [callback])</li>
+          <li class='todo'>fs.fsyncSync(fd)</li>
+          <li class='done'>fs.write(fd, buffer, offset, length, position, [callback])</li>
+          <li class='todo'>fs.writeSync(fd, buffer, offset, length, position)</li>
+          <li class='todo'>fs.writeSync(fd, str, position, [encoding])</li>
+          <li class='done'>fs.read(fd, buffer, offset, length, position, [callback])</li>
+          <li class='todo'>fs.readSync(fd, buffer, offset, length, position)</li>
+          <li class='todo'>fs.readSync(fd, length, position, encoding)</li>
+          <li class='done'>fs.readFile(filename, [encoding], [callback])</li>
+          <li class='todo'>fs.readFileSync(filename, [encoding])</li>
+          <li class='done'>fs.writeFile(filename, data, [encoding], [callback])</li>
+          <li class='todo'>fs.writeFileSync(filename, data, [encoding])</li>
+          <li class='done'>fs.watchFile(filename, [options], listener)</li>
+          <li class='done'>fs.unwatchFile(filename)</li>
+          <li class='done'>fs.watch(filename, [options], listener)</li>
+        </ul>
+      </li>
+      <li class='done'>fs.Stats</li>
+      <li>
+        fs.ReadStream
+        <ul>
+          <li class='todo'>Event: 'open'</li>
+          <li class='todo'>fs.createReadStream(path, [options])</li>
+        </ul>
+      </li>
+      <li>
+        fs.WriteStream
+        <ul>
+          <li class='todo'>Event: 'open'</li>
+          <li class='todo'>Efile.bytesWritten</li>
+          <li class='todo'>Efs.createWriteStream(path, [options])</li>
+        </ul>
+      </li>
+      <li>
+        fs.FSWatcher
+        <ul>
+          <li class='todo'>Ewatcher.close()</li>
+          <li class='todo'>Event: 'change'</li>
+          <li class='todo'>Event: 'error'</li>
+        </ul>
+      </li>
+      <li>
+        Path
+        <ul>
+          <li class='done'>path.normalize(p)</li>
+          <li class='done'>path.join([path1], [path2], [...])</li>
+          <li class='done'>path.resolve([from ...], to)</li>
+          <li class='done'>path.relative(from, to)</li>
+          <li class='done'>path.dirname(p)</li>
+          <li class='done'>path.basename(p, [ext])</li>
+          <li class='done'>path.extname(p)</li>
+          <li class='done'>path.exists(p, [callback])</li>
+          <li class='todo'>path.existsSync(p)</li>
+        </ul>
+      </li>
+      <li>
+        net
+        <ul>
+          <li class='todo'>net.createServer([options], [connectionListener])</li>
+          <li class='todo'>net.connect(arguments...)</li>
+          <li class='todo'>net.createConnection(arguments...)</li>
+          <li>
+            net.Server
+            <ul>
+              <li class='todo'>server.listen(port, [host], [listeningListener])</li>
+              <li class='todo'>server.listen(path, [listeningListener])</li>
+              <li class='todo'>server.pause(msecs)</li>
+              <li class='todo'>server.close()</li>
+              <li class='todo'>server.address()</li>
+              <li class='todo'>server.maxConnections</li>
+              <li class='todo'>server.connections</li>
+              <li class='todo'>Event: 'listening'</li>
+              <li class='todo'>Event: 'connection'</li>
+              <li class='todo'>Event: 'close'</li>
+              <li class='todo'>Event: 'error'</li>
+            </ul>
+          </li>
+          <li>
+            net.Socket
+            <ul>
+              <li class='todo'>new net.Socket([options])</li>
+              <li class='todo'>socket.connect(port, [host], [connectListener])</li>
+              <li class='todo'>socket.connect(path, [connectListener])</li>
+              <li class='todo'>socket.bufferSize</li>
+              <li class='todo'>socket.setEncoding([encoding])</li>
+              <li class='todo'>socket.setSecure()</li>
+              <li class='todo'>socket.write(data, [encoding], [callback])</li>
+              <li class='todo'>socket.write(data, [encoding], [callback])</li>
+              <li class='todo'>socket.end([data], [encoding])</li>
+              <li class='todo'>socket.destroy()</li>
+              <li class='todo'>socket.pause()</li>
+              <li class='todo'>socket.resume()</li>
+              <li class='todo'>socket.setTimeout(timeout, [callback])</li>
+              <li class='todo'>socket.setNoDelay([noDelay])</li>
+              <li class='todo'>socket.setKeepAlive([enable], [initialDelay])</li>
+              <li class='todo'>socket.address()</li>
+              <li class='todo'>socket.remoteAddress</li>
+              <li class='todo'>socket.remotePort</li>
+              <li class='todo'>socket.bytesRead</li>
+              <li class='todo'>socket.bytesWritten</li>
+              <li class='todo'>Event: 'connect'</li>
+              <li class='todo'>Event: 'data'</li>
+              <li class='todo'>Event: 'end'</li>
+              <li class='todo'>Event: 'timeout'</li>
+              <li class='todo'>Event: 'drain'</li>
+              <li class='todo'>Event: 'error'</li>
+              <li class='todo'>Event: 'close'</li>
+            </ul>
+          </li>
+          <li>
+            net.isIP
+            <ul>
+              <li class='done'>net.isIP(input)</li>
+              <li class='done'>net.isIPv4(input)</li>
+              <li class='done'>net.isIPv6(input)</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </li>
+    <li>
+      UDP / Datagram Sockets
+      <ul>
+        <li class='done'>Event: 'message'</li>
+        <li class='done'>Event: 'listening'</li>
+        <li class='done'>Event: 'close'</li>
+        <li class='todo'>Event: 'error'</li>
+        <li class='done'>dgram.createSocket(type, [callback])</li>
+        <li class='done'>dgram.send(buf, offset, length, port, address, [callback])</li>
+        <li class='done'>dgram.bind(port, [address])</li>
+        <li class='done'>dgram.close()</li>
+        <li class='done'>dgram.address()</li>
+        <li class='done'>dgram.setBroadcast(flag)</li>
+        <li class='impossible'>dgram.setTTL(ttl)</li>
+        <li class='impossible'>dgram.setMulticastTTL(ttl)</li>
+        <li class='impossible'>dgram.setMulticastLoopback(flag)</li>
+        <li class='done'>dgram.addMembership(multicastAddress, [multicastInterface])</li>
+        <li class='impossible'>dgram.dropMembership(multicastAddress, [multicastInterface])</li>
+      </ul>
+    </li>
+    <li>
+      DNS
+      <ul>
+        <li class='done'>dns.lookup(domain, [family], callback)</li>
+        <li class='todo'>dns.resolve(domain, [rrtype], callback)</li>
+        <li class='todo'>dns.resolve4(domain, callback)</li>
+        <li class='todo'>dns.resolve6(domain, callback)</li>
+        <li class='todo'>dns.resolveMx(domain, callback)</li>
+        <li class='todo'>dns.resolveTxt(domain, callback)</li>
+        <li class='todo'>dns.resolveSrv(domain, callback)</li>
+        <li class='todo'>dns.reverse(ip, callback)</li>
+        <li class='todo'>dns.resolveNs(domain, callback)</li>
+        <li class='todo'>dns.resolveCname(domain, callback)</li>
+      </ul>
+    </li>
+    <li>
+      HTTP
+      <ul>
+        <li>
+          http.Server
+          <ul>
+            <li class='todo'>Event: 'request'</li>
+            <li class='todo'>Event: 'connection'</li>
+            <li class='todo'>Event: 'close'</li>
+            <li class='todo'>Event: 'checkContinue'</li>
+            <li class='todo'>Event: 'upgrade'</li>
+            <li class='todo'>Event: 'clientError'</li>
+            <li class='todo'>http.createServer([requestListener])</li>
+            <li class='todo'>server.listen(port, [hostname], [callback])</li>
+            <li class='todo'>server.listen(path, [callback])</li>
+            <li class='todo'>server.close()</li>
+          </ul>
+        </li>
+        <li>
+          http.ServerRequest
+          <ul>
+            <li class='todo'>Event: 'data'</li>
+            <li class='todo'>Event: 'end'</li>
+            <li class='todo'>Event: 'close'</li>
+            <li class='todo'>request.method</li>
+            <li class='todo'>request.url</li>
+            <li class='todo'>request.headers</li>
+            <li class='todo'>request.trailers</li>
+            <li class='todo'>request.httpVersion</li>
+            <li class='todo'>request.setEncoding([encoding])</li>
+            <li class='todo'>request.pause()</li>
+            <li class='todo'>request.resume()</li>
+            <li class='todo'>request.connection</li>
+          </ul>
+        </li>
+        <li>
+          http.ServerResponse
+          <ul>
+            <li class='todo'>Event: 'close'</li>
+            <li class='todo'>response.writeContinue()</li>
+            <li class='todo'>response.writeHead(statusCode, [reasonPhrase], [headers])</li>
+            <li class='todo'>response.statusCode</li>
+            <li class='todo'>response.setHeader(name, value)</li>
+            <li class='todo'>response.getHeader(name)</li>
+            <li class='todo'>response.removeHeader(name)</li>
+            <li class='todo'>response.write(chunk, [encoding])</li>
+            <li class='todo'>response.addTrailers(headers)</li>
+            <li class='todo'>response.end([data], [encoding])</li>
+          </ul>
+        </li>
+        <li class='todo'>http.request(options, callback)</li>
+        <li class='todo'>http.get(options, callback)</li>
+        <li class='todo'>http.Agent</li>
+        <li>
+          http.globalAgent
+          <ul>
+            <li class='todo'>agent.maxSockets</li>
+            <li class='todo'>agent.sockets</li>
+            <li class='todo'>agent.requests</li>
+          </ul>
+        </li>
+        <li>
+          http.ClientRequest
+          <ul>
+            <li class='todo'>Event 'response'</li>
+            <li class='todo'>Event: 'socket'</li>
+            <li class='todo'>Event: 'upgrade'</li>
+            <li class='todo'>Event: 'continue'</li>
+            <li class='todo'>request.write(chunk, [encoding])</li>
+            <li class='todo'>request.end([data], [encoding])</li>
+            <li class='todo'>request.abort()</li>
+            <li class='todo'>request.setTimeout(timeout, [callback])</li>
+            <li class='todo'>request.setNoDelay([noDelay])</li>
+            <li class='todo'>request.setSocketKeepAlive([enable], [initialDelay])</li>
+          </ul>
+        </li>
+        <li>
+          http.ClientResponse
+          <ul>
+            <li class='todo'>Event: 'end'</li>
+            <li class='todo'>Event: 'close'</li>
+            <li class='todo'>response.statusCode</li>
+            <li class='todo'>response.httpVersion</li>
+            <li class='todo'>response.headers</li>
+            <li class='todo'>response.trailers</li>
+            <li class='todo'>response.setEncoding([encoding])</li>
+            <li class='todo'>response.pause()</li>
+            <li class='todo'>response.resume()</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li>
+      HTTPS
+      <ul>
+        <li class='todo'>https.Server</li>
+        <li class='todo'>https.createServer(options, [requestListener])</li>
+        <li class='todo'>https.request(options, callback)</li>
+        <li class='todo'>https.get(options, callback)</li>
+        <li class='todo'>https.Agent</li>
+        <li class='todo'>https.globalAgent</li>
+      </ul>
+    </li>
+    <li>
+      URL
+      <ul>
+        <li class='todo'>url.parse(urlStr, [parseQueryString], [slashesDenoteHost])</li>
+        <li class='todo'>url.format(urlObj)</li>
+        <li class='todo'>url.resolve(from, to)</li>
+      </ul>
+    </li>
+    <li>
+      Query String
+      <ul>
+        <li class='todo'>querystring.stringify(obj, [sep], [eq])</li>
+        <li class='todo'>querystring.parse(str, [sep], [eq])</li>
+        <li class='todo'>querystring.escape</li>
+        <li class='todo'>querystring.unescape</li>
+      </ul>
+    </li>
+    <li>
+      Readline
+      <ul>
+        <li class='impossible'>rl.createInterface(input, output, completer)</li>
+        <li class='impossible'>rl.setPrompt(prompt, length)</li>
+        <li class='impossible'>rl.prompt()</li>
+        <li class='impossible'>rl.question(query, callback)</li>
+        <li class='impossible'>rl.close()</li>
+        <li class='impossible'>rl.pause()</li>
+        <li class='impossible'>rl.resume()</li>
+        <li class='impossible'>rl.write()</li>
+        <li class='impossible'>Event: 'line'</li>
+        <li class='impossible'>Event: 'close'</li>
+      </ul>
+    </li>
+    <li>
+      REPL
+      <ul>
+        <li class='impossible'>repl.start([prompt], [stream], [eval], [useGlobal], [ignoreUndefined])</li>
+        <li class='impossible'>REPL Features</li>
+      </ul>
+    </li>
+    <li>
+      Executing JavaScript
+      <ul>
+        <li class='impossible'>vm.runInThisContext(code, [filename])</li>
+        <li class='impossible'>vm.runInNewContext(code, [sandbox], [filename])</li>
+        <li class='impossible'>vm.runInContext(code, context, [filename])</li>
+        <li class='impossible'>vm.createContext([initSandbox])</li>
+        <li class='impossible'>vm.createScript(code, [filename])</li>
+        <li class='impossible'>script.runInThisContext()</li>
+        <li class='impossible'>script.runInNewContext([sandbox])</li>
+      </ul>
+    </li>
+    <li>
+      Child Processes
+      <ul>
+        <li class='impossible'>Event: 'exit'</li>
+        <li class='impossible'>child.stdin</li>
+        <li class='impossible'>child.stdout</li>
+        <li class='impossible'>child.stderr</li>
+        <li class='impossible'>child.pid</li>
+        <li class='impossible'>child_process.spawn(command, [args], [options])</li>
+        <li class='impossible'>child_process.exec(command, [options], callback)</li>
+        <li class='impossible'>child_process.execFile(file, args, options, callback)</li>
+        <li class='impossible'>child_process.fork(modulePath, arguments, options)</li>
+        <li class='impossible'>child.kill([signal])</li>
+      </ul>
+    </li>
+    <li>
+      Assert
+      <ul>
+        <li class='done'>assert.fail(actual, expected, message, operator)</li>
+        <li class='done'>assert(value, message), assert.ok(value, [message])</li>
+        <li class='done'>assert.equal(actual, expected, [message])</li>
+        <li class='done'>assert.notEqual(actual, expected, [message])</li>
+        <li class='done'>assert.deepEqual(actual, expected, [message])</li>
+        <li class='done'>assert.notDeepEqual(actual, expected, [message])</li>
+        <li class='done'>assert.strictEqual(actual, expected, [message])</li>
+        <li class='done'>assert.notStrictEqual(actual, expected, [message])</li>
+        <li class='done'>assert.throws(block, [error], [message])</li>
+        <li class='done'>assert.doesNotThrow(block, [error], [message])</li>
+        <li class='done'>assert.ifError(value)</li>
+      </ul>
+    </li>
+    <li>
+      TTY
+      <ul>
+        <li class='impossible'>tty.isatty(fd)</li>
+        <li class='impossible'>tty.setRawMode(mode)</li>
+        <li class='impossible'>tty.setWindowSize(fd, row, col)</li>
+        <li class='impossible'>tty.getWindowSize(fd)</li>
+      </ul>
+    </li>
+    <li>
+      Zlib
+      <ul>
+        <li class='todo'>Constants</li>
+        <li class='todo'>zlib.createGzip([options])</li>
+        <li class='todo'>zlib.createGunzip([options])</li>
+        <li class='todo'>zlib.createDeflate([options])</li>
+        <li class='todo'>zlib.createInflate([options])</li>
+        <li class='todo'>zlib.createDeflateRaw([options])</li>
+        <li class='todo'>zlib.createInflateRaw([options])</li>
+        <li class='todo'>zlib.createUnzip([options])</li>
+        <li class='todo'>zlib.Gzip</li>
+        <li class='todo'>zlib.Gunzip</li>
+        <li class='todo'>zlib.Deflate</li>
+        <li class='todo'>zlib.Inflate</li>
+        <li class='todo'>zlib.DeflateRaw</li>
+        <li class='todo'>zlib.InflateRaw</li>
+        <li class='todo'>zlib.Unzip</li>
+        <li>
+          Convenience Methods
+          <ul>
+            <li class='todo'>zlib.deflate(buf, callback)</li>
+            <li class='todo'>zlib.deflateRaw(buf, callback)</li>
+            <li class='todo'>zlib.gzip(buf, callback)</li>
+            <li class='todo'>zlib.gunzip(buf, callback)</li>
+            <li class='todo'>zlib.inflate(buf, callback)</li>
+            <li class='todo'>zlib.inflateRaw(buf, callback)</li>
+            <li class='todo'>zlib.unzip(buf, callback)</li>
+          </ul>
+        </li>
+        <li>
+          Options
+          <ul>
+            <li class='todo'>Memory Usage Tuning</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li>
+      os Module
+      <ul>
+        <li class='todo'>os.hostname()</li>
+        <li class='todo'>os.type()</li>
+        <li class='todo'>os.platform()</li>
+        <li class='todo'>os.arch()</li>
+        <li class='todo'>os.release()</li>
+        <li class='todo'>os.uptime()</li>
+        <li class='impossible'>os.loadavg()</li>
+        <li class='impossible'>os.totalmem()</li>
+        <li class='impossible'>os.freemem()</li>
+        <li class='todo'>os.cpus()</li>
+        <li class='todo'>os.networkInterfaces()</li>
+      </ul>
+    </li>
+    <li>
+      Cluster
+      <ul>
+        <li class='todo'>cluster.fork()</li>
+        <li class='todo'>cluster.isMaster</li>
+        <li class='todo'>cluster.isWorker</li>
+        <li class='todo'>Event: 'death'</li>
+      </ul>
+    </li>
+  </ul>
+</body>
