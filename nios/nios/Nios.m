@@ -70,4 +70,8 @@
 	}
 }
 
++ (id) ping:(NSArray*)params nios:(Nios*)nios {
+	return [NSArray arrayWithObject:@"PONG!"];
+}
+
 @end

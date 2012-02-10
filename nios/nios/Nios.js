@@ -213,4 +213,8 @@ function buffer_to_string(buf) {
 	return str;
 }
 
+function Nios_ping(callback) {
+	Nios_call("Nios", "ping", ["PING?"], callback);
+}
+
 require('Buffer')
