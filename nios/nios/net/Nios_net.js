@@ -34,6 +34,27 @@ function createPipe() {
 }
 
 var TCP = function () {}
+TCP.prototype.onread = function() {};
+TCP.prototype.open = function() {};
+TCP.prototype.setNoDelay = function() {};
+TCP.prototype.setKeepAlive = function() {};
+TCP.prototype.getsockname = function() {};
+TCP.prototype.writeQueueSize = 0;
+TCP.prototype.readStart = function() {};
+TCP.prototype.readStop = function() {};
+TCP.prototype.shutdown = function() {};
+TCP.prototype.close = function() {};
+TCP.prototype.getpeername = function() {};
+TCP.prototype.write = function() {};
+TCP.prototype.connect = function() {};
+TCP.prototype.connect6 = function() {};
+TCP.prototype.setPendingInstances = function() {};
+TCP.prototype.bind = function() {};
+TCP.prototype.bind6 = function() {};
+TCP.prototype.listen = function() {};
+TCP.prototype.setSimultaneousAccepts = function() {};
+TCP.prototype._simultaneousAccepts = false;
+
 
 // constructor for lazy loading
 function createTCP() {
@@ -715,7 +736,7 @@ function(address, port, addressType) {
 	var r = 0;
 	// assign handle in listen, and clean up if bind or listen fails
 	var handle;
-	
+
 	if (port == -1 && addressType == -1) {
 		handle = createPipe();
 		if (process.platform === 'win32') {
@@ -728,7 +749,7 @@ function(address, port, addressType) {
 		handle = createTCP();
 	}
 	
-	if (address || port) {
+/*	if (address || port) {
 		debug('bind to ' + address);
 		if (addressType == 6) {
 			r = handle.bind6(address, port);
@@ -740,7 +761,7 @@ function(address, port, addressType) {
 	if (r) {
 		handle.close();
 		handle = null;
-	}
+	}*/
 	
 	return handle;
 };
@@ -765,7 +786,7 @@ Server.prototype._listen2 = function(address, port, addressType) {
 	self._handle.onconnection = onconnection;
 	self._handle.socket = self;
 	
-	r = self._handle.listen(self._backlog || 128);
+/*	r = self._handle.listen(self._backlog || 128);
 	
 	if (r) {
 		self._handle.close();
@@ -774,37 +795,43 @@ Server.prototype._listen2 = function(address, port, addressType) {
 						 self.emit('error', errnoException(errno, 'listen'));
 						 });
 		return;
+	}*/
+
+	self.on('connection', function (socket) { });
+	self._handle.readStart = function() {}
+	self._handle.readStop = function() {}
+	var listener = Nios_registerCallback(function (event, params) {
+										 if (event == "connection") {
+										 var clientHandle = new TCP();
+										 clientHandle.socketId = params;
+										 self._handle.onconnection(clientHandle);
+										 }
+										 //		self.emit(event, string_to_buffer(params[0]), params[1]);
+										 });
+	if (address) {
+		args = [port, address, listener];
+	} else {
+		args = [port, listener];
 	}
-	
-	process.nextTick(function() {
-					 self.emit('listening');
-					 });
+
+	Nios_call("Nios_net", "listen", args, function (socketId, socketname, socketport) {
+			  self._handle.socketId = socketId;
+			  self._handle.socketname = socketname;
+			  self._handle.socketport = socketport;
+			  self.emit("listening");
+	});
 }
 
 
 function listen(self, address, port, addressType) {
-/*	if (process.env.NODE_UNIQUE_ID) {
+	if (process.env.NODE_UNIQUE_ID) {
 		require('cluster')._getServer(self, address, port, addressType, function(handle) {
 									  self._handle = handle;
 									  self._listen2(address, port, addressType);
 									  });
 	} else {
 		self._listen2(address, port, addressType);
-	}*/
-	var listener = Nios_registerCallback(function (event, params) {
-										 self.emit(event, string_to_buffer(params[0]), params[1]);
-										 });
-	if (arguments.length === 2) {
-		args = [port, listener];
-	} else {
-		args = [port, address, listener];
 	}
-	Nios_call("Nios_net", "listen", args, function (socketId, socketname, socketport) {
-			  self._handle.socketId = socketId;
-			  self._handle.socketname = socketname;
-			  self._handle.socketport = socketport;
-			  self.emit("listening");
-			  });
 }
 
 
@@ -860,28 +887,30 @@ Server.prototype.address = function() {
 	}
 };
 
+window.DTRACE_NET_SERVER_CONNECTION = window.DTRACE_NET_SERVER_CONNECTION || function(){}
+
 function onconnection(clientHandle) {
 	var handle = this;
 	var self = handle.socket;
 	
 	debug('onconnection');
-	
+
 	if (!clientHandle) {
 		self.emit('error', errnoException(errno, 'accept'));
 		return;
 	}
-	
+
 	if (self.maxConnections && self.connections >= self.maxConnections) {
 		clientHandle.close();
 		return;
 	}
-	
+
 	var socket = new Socket({
 							handle: clientHandle,
 							allowHalfOpen: self.allowHalfOpen
 							});
 	socket.readable = socket.writable = true;
-	
+
 	socket.resume();
 	
 	self.connections++;

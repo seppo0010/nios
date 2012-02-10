@@ -25,7 +25,7 @@ try {
 		});
 	});
 	
-	server.listen('8000','localhost');
+	server.listen('8000');
 }catch(e) {
 	alert(e);
 }

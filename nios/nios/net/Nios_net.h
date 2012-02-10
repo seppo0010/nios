@@ -31,11 +31,14 @@
 	GCDAsyncSocket* socket;
 	NSString* listener;
 	int socketId;
+	int timeout;
 }
 
 @property (retain) GCDAsyncSocket* socket;
 @property (retain) NSString* listener;
 @property (assign) Nios* nios;
 @property int socketId;
+
+- (Nios_socket*)initWithSocket:(GCDAsyncSocket*)_socket nios:(Nios*)_nios;
 
 @end
