@@ -38,7 +38,7 @@ static NSString *QUEUE_HAS_MESSAGE = @"queuehasmessage";
 }
 
 - (void)_doSendMessage:(NSString *)message toWebView:(UIWebView *)webView {
-    message = [message stringByReplacingOccurrencesOfString:@"\\n" withString:@"\\\\n"];
+    message = [message stringByReplacingOccurrencesOfString:@"\\" withString:@"\\\\"];
     message = [message stringByReplacingOccurrencesOfString:@"'" withString:@"\\'"];
     message = [message stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""];
     [webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"WebViewJavascriptBridge._handleMessageFromObjC('%@');", message]];
