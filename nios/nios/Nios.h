@@ -8,14 +8,31 @@
 
 #import <Foundation/Foundation.h>
 #import "WebViewJavascriptBridge.h"
+#import "HTTPConnection.h"
+#import "HTTPServer.h"
 
+@class NiosHTTPServer;
 @interface Nios : NSObject <WebViewJavascriptBridgeDelegate> {
 	UIWebView* webView;
 	WebViewJavascriptBridge *javascriptBridge;
+
+	NiosHTTPServer* webServer;
 }
 
 - (Nios*) initWithScriptName:(NSString*)fileName;
 - (Nios*) initWithScriptPath:(NSString*)scriptPath;
 - (void) sendMessage:(NSDictionary*)message;
+
+@end
+
+@interface NiosHTTPServer : HTTPServer {
+	Nios* nios;
+}
+@property (assign) Nios* nios;
+@end
+
+@interface NiosHTTPConnection : HTTPConnection {
+
+}
 
 @end

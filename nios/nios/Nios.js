@@ -83,11 +83,12 @@ var console = {
 	}
 }
 
-var Nios_initialize = function (arch, platform) {
+var Nios_initialize = function (arch, platform, port) {
 	process.arch = arch;
 	process.platform = platform;
 	process.startDate = new Date();
 	process.env = { NODE_DEBUG: 0 }
+	window.Nios_port = port;
 }
 var Nios_callbacks = {}
 var Nios_lastcallback = 0;
@@ -101,8 +102,24 @@ var Nios_registerCallback = function(callback) {
 	return registered_callback;
 }
 
-var Nios_call = function(className, method, parameters, callback) {
-	WebViewJavascriptBridge.sendMessage(JSON.stringify({"class": className, "method": method, "parameters": parameters, "callback": Nios_registerCallback(callback)}))
+var Nios_call = function(className, method, parameters, callback, syncronic) {
+	if (syncronic) {
+		var message = JSON.stringify({"class": className, "method": method, "parameters": parameters });
+		var xhReq = new XMLHttpRequest();
+		xhReq.open("POST", "http://127.0.0.1:" + Nios_port + "/", false);
+		xhReq.send(message);
+		if (callback) {
+			try {
+				var response = JSON.parse(xhReq.responseText);
+				callback(response.parameters);
+			} catch (e) {
+				alert(e);
+			}
+		}
+	} else {
+		var message = JSON.stringify({"class": className, "method": method, "parameters": parameters, "callback": Nios_registerCallback(callback)});
+		WebViewJavascriptBridge.sendMessage(message);
+	}
 }
 window.process = {
 	onExit: [],

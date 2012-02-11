@@ -7,7 +7,7 @@ fs.watchFile('b', { timeout: 10 }, function(curr, prev) {
 	console.log(curr.mtime.getTime() - prev.mtime.getTime());
 });
 */
-try {
+/*
 	var net = require('net');
 	
 	var server = net.createServer(function (socket) {
@@ -26,6 +26,9 @@ try {
 	});
 	
 	server.listen('8000');
+*/
+try {
+	Nios_call("Nios", "ping", [], function(p) { console.log(p) }, true);
 }catch(e) {
 	alert(e);
 }
