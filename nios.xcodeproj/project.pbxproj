@@ -56,6 +56,7 @@
 		C97E5E0414DEB18F000A10F1 /* Nios_console.m in Sources */ = {isa = PBXBuildFile; fileRef = C97E5E0314DEB18F000A10F1 /* Nios_console.m */; };
 		C997188D14E3680E00610D50 /* Nios_net.m in Sources */ = {isa = PBXBuildFile; fileRef = C997188C14E3680E00610D50 /* Nios_net.m */; };
 		C9C8C5D514E455BF00B412BA /* stream.js in Resources */ = {isa = PBXBuildFile; fileRef = C917829414E0696D006E8852 /* stream.js */; };
+		C9D8977214E720BF00F06DB1 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = C9D8977114E720BF00F06DB1 /* NSData+Base64.m */; };
 		C9EEFD5F14E2FEA6009BFAE1 /* buffer_ieee754.js in Resources */ = {isa = PBXBuildFile; fileRef = C94DBD5914E2FC5F00A3A21B /* buffer_ieee754.js */; };
 /* End PBXBuildFile section */
 
@@ -169,6 +170,8 @@
 		C9B9C6B214DDA1820038F761 /* json2.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = json2.js; sourceTree = "<group>"; };
 		C9B9C6B314DDA1820038F761 /* json_parse.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = json_parse.js; sourceTree = "<group>"; };
 		C9B9C6B414DDA1820038F761 /* json_parse_state.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = json_parse_state.js; sourceTree = "<group>"; };
+		C9D8977014E720BF00F06DB1 /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSData+Base64.h"; path = "nios/patches/NSData+Base64.h"; sourceTree = "<group>"; };
+		C9D8977114E720BF00F06DB1 /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSData+Base64.m"; path = "nios/patches/NSData+Base64.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -450,6 +453,8 @@
 		C97E5DFB14DE1766000A10F1 /* patches */ = {
 			isa = PBXGroup;
 			children = (
+				C9D8977014E720BF00F06DB1 /* NSData+Base64.h */,
+				C9D8977114E720BF00F06DB1 /* NSData+Base64.m */,
 				C97E5E0014DE17B8000A10F1 /* NSData+proxyForJson.h */,
 				C97E5DFE14DE178B000A10F1 /* NSData+proxyForJson.m */,
 			);
@@ -584,6 +589,7 @@
 				C97E0B2714E2304B000CB6A3 /* Nios_dns.m in Sources */,
 				C94DBD6214E2FD3300A3A21B /* Nios_buffer.js in Sources */,
 				C997188D14E3680E00610D50 /* Nios_net.m in Sources */,
+				C9D8977214E720BF00F06DB1 /* NSData+Base64.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

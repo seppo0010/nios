@@ -198,19 +198,11 @@ document.addEventListener('WebViewJavascriptBridgeReady', function onBridgeReady
 }, false);
 
 function string_to_buffer(data) {
-	var buffer = new Buffer(data.length);
-	for (var i = 0; i < data.length; i++) {
-		buffer[i] = data.charCodeAt(i);
-	}
-	return buffer;
+	return Base64.decode(data);
 }
 
 function buffer_to_string(buf) {
-	var str = '';
-	for (var i = 0; i < buf.length; i++) {
-		str += String.fromCharCode(buf[i]);
-	}
-	return str;
+	return Base64.encode(buf);
 }
 
 function Nios_ping(callback) {

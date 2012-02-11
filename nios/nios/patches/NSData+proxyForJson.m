@@ -7,17 +7,12 @@
 //
 
 #import "NSData+proxyForJson.h"
+#import "NSData+Base64.h"
 
 @implementation NSData (proxyForJson)
 
 - (NSString*)proxyForJson {
-	NSMutableString* str = [NSMutableString stringWithCapacity:[self length] * 4];
-	NSUInteger length = [self length];
-	const char * bytes = [self bytes];
-	for (NSUInteger pos = 0; pos < length; pos++) {
-		[str appendFormat:@"\\u%04x", bytes[pos]];
-	}
-	return [[str copy] autorelease];
+	return [self base64EncodedString];
 }
 
 @end
