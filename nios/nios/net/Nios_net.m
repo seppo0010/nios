@@ -28,8 +28,7 @@ static int sLastId = 1;
 //	if (host && [[newSocket connectedHost] isEqualToString:host] == FALSE) {
 //		[newSocket disconnect];
 //	}
-	Nios_socket* nios_socket = [[[Nios_socket alloc] initWithSocket:newSocket nios:nios] autorelease];
-	nios_socket.server = self;
+	Nios_socket* nios_socket = [[[Nios_socket alloc] initWithSocket:newSocket fromServer:self nios:nios] autorelease];
 	[nios sendMessage:[NSDictionary dictionaryWithObjectsAndKeys:[NSArray arrayWithObjects:@"connection", [NSNumber numberWithInt:nios_socket.socketId], nil], @"parameters", listener, @"callback", @"1", @"keepCallback", nil]];
 
 }
@@ -94,23 +93,25 @@ static int sLastId = 1;
 @synthesize socketId;
 @synthesize server;
 
-- (Nios_socket*)initWithSocket:(GCDAsyncSocket*)_socket nios:(Nios*)_nios {
+- (Nios_socket*)initWithSocket:(GCDAsyncSocket*)_socket fromServer:(Nios_net*)_server nios:(Nios*)_nios {
 
 	self = [self init];
 	if (self) {
 		self.socket = _socket;
+		_socket.delegate = self;
 		socketId = sLastId++;
 		self.nios = _nios;
 		if (sDict == nil) {
 			sDict = [[NSMutableDictionary alloc] initWithCapacity:1];
 		}
+		self.server = _server;
 		[sDict setValue:self forKey:[NSString stringWithFormat:@"%d", socketId]];
+		[_socket readDataWithTimeout:server.timeout tag:0];
 	}
 	return self;
 }
 - (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag {
-	NSLog(@"Nios_socket:: socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag");
-	[nios sendMessage:[NSDictionary dictionaryWithObjectsAndKeys:[NSArray arrayWithObjects:@"data", data, nil], @"parameters", listener, @"callback", @"1", @"keepCallback", nil]];
+	[nios sendMessage:[NSDictionary dictionaryWithObjectsAndKeys:[NSArray arrayWithObjects:@"data", [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease], nil], @"parameters", listener, @"callback", @"1", @"keepCallback", nil]];
 	[sock readDataWithTimeout:server.timeout tag:0];
 }
 

@@ -42,6 +42,6 @@
 @property (assign) Nios_net* server;
 @property int socketId;
 
-- (Nios_socket*)initWithSocket:(GCDAsyncSocket*)_socket nios:(Nios*)_nios;
+- (Nios_socket*)initWithSocket:(GCDAsyncSocket*)_socket fromServer:(Nios_net*)_server nios:(Nios*)_nios;
 
 @end
