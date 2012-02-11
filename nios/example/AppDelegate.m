@@ -27,7 +27,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-	[NSClassFromString(@"WebView") _enableRemoteInspector];
+	id c = NSClassFromString(@"WebView");
+	if ([c respondsToSelector:@selector(_enableRemoteInspector)]) {
+		[c performSelector:@selector(_enableRemoteInspector)];
+	}
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     // Override point for customization after application launch.
 	if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
