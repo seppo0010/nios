@@ -809,10 +809,30 @@ Server.prototype._listen2 = function(address, port, addressType) {
 										 self.clients[params] = clientHandle;
 										 self._handle.onconnection(clientHandle);
 										 }
+										 if (event == "close") {
+										 self.emit("close");
+										 }
 										 if (event == "data") {
 										 self.clients[socketId].socket.emit("data", params);
 										 }
-										 //		self.emit(event, string_to_buffer(params[0]), params[1]);
+										 if (event == "end") {
+										 self.clients[socketId].socket.emit("end");
+										 delete self.clients[socketId]
+										 }
+										 if (event == "close") {
+										 self.clients[socketId].socket.emit("close");
+										 delete self.clients[socketId]
+										 }
+										 if (event == "timeout") {
+										 self.clients[socketId].socket.emit("timeout");
+										 delete self.clients[socketId]
+										 }
+										 if (event == "drain") {
+										 self.clients[socketId].socket.emit("timeout");
+										 }
+										 if (event == "error") {
+										 self.clients[socketId].socket.emit("error", params);
+										 }
 										 });
 	if (address) {
 		args = [port, address, listener];
