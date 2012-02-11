@@ -1,0 +1,629 @@
+%head
+	%title Current status
+	%link{:rel => 'stylesheet', :href => 'style.css', :type => 'text/css'}
+%body
+	%ul
+		%li
+			process
+			%ul
+				%li{:class=>'todo'} Event: 'exit'
+				%li{:class=>'todo'} Event: 'uncaughtException'
+				%li{:class=>'todo'} Signal Events
+				%li{:class=>'todo'} process.stdout
+				%li{:class=>'todo'} process.stderr
+				%li{:class=>'todo'} process.stdin
+				%li{:class=>'impossible'} process.argv
+				%li{:class=>'impossible'} process.execPath
+				%li{:class=>'impossible'} process.chdir(directory)
+				%li{:class=>'impossible'} process.cwd()
+				%li{:class=>'todo'} process.env
+				%li{:class=>'done'} process.exit([code])
+				%li{:class=>'impossible'} process.getgid()
+				%li{:class=>'impossible'} process.setgid(id)
+				%li{:class=>'impossible'} process.getuid()
+				%li{:class=>'impossible'} process.setuid(id)
+				%li{:class=>'done'} process.version
+				%li{:class=>'done'} process.versions
+				%li{:class=>'impossible'} process.installPrefix
+				%li{:class=>'impossible'} process.kill(pid, [signal])
+				%li{:class=>'todo'} process.pid
+				%li{:class=>'todo'} process.title
+				%li{:class=>'done'} process.arch
+				%li{:class=>'done'} process.platform
+				%li{:class=>'impossible'} process.memoryUsage()
+				%li{:class=>'todo'} process.nextTick(callback)
+				%li{:class=>'todo'} process.umask([mask])
+				%li{:class=>'done'} process.uptime()
+		%li
+			console
+			%ul
+				%li{:class=>'done'} console.log()
+				%li{:class=>'done'} console.info()
+				%li{:class=>'done'} console.warn()
+				%li{:class=>'done'} console.error()
+				%li{:class=>'todo'} console.dir(obj)
+				%li{:class=>'done'} console.time(label)
+				%li{:class=>'done'} console.timeEnd(label)
+				%li{:class=>'impossible'} console.trace()
+				%li{:class=>'todo'} console.assert()
+		%li
+			Buffer
+			%ul
+				%li{:class=>'done'} new Buffer(size)
+				%li{:class=>'todo'} new Buffer(array)
+				%li{:class=>'todo'} new Buffer(str, [encoding])
+				%li{:class=>'todo'} buffer.write(string, [offset], [length], [encoding])
+				%li{:class=>'todo'} buffer.toString(encoding, [start], [end])
+				%li{:class=>'todo'} buffer[index]
+				%li{:class=>'todo'} Buffer.isBuffer(obj)
+				%li{:class=>'todo'} Buffer.byteLength(string, [encoding])
+				%li{:class=>'todo'} buffer.length
+				%li{:class=>'todo'} buffer.copy(targetBuffer, [targetStart], [sourceStart], [sourceEnd])
+				%li{:class=>'todo'} buffer.slice([start], [end])
+				%li{:class=>'todo'} buffer.readUInt8(offset, [noAssert])
+				%li{:class=>'todo'} buffer.readUInt16LE(offset, [noAssert])
+				%li{:class=>'todo'} buffer.readUInt16BE(offset, [noAssert])
+				%li{:class=>'todo'} buffer.readUInt32LE(offset, [noAssert])
+				%li{:class=>'todo'} buffer.readUInt32BE(offset, [noAssert])
+				%li{:class=>'todo'} buffer.readInt8(offset, [noAssert])
+				%li{:class=>'todo'} buffer.readInt16LE(offset, [noAssert])
+				%li{:class=>'todo'} buffer.readInt16BE(offset, [noAssert])
+				%li{:class=>'todo'} buffer.readInt32LE(offset, [noAssert])
+				%li{:class=>'todo'} buffer.readInt32BE(offset, [noAssert])
+				%li{:class=>'todo'} buffer.readFloatLE(offset, [noAssert])
+				%li{:class=>'todo'} buffer.readFloatBE(offset, [noAssert])
+				%li{:class=>'todo'} buffer.readDoubleLE(offset, [noAssert])
+				%li{:class=>'todo'} buffer.readDoubleBE(offset, [noAssert])
+				%li{:class=>'todo'} buffer.writeUInt8(value, offset, [noAssert])
+				%li{:class=>'todo'} buffer.writeUInt16LE(value, offset, [noAssert])
+				%li{:class=>'todo'} buffer.writeUInt16BE(value, offset, [noAssert])
+				%li{:class=>'todo'} buffer.writeUInt32LE(value, offset, [noAssert])
+				%li{:class=>'todo'} buffer.writeUInt32BE(value, offset, [noAssert])
+				%li{:class=>'todo'} buffer.writeInt8(value, offset, [noAssert])
+				%li{:class=>'todo'} buffer.writeInt16LE(value, offset, [noAssert])
+				%li{:class=>'todo'} buffer.writeInt16BE(value, offset, [noAssert])
+				%li{:class=>'todo'} buffer.writeInt32LE(value, offset, [noAssert])
+				%li{:class=>'todo'} buffer.writeInt32BE(value, offset, [noAssert])
+				%li{:class=>'todo'} buffer.writeFloatLE(value, offset, [noAssert])
+				%li{:class=>'todo'} buffer.writeFloatBE(value, offset, [noAssert])
+				%li{:class=>'todo'} buffer.writeDoubleLE(value, offset, [noAssert])
+				%li{:class=>'todo'} buffer.writeDoubleBE(value, offset, [noAssert])
+				%li{:class=>'todo'} buffer.fill(value, [offset], [end])
+				%li{:class=>'todo'} INSPECT_MAX_BYTES
+			%li{:class=>'done'} require()
+			%li{:class=>'todo'} require.resolve()
+			%li{:class=>'done'} require.cache
+			%li{:class=>'todo'} __filename
+			%li{:class=>'todo'} __dirname
+			%li{:class=>'todo'} module
+			%li{:class=>'done'} exports
+			%li{:class=>'done'} setTimeout(cb, ms)
+			%li{:class=>'done'} clearTimeout(t)
+			%li{:class=>'done'} setInterval(cb, ms)
+			%li{:class=>'done'} clearInterval(t)
+			%li
+				util
+				%ul
+					%li{:class=>'done'} util.format()
+					%li{:class=>'done'} util.debug(string)
+					%li{:class=>'done'} util.log(string)
+					%li{:class=>'done'} util.inspect(object, [showHidden], [depth], [colors])
+					%li{:class=>'done'} util.isArray(object)
+					%li{:class=>'done'} util.isRegExp(object)
+					%li{:class=>'done'} util.isDate(object)
+					%li{:class=>'done'} util.isError(object)
+					%li{:class=>'done'} util.pump(readableStream, writableStream, [callback])
+					%li{:class=>'todo'} util.inherits(constructor, superConstructor)
+			%li
+				events
+				%ul
+					%li
+						events.EventEmitter
+						%ul
+							%li{:class=>'done'} emitter.addListener(event, listener)
+							%li{:class=>'done'} emitter.on(event, listener)
+							%li{:class=>'done'} emitter.once(event, listener)
+							%li{:class=>'done'} emitter.removeListener(event, listener)
+							%li{:class=>'done'} emitter.removeAllListeners([event])
+							%li{:class=>'done'} emitter.setMaxListeners(n)
+							%li{:class=>'done'} emitter.listeners(event)
+							%li{:class=>'done'} emitter.emit(event, [arg1], [arg2], [...])
+							%li{:class=>'done'} Event: 'newListener'
+			%li
+				Streams
+				%ul
+					%li
+						Readable Stream
+						%ul
+							%li{:class=>'todo'} Event: 'data'
+							%li{:class=>'todo'} Event: 'end'
+							%li{:class=>'todo'} Event: 'error'
+							%li{:class=>'todo'} Event: 'close'
+							%li{:class=>'todo'} stream.readable
+							%li{:class=>'todo'} stream.setEncoding(encoding)
+							%li{:class=>'todo'} stream.pause()
+							%li{:class=>'todo'} stream.resume()
+							%li{:class=>'todo'} stream.destroy()
+							%li{:class=>'todo'} stream.destroySoon()
+							%li{:class=>'todo'} stream.pipe(destination, [options])
+					%li
+						Writable Stream
+						%ul
+							%li{:class=>'todo'} Event: 'drain'
+							%li{:class=>'todo'} Event: 'error'
+							%li{:class=>'todo'} Event: 'close'
+							%li{:class=>'todo'} Event: 'pipe'
+							%li{:class=>'todo'} stream.writable
+							%li{:class=>'todo'} stream.write(string, [encoding], [fd])
+							%li{:class=>'todo'} stream.write(buffer)
+							%li{:class=>'todo'} stream.end()
+							%li{:class=>'todo'} stream.end(string, encoding)
+							%li{:class=>'todo'} stream.end(buffer)
+							%li{:class=>'todo'} stream.destroy()
+							%li{:class=>'todo'} stream.destroySoon()
+			%li
+				Crypto
+				%ul
+					%li{:class=>'todo'} crypto.createCredentials(details)
+					%li{:class=>'todo'} crypto.createHash(algorithm)
+					%li{:class=>'todo'} hash.update(data, [input_encoding])
+					%li{:class=>'todo'} hash.digest([encoding])
+					%li{:class=>'todo'} crypto.createHmac(algorithm, key)
+					%li{:class=>'todo'} hmac.update(data)
+					%li{:class=>'todo'} hmac.digest([encoding])
+					%li{:class=>'todo'} crypto.createCipher(algorithm, password)
+					%li{:class=>'todo'} crypto.createCipheriv(algorithm, key, iv)
+					%li{:class=>'todo'} cipher.update(data, [input_encoding], [output_encoding])
+					%li{:class=>'todo'} cipher.final([output_encoding])
+					%li{:class=>'todo'} crypto.createDecipher(algorithm, password)
+					%li{:class=>'todo'} crypto.createDecipheriv(algorithm, key, iv)
+					%li{:class=>'todo'} decipher.update(data, [input_encoding], [output_encoding])
+					%li{:class=>'todo'} decipher.final([output_encoding])
+					%li{:class=>'todo'} crypto.createSign(algorithm)
+					%li{:class=>'todo'} signer.update(data)
+					%li{:class=>'todo'} signer.sign(private_key, [output_format])
+					%li{:class=>'todo'} crypto.createVerify(algorithm)
+					%li{:class=>'todo'} verifier.update(data)
+					%li{:class=>'todo'} verifier.verify(object, signature, [signature_format])
+					%li{:class=>'todo'} crypto.createDiffieHellman(prime_length)
+					%li{:class=>'todo'} crypto.createDiffieHellman(prime, [encoding])
+					%li{:class=>'todo'} diffieHellman.generateKeys([encoding])
+					%li{:class=>'todo'} diffieHellman.computeSecret(other_public_key, [input_encoding], [output_encoding])
+					%li{:class=>'todo'} diffieHellman.getPrime([encoding])
+					%li{:class=>'todo'} diffieHellman.getGenerator([encoding])
+					%li{:class=>'todo'} diffieHellman.getPublicKey([encoding])
+					%li{:class=>'todo'} diffieHellman.getPrivateKey([encoding])
+					%li{:class=>'todo'} diffieHellman.setPublicKey(public_key, [encoding])
+					%li{:class=>'todo'} diffieHellman.setPrivateKey(public_key, [encoding])
+					%li{:class=>'todo'} pbkdf2(password, salt, iterations, keylen, callback)
+					%li{:class=>'todo'} randomBytes(size, [callback])
+
+			%li
+				TLS (SSL)
+				%ul
+					%li{:class=>'todo'} tls.createServer(options, [secureConnectionListener])
+					%li{:class=>'todo'} tls.connect(port, [host], [options], [secureConnectListener])
+			%li
+				%li{:class=>'todo'} pair = tls.createSecurePair([credentials], [isServer], [requestCert], [rejectUnauthorized])
+				%ul
+					%li{:class=>'todo'} Event: 'secure'
+			%li
+				tls.Server
+				%ul
+					%li{:class=>'todo'} Event: 'secureConnection'
+					%li{:class=>'todo'} Event: 'clientError'
+					%li{:class=>'todo'} server.listen(port, [host], [callback])
+					%li{:class=>'todo'} server.close()
+					%li{:class=>'todo'} server.address()
+					%li{:class=>'todo'} server.addContext(hostname, credentials)
+					%li{:class=>'todo'} server.maxConnections
+					%li{:class=>'todo'} server.connections
+			%li
+				tls.CleartextStream
+				%ul
+					%li{:class=>'todo'} Event: 'secureConnect'
+					%li{:class=>'todo'} cleartextStream.authorized
+					%li{:class=>'todo'} cleartextStream.authorizationError
+					%li{:class=>'todo'} cleartextStream.getPeerCertificate()
+					%li{:class=>'todo'} cleartextStream.address()
+					%li{:class=>'todo'} cleartextStream.remoteAddress
+					%li{:class=>'todo'} cleartextStream.remotePort
+			%li
+				File System
+				%ul
+					%li{:class=>'done'} fs.rename(path1, path2, [callback])
+					%li{:class=>'todo'} fs.renameSync(path1, path2)
+					%li{:class=>'done'} fs.truncate(fd, len, [callback])
+					%li{:class=>'todo'} fs.truncateSync(fd, len)
+					%li{:class=>'done'} fs.chown(path, uid, gid, [callback])
+					%li{:class=>'todo'} fs.chownSync(path, uid, gid)
+					%li{:class=>'done'} fs.fchown(fd, uid, gid, [callback])
+					%li{:class=>'todo'} fs.fchownSync(fd, uid, gid)
+					%li{:class=>'done'} fs.lchown(path, uid, gid, [callback])
+					%li{:class=>'todo'} fs.lchownSync(path, uid, gid)
+					%li{:class=>'done'} fs.chmod(path, mode, [callback])
+					%li{:class=>'todo'} fs.chmodSync(path, mode)
+					%li{:class=>'done'} fs.fchmod(fd, mode, [callback])
+					%li{:class=>'todo'} fs.fchmodSync(fd, mode)
+					%li{:class=>'done'} fs.lchmod(path, mode, [callback])
+					%li{:class=>'todo'} fs.lchmodSync(path, mode)
+					%li{:class=>'done'} fs.stat(path, [callback])
+					%li{:class=>'done'} fs.lstat(path, [callback])
+					%li{:class=>'done'} fs.fstat(fd, [callback])
+					%li{:class=>'todo'} fs.statSync(path)
+					%li{:class=>'todo'} fs.lstatSync(path)
+					%li{:class=>'todo'} fs.fstatSync(fd)
+					%li{:class=>'done'} fs.link(srcpath, dstpath, [callback])
+					%li{:class=>'todo'} fs.linkSync(srcpath, dstpath)
+					%li{:class=>'done'} fs.symlink(linkdata, path, [type], [callback])
+					%li{:class=>'todo'} fs.symlinkSync(linkdata, path, [type])
+					%li{:class=>'done'} fs.readlink(path, [callback])
+					%li{:class=>'todo'} fs.readlinkSync(path)
+					%li{:class=>'done'} fs.realpath(path, [callback])
+					%li{:class=>'todo'} fs.realpathSync(path)
+					%li{:class=>'done'} fs.unlink(path, [callback])
+					%li{:class=>'todo'} fs.unlinkSync(path)
+					%li{:class=>'done'} fs.rmdir(path, [callback])
+					%li{:class=>'todo'} fs.rmdirSync(path)
+					%li{:class=>'done'} fs.mkdir(path, [mode], [callback])
+					%li{:class=>'todo'} fs.mkdirSync(path, [mode])
+					%li{:class=>'done'} fs.readdir(path, [callback])
+					%li{:class=>'todo'} fs.readdirSync(path)
+					%li{:class=>'done'} fs.close(fd, [callback])
+					%li{:class=>'todo'} fs.closeSync(fd)
+					%li{:class=>'done'} fs.open(path, flags, [mode], [callback])
+					%li{:class=>'todo'} fs.openSync(path, flags, [mode])
+					%li{:class=>'done'} fs.utimes(path, atime, mtime, [callback])
+					%li{:class=>'todo'} fs.utimesSync(path, atime, mtime)
+					%li{:class=>'done'} fs.futimes(fd, atime, mtime, [callback])
+					%li{:class=>'todo'} fs.futimesSync(fd, atime, mtime)
+					%li{:class=>'done'} fs.fsync(fd, [callback])
+					%li{:class=>'todo'} fs.fsyncSync(fd)
+					%li{:class=>'done'} fs.write(fd, buffer, offset, length, position, [callback])
+					%li{:class=>'todo'} fs.writeSync(fd, buffer, offset, length, position)
+					%li{:class=>'todo'} fs.writeSync(fd, str, position, [encoding])
+					%li{:class=>'done'} fs.read(fd, buffer, offset, length, position, [callback])
+					%li{:class=>'todo'} fs.readSync(fd, buffer, offset, length, position)
+					%li{:class=>'todo'} fs.readSync(fd, length, position, encoding)
+					%li{:class=>'done'} fs.readFile(filename, [encoding], [callback])
+					%li{:class=>'todo'} fs.readFileSync(filename, [encoding])
+					%li{:class=>'done'} fs.writeFile(filename, data, [encoding], [callback])
+					%li{:class=>'todo'} fs.writeFileSync(filename, data, [encoding])
+					%li{:class=>'done'} fs.watchFile(filename, [options], listener)
+					%li{:class=>'done'} fs.unwatchFile(filename)
+					%li{:class=>'done'} fs.watch(filename, [options], listener)
+			%li{:class=>'done'} fs.Stats
+			%li
+				fs.ReadStream
+				%ul
+					%li{:class=>'todo'} Event: 'open'
+					%li{:class=>'todo'} fs.createReadStream(path, [options])
+			%li
+				fs.WriteStream
+				%ul
+					%li{:class=>'todo'} Event: 'open'
+					%li{:class=>'todo'} Efile.bytesWritten
+					%li{:class=>'todo'} Efs.createWriteStream(path, [options])
+			%li
+				fs.FSWatcher
+				%ul
+					%li{:class=>'todo'} Ewatcher.close()
+					%li{:class=>'todo'} Event: 'change'
+					%li{:class=>'todo'} Event: 'error'
+			%li
+				Path
+				%ul
+					%li{:class=>'done'} path.normalize(p)
+					%li{:class=>'done'} path.join([path1], [path2], [...])
+					%li{:class=>'done'} path.resolve([from ...], to)
+					%li{:class=>'done'} path.relative(from, to)
+					%li{:class=>'done'} path.dirname(p)
+					%li{:class=>'done'} path.basename(p, [ext])
+					%li{:class=>'done'} path.extname(p)
+					%li{:class=>'done'} path.exists(p, [callback])
+					%li{:class=>'todo'} path.existsSync(p)
+			%li
+				net
+				%ul
+					%li{:class=>'todo'} net.createServer([options], [connectionListener])
+					%li{:class=>'todo'} net.connect(arguments...)
+					%li{:class=>'todo'} net.createConnection(arguments...)
+					%li
+						net.Server
+						%ul
+							%li{:class=>'done'} server.listen(port, [host], [listeningListener])
+							%li{:class=>'impossible'} server.listen(path, [listeningListener])
+							%li{:class=>'todo'} server.pause(msecs)
+							%li{:class=>'todo'} server.close()
+							%li{:class=>'todo'} server.address()
+							%li{:class=>'todo'} server.maxConnections
+							%li{:class=>'done'} server.connections
+							%li{:class=>'done'} Event: 'listening'
+							%li{:class=>'todo'} Event: 'connection'
+							%li{:class=>'todo'} Event: 'close'
+							%li{:class=>'todo'} Event: 'error'
+					%li
+						net.Socket
+						%ul
+							%li{:class=>'todo'} new net.Socket([options])
+							%li{:class=>'todo'} socket.connect(port, [host], [connectListener])
+							%li{:class=>'todo'} socket.connect(path, [connectListener])
+							%li{:class=>'todo'} socket.bufferSize
+							%li{:class=>'todo'} socket.setEncoding([encoding])
+							%li{:class=>'todo'} socket.setSecure()
+							%li{:class=>'todo'} socket.write(data, [encoding], [callback])
+							%li{:class=>'todo'} socket.write(data, [encoding], [callback])
+							%li{:class=>'todo'} socket.end([data], [encoding])
+							%li{:class=>'todo'} socket.destroy()
+							%li{:class=>'todo'} socket.pause()
+							%li{:class=>'todo'} socket.resume()
+							%li{:class=>'todo'} socket.setTimeout(timeout, [callback])
+							%li{:class=>'todo'} socket.setNoDelay([noDelay])
+							%li{:class=>'todo'} socket.setKeepAlive([enable], [initialDelay])
+							%li{:class=>'todo'} socket.address()
+							%li{:class=>'todo'} socket.remoteAddress
+							%li{:class=>'todo'} socket.remotePort
+							%li{:class=>'todo'} socket.bytesRead
+							%li{:class=>'todo'} socket.bytesWritten
+							%li{:class=>'done'} Event: 'connect'
+							%li{:class=>'done'} Event: 'data'
+							%li{:class=>'todo'} Event: 'end'
+							%li{:class=>'todo'} Event: 'timeout'
+							%li{:class=>'todo'} Event: 'drain'
+							%li{:class=>'todo'} Event: 'error'
+							%li{:class=>'todo'} Event: 'close'
+					%li
+						net.isIP
+						%ul
+							%li{:class=>'done'} net.isIP(input)
+							%li{:class=>'done'} net.isIPv4(input)
+							%li{:class=>'done'} net.isIPv6(input)
+		%li
+			UDP / Datagram Sockets
+			%ul
+				%li{:class=>'done'} Event: 'message'
+				%li{:class=>'done'} Event: 'listening'
+				%li{:class=>'done'} Event: 'close'
+				%li{:class=>'todo'} Event: 'error'
+				%li{:class=>'done'} dgram.createSocket(type, [callback])
+				%li{:class=>'done'} dgram.send(buf, offset, length, port, address, [callback])
+				%li{:class=>'done'} dgram.bind(port, [address])
+				%li{:class=>'done'} dgram.close()
+				%li{:class=>'done'} dgram.address()
+				%li{:class=>'done'} dgram.setBroadcast(flag)
+				%li{:class=>'impossible'} dgram.setTTL(ttl)
+				%li{:class=>'impossible'} dgram.setMulticastTTL(ttl)
+				%li{:class=>'impossible'} dgram.setMulticastLoopback(flag)
+				%li{:class=>'done'} dgram.addMembership(multicastAddress, [multicastInterface])
+				%li{:class=>'impossible'} dgram.dropMembership(multicastAddress, [multicastInterface])
+		%li
+			DNS
+			%ul
+				%li{:class=>'done'} dns.lookup(domain, [family], callback)
+				%li{:class=>'todo'} dns.resolve(domain, [rrtype], callback)
+				%li{:class=>'todo'} dns.resolve4(domain, callback)
+				%li{:class=>'todo'} dns.resolve6(domain, callback)
+				%li{:class=>'todo'} dns.resolveMx(domain, callback)
+				%li{:class=>'todo'} dns.resolveTxt(domain, callback)
+				%li{:class=>'todo'} dns.resolveSrv(domain, callback)
+				%li{:class=>'todo'} dns.reverse(ip, callback)
+				%li{:class=>'todo'} dns.resolveNs(domain, callback)
+				%li{:class=>'todo'} dns.resolveCname(domain, callback)
+		%li
+			HTTP
+			%ul
+				%li
+					http.Server
+					%ul
+						%li{:class=>'todo'} Event: 'request'
+						%li{:class=>'todo'} Event: 'connection'
+						%li{:class=>'todo'} Event: 'close'
+						%li{:class=>'todo'} Event: 'checkContinue'
+						%li{:class=>'todo'} Event: 'upgrade'
+						%li{:class=>'todo'} Event: 'clientError'
+						%li{:class=>'todo'} http.createServer([requestListener])
+						%li{:class=>'todo'} server.listen(port, [hostname], [callback])
+						%li{:class=>'todo'} server.listen(path, [callback])
+						%li{:class=>'todo'} server.close()
+				%li
+					http.ServerRequest
+					%ul
+						%li{:class=>'todo'} Event: 'data'
+						%li{:class=>'todo'} Event: 'end'
+						%li{:class=>'todo'} Event: 'close'
+						%li{:class=>'todo'} request.method
+						%li{:class=>'todo'} request.url
+						%li{:class=>'todo'} request.headers
+						%li{:class=>'todo'} request.trailers
+						%li{:class=>'todo'} request.httpVersion
+						%li{:class=>'todo'} request.setEncoding([encoding])
+						%li{:class=>'todo'} request.pause()
+						%li{:class=>'todo'} request.resume()
+						%li{:class=>'todo'} request.connection
+				%li
+					http.ServerResponse
+					%ul
+						%li{:class=>'todo'} Event: 'close'
+						%li{:class=>'todo'} response.writeContinue()
+						%li{:class=>'todo'} response.writeHead(statusCode, [reasonPhrase], [headers])
+						%li{:class=>'todo'} response.statusCode
+						%li{:class=>'todo'} response.setHeader(name, value)
+						%li{:class=>'todo'} response.getHeader(name)
+						%li{:class=>'todo'} response.removeHeader(name)
+						%li{:class=>'todo'} response.write(chunk, [encoding])
+						%li{:class=>'todo'} response.addTrailers(headers)
+						%li{:class=>'todo'} response.end([data], [encoding])
+				%li{:class=>'todo'} http.request(options, callback)
+				%li{:class=>'todo'} http.get(options, callback)
+				%li{:class=>'todo'} http.Agent
+				%li
+					http.globalAgent
+					%ul
+						%li{:class=>'todo'} agent.maxSockets
+						%li{:class=>'todo'} agent.sockets
+						%li{:class=>'todo'} agent.requests
+				%li
+					http.ClientRequest
+					%ul
+						%li{:class=>'todo'} Event 'response'
+						%li{:class=>'todo'} Event: 'socket'
+						%li{:class=>'todo'} Event: 'upgrade'
+						%li{:class=>'todo'} Event: 'continue'
+						%li{:class=>'todo'} request.write(chunk, [encoding])
+						%li{:class=>'todo'} request.end([data], [encoding])
+						%li{:class=>'todo'} request.abort()
+						%li{:class=>'todo'} request.setTimeout(timeout, [callback])
+						%li{:class=>'todo'} request.setNoDelay([noDelay])
+						%li{:class=>'todo'} request.setSocketKeepAlive([enable], [initialDelay])
+				%li
+					http.ClientResponse
+					%ul
+						%li{:class=>'todo'} Event: 'end'
+						%li{:class=>'todo'} Event: 'close'
+						%li{:class=>'todo'} response.statusCode
+						%li{:class=>'todo'} response.httpVersion
+						%li{:class=>'todo'} response.headers
+						%li{:class=>'todo'} response.trailers
+						%li{:class=>'todo'} response.setEncoding([encoding])
+						%li{:class=>'todo'} response.pause()
+						%li{:class=>'todo'} response.resume()
+		%li
+			HTTPS
+			%ul
+				%li{:class=>'todo'} https.Server
+				%li{:class=>'todo'} https.createServer(options, [requestListener])
+				%li{:class=>'todo'} https.request(options, callback)
+				%li{:class=>'todo'} https.get(options, callback)
+				%li{:class=>'todo'} https.Agent
+				%li{:class=>'todo'} https.globalAgent
+		%li
+			URL
+			%ul
+				%li{:class=>'todo'} url.parse(urlStr, [parseQueryString], [slashesDenoteHost])
+				%li{:class=>'todo'} url.format(urlObj)
+				%li{:class=>'todo'} url.resolve(from, to)
+
+		%li
+			Query String
+			%ul
+				%li{:class=>'todo'} querystring.stringify(obj, [sep], [eq])
+				%li{:class=>'todo'} querystring.parse(str, [sep], [eq])
+				%li{:class=>'todo'} querystring.escape
+				%li{:class=>'todo'} querystring.unescape
+
+		%li
+			Readline
+			%ul
+				%li{:class=>'impossible'} rl.createInterface(input, output, completer)
+				%li{:class=>'impossible'} rl.setPrompt(prompt, length)
+				%li{:class=>'impossible'} rl.prompt()
+				%li{:class=>'impossible'} rl.question(query, callback)
+				%li{:class=>'impossible'} rl.close()
+				%li{:class=>'impossible'} rl.pause()
+				%li{:class=>'impossible'} rl.resume()
+				%li{:class=>'impossible'} rl.write()
+				%li{:class=>'impossible'} Event: 'line'
+				%li{:class=>'impossible'} Event: 'close'
+		%li
+			REPL
+			%ul
+				%li{:class=>'impossible'} repl.start([prompt], [stream], [eval], [useGlobal], [ignoreUndefined])
+				%li{:class=>'impossible'} REPL Features
+		%li
+			Executing JavaScript
+			%ul
+				%li{:class=>'impossible'} vm.runInThisContext(code, [filename])
+				%li{:class=>'impossible'} vm.runInNewContext(code, [sandbox], [filename])
+				%li{:class=>'impossible'} vm.runInContext(code, context, [filename])
+				%li{:class=>'impossible'} vm.createContext([initSandbox])
+				%li{:class=>'impossible'} vm.createScript(code, [filename])
+				%li{:class=>'impossible'} script.runInThisContext()
+				%li{:class=>'impossible'} script.runInNewContext([sandbox])
+		%li
+			Child Processes
+			%ul
+				%li{:class=>'impossible'} Event: 'exit'
+				%li{:class=>'impossible'} child.stdin
+				%li{:class=>'impossible'} child.stdout
+				%li{:class=>'impossible'} child.stderr
+				%li{:class=>'impossible'} child.pid
+				%li{:class=>'impossible'} child_process.spawn(command, [args], [options])
+				%li{:class=>'impossible'} child_process.exec(command, [options], callback)
+				%li{:class=>'impossible'} child_process.execFile(file, args, options, callback)
+				%li{:class=>'impossible'} child_process.fork(modulePath, arguments, options)
+				%li{:class=>'impossible'} child.kill([signal])
+		%li
+			Assert
+			%ul
+				%li{:class=>'done'} assert.fail(actual, expected, message, operator)
+				%li{:class=>'done'} assert(value, message), assert.ok(value, [message])
+				%li{:class=>'done'} assert.equal(actual, expected, [message])
+				%li{:class=>'done'} assert.notEqual(actual, expected, [message])
+				%li{:class=>'done'} assert.deepEqual(actual, expected, [message])
+				%li{:class=>'done'} assert.notDeepEqual(actual, expected, [message])
+				%li{:class=>'done'} assert.strictEqual(actual, expected, [message])
+				%li{:class=>'done'} assert.notStrictEqual(actual, expected, [message])
+				%li{:class=>'done'} assert.throws(block, [error], [message])
+				%li{:class=>'done'} assert.doesNotThrow(block, [error], [message])
+				%li{:class=>'done'} assert.ifError(value)
+		%li
+			TTY
+			%ul
+				%li{:class=>'impossible'} tty.isatty(fd)
+				%li{:class=>'impossible'} tty.setRawMode(mode)
+				%li{:class=>'impossible'} tty.setWindowSize(fd, row, col)
+				%li{:class=>'impossible'} tty.getWindowSize(fd)
+
+		%li
+			Zlib
+			%ul
+				%li{:class=>'todo'} Constants
+				%li{:class=>'todo'} zlib.createGzip([options])
+				%li{:class=>'todo'} zlib.createGunzip([options])
+				%li{:class=>'todo'} zlib.createDeflate([options])
+				%li{:class=>'todo'} zlib.createInflate([options])
+				%li{:class=>'todo'} zlib.createDeflateRaw([options])
+				%li{:class=>'todo'} zlib.createInflateRaw([options])
+				%li{:class=>'todo'} zlib.createUnzip([options])
+				%li{:class=>'todo'} zlib.Gzip
+				%li{:class=>'todo'} zlib.Gunzip
+				%li{:class=>'todo'} zlib.Deflate
+				%li{:class=>'todo'} zlib.Inflate
+				%li{:class=>'todo'} zlib.DeflateRaw
+				%li{:class=>'todo'} zlib.InflateRaw
+				%li{:class=>'todo'} zlib.Unzip
+				%li
+					Convenience Methods
+					%ul
+						%li{:class=>'todo'} zlib.deflate(buf, callback)
+						%li{:class=>'todo'} zlib.deflateRaw(buf, callback)
+						%li{:class=>'todo'} zlib.gzip(buf, callback)
+						%li{:class=>'todo'} zlib.gunzip(buf, callback)
+						%li{:class=>'todo'} zlib.inflate(buf, callback)
+						%li{:class=>'todo'} zlib.inflateRaw(buf, callback)
+						%li{:class=>'todo'} zlib.unzip(buf, callback)
+				%li
+					Options
+					%ul
+						%li{:class=>'todo'} Memory Usage Tuning
+		%li
+			os Module
+			%ul
+				%li{:class=>'todo'} os.hostname()
+				%li{:class=>'todo'} os.type()
+				%li{:class=>'todo'} os.platform()
+				%li{:class=>'todo'} os.arch()
+				%li{:class=>'todo'} os.release()
+				%li{:class=>'todo'} os.uptime()
+				%li{:class=>'impossible'} os.loadavg()
+				%li{:class=>'impossible'} os.totalmem()
+				%li{:class=>'impossible'} os.freemem()
+				%li{:class=>'todo'} os.cpus()
+				%li{:class=>'todo'} os.networkInterfaces()
+		%li
+			Cluster
+			%ul
+				%li{:class=>'todo'} cluster.fork()
+				%li{:class=>'todo'} cluster.isMaster
+				%li{:class=>'todo'} cluster.isWorker
+				%li{:class=>'todo'} Event: 'death'
