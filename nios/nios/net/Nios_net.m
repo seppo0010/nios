@@ -9,6 +9,11 @@
 #import "Nios_net.h"
 #import "Nios.h"
 
+static NSMutableDictionary* dict = nil;
+static int lastId = 1;
+static NSMutableDictionary* sDict = nil;
+static int sLastId = 1;
+
 @implementation Nios_net
 
 @synthesize socket;
@@ -16,9 +21,7 @@
 @synthesize host;
 @synthesize nios;
 @synthesize socketId;
-
-static NSMutableDictionary* dict = nil;
-static int lastId = 1;
+@synthesize timeout;
 
 - (void)socket:(GCDAsyncSocket *)sock didAcceptNewSocket:(GCDAsyncSocket *)newSocket {
 	NSLog(@"socket:(GCDAsyncSocket *)sock didAcceptNewSocket:(GCDAsyncSocket *)newSocket %d", [newSocket isIPv4]);
@@ -26,6 +29,7 @@ static int lastId = 1;
 //		[newSocket disconnect];
 //	}
 	Nios_socket* nios_socket = [[[Nios_socket alloc] initWithSocket:newSocket nios:nios] autorelease];
+	nios_socket.server = self;
 	[nios sendMessage:[NSDictionary dictionaryWithObjectsAndKeys:[NSArray arrayWithObjects:@"connection", [NSNumber numberWithInt:nios_socket.socketId], nil], @"parameters", listener, @"callback", @"1", @"keepCallback", nil]];
 
 }
@@ -41,6 +45,7 @@ static int lastId = 1;
 	delegate.socket = socket;
 	delegate.nios = nios;
 	delegate.socketId = lastId;
+	delegate.timeout = -1;
 	[dict setValue:delegate forKey:[NSString stringWithFormat:@"%d", lastId++]];
 	return [NSArray arrayWithObjects:[NSNull null], [NSNumber numberWithInt:delegate.socketId], [delegate.socket localHost], nil];
 }
@@ -72,6 +77,12 @@ static int lastId = 1;
 	return [NSArray arrayWithObjects:[NSNumber numberWithInt:delegate.socketId], [delegate.socket localHost], [NSNumber numberWithInt:[delegate.socket localPort]], nil];
 }
 
++ (id) write:(NSArray*)params nios:(Nios*)nios {
+	Nios_socket* socket = [sDict valueForKey:[NSString stringWithFormat:@"%d", [[params objectAtIndex:0] intValue]]];
+	NSData* data = [[params objectAtIndex:1] dataUsingEncoding:NSUTF8StringEncoding]; // TODO: use proper encoding
+	[socket.socket writeData:data withTimeout:socket.server.timeout tag:0];
+	return nil;
+}
 
 @end
 
@@ -81,9 +92,7 @@ static int lastId = 1;
 @synthesize socket;
 @synthesize listener;
 @synthesize socketId;
-
-static NSMutableDictionary* sDict = nil;
-static int sLastId = 1;
+@synthesize server;
 
 - (Nios_socket*)initWithSocket:(GCDAsyncSocket*)_socket nios:(Nios*)_nios {
 
@@ -96,14 +105,13 @@ static int sLastId = 1;
 			sDict = [[NSMutableDictionary alloc] initWithCapacity:1];
 		}
 		[sDict setValue:self forKey:[NSString stringWithFormat:@"%d", socketId]];
-		timeout = -1;
 	}
 	return self;
 }
 - (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag {
 	NSLog(@"Nios_socket:: socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag");
 	[nios sendMessage:[NSDictionary dictionaryWithObjectsAndKeys:[NSArray arrayWithObjects:@"data", data, nil], @"parameters", listener, @"callback", @"1", @"keepCallback", nil]];
-	[sock readDataWithTimeout:timeout tag:0];
+	[sock readDataWithTimeout:server.timeout tag:0];
 }
 
 - (void)socket:(GCDAsyncSocket *)sock didWriteDataWithTag:(long)tag {

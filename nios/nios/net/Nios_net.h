@@ -16,6 +16,7 @@
 	NSString* listener;
 	NSString* host;
 	int socketId;
+	int timeout;
 }
 
 @property (retain) GCDAsyncSocket* socket;
@@ -23,6 +24,7 @@
 @property (retain) NSString* host;
 @property (assign) Nios* nios;
 @property int socketId;
+@property int timeout;
 
 @end
 
@@ -31,12 +33,13 @@
 	GCDAsyncSocket* socket;
 	NSString* listener;
 	int socketId;
-	int timeout;
+	Nios_net* server;
 }
 
 @property (retain) GCDAsyncSocket* socket;
 @property (retain) NSString* listener;
 @property (assign) Nios* nios;
+@property (assign) Nios_net* server;
 @property int socketId;
 
 - (Nios_socket*)initWithSocket:(GCDAsyncSocket*)_socket nios:(Nios*)_nios;

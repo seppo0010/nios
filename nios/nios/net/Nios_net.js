@@ -483,7 +483,8 @@ Socket.prototype.write = function(data, arg1, arg2) {
 	}
 	
 	this.bytesWritten += data.length;
-	
+	Nios_call("Nios_net", "write", [this._handle.socketId, buffer_to_string(data), encoding], cb);
+/*	
 	// If we are still connecting, then buffer this for later.
 	if (this._connecting) {
 		this._connectQueueSize += data.length;
@@ -495,7 +496,7 @@ Socket.prototype.write = function(data, arg1, arg2) {
 		return false;
 	}
 	
-	return this._write(data, encoding, cb);
+	return this._write(data, encoding, cb);*/
 };
 
 
