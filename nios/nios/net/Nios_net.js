@@ -801,11 +801,16 @@ Server.prototype._listen2 = function(address, port, addressType) {
 	self.on('connection', function (socket) { });
 	self._handle.readStart = function() {}
 	self._handle.readStop = function() {}
-	var listener = Nios_registerCallback(function (event, params) {
+	var listener = Nios_registerCallback(function (event, params, socketId) {
 										 if (event == "connection") {
 										 var clientHandle = new TCP();
 										 clientHandle.socketId = params;
+										 self.clients = self.clients || {};
+										 self.clients[params] = clientHandle;
 										 self._handle.onconnection(clientHandle);
+										 }
+										 if (event == "data") {
+										 self.clients[socketId].socket.emit("data", params);
 										 }
 										 //		self.emit(event, string_to_buffer(params[0]), params[1]);
 										 });

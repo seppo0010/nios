@@ -31,13 +31,11 @@
 @interface Nios_socket : NSObject <GCDAsyncSocketDelegate> {
 	Nios* nios;
 	GCDAsyncSocket* socket;
-	NSString* listener;
 	int socketId;
 	Nios_net* server;
 }
 
 @property (retain) GCDAsyncSocket* socket;
-@property (retain) NSString* listener;
 @property (assign) Nios* nios;
 @property (assign) Nios_net* server;
 @property int socketId;

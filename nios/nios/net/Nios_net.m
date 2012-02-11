@@ -89,7 +89,6 @@ static int sLastId = 1;
 
 @synthesize nios;
 @synthesize socket;
-@synthesize listener;
 @synthesize socketId;
 @synthesize server;
 
@@ -111,17 +110,17 @@ static int sLastId = 1;
 	return self;
 }
 - (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag {
-	[nios sendMessage:[NSDictionary dictionaryWithObjectsAndKeys:[NSArray arrayWithObjects:@"data", [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease], nil], @"parameters", listener, @"callback", @"1", @"keepCallback", nil]];
+	[nios sendMessage:[NSDictionary dictionaryWithObjectsAndKeys:[NSArray arrayWithObjects:@"data", [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease], [NSNumber numberWithInt:socketId], nil], @"parameters", server.listener, @"callback", @"1", @"keepCallback", nil]];
 	[sock readDataWithTimeout:server.timeout tag:0];
 }
 
 - (void)socket:(GCDAsyncSocket *)sock didWriteDataWithTag:(long)tag {
-	[nios sendMessage:[NSDictionary dictionaryWithObjectsAndKeys:[NSArray arrayWithObjects:@"write", nil], @"parameters", listener, @"callback", @"1", @"keepCallback", nil]];
+	[nios sendMessage:[NSDictionary dictionaryWithObjectsAndKeys:[NSArray arrayWithObjects:@"write", [NSNumber numberWithInt:socketId], nil], @"parameters", server.listener, @"callback", @"1", @"keepCallback", nil]];
 }
 
 - (void)socketDidCloseReadStream:(GCDAsyncSocket *)sock {
-	[nios sendMessage:[NSDictionary dictionaryWithObjectsAndKeys:[NSArray arrayWithObjects:@"end", nil], @"parameters", listener, @"callback", @"1", @"keepCallback", nil]];
-	[nios sendMessage:[NSDictionary dictionaryWithObjectsAndKeys:[NSArray arrayWithObjects:@"close", nil], @"parameters", listener, @"callback", @"1", @"keepCallback", nil]];
+	[nios sendMessage:[NSDictionary dictionaryWithObjectsAndKeys:[NSArray arrayWithObjects:@"end", [NSNumber numberWithInt:socketId], nil], @"parameters", server.listener, @"callback", @"1", @"keepCallback", nil]];
+	[nios sendMessage:[NSDictionary dictionaryWithObjectsAndKeys:[NSArray arrayWithObjects:@"close", [NSNumber numberWithInt:socketId], nil], @"parameters", server.listener, @"callback", @"1", @"keepCallback", nil]];
 }
 
 - (void)socketDidDisconnect:(GCDAsyncSocket *)sock withError:(NSError *)error {
@@ -131,10 +130,10 @@ static int sLastId = 1;
 																	   [error description], @"message",
 																	   [NSNumber numberWithInt:error.code], @"errno",
 																	   nil]
-																	  , nil], @"parameters", listener, @"callback", @"0", @"keepCallback", nil]];
+																	  , nil], @"parameters", server.listener, @"callback", @"0", @"keepCallback", nil]];
 	}
-	[nios sendMessage:[NSDictionary dictionaryWithObjectsAndKeys:[NSArray arrayWithObjects:@"end", nil], @"parameters", listener, @"callback", @"1", @"keepCallback", nil]];
-	[nios sendMessage:[NSDictionary dictionaryWithObjectsAndKeys:[NSArray arrayWithObjects:@"close", nil], @"parameters", listener, @"callback", @"1", @"keepCallback", nil]];
+	[nios sendMessage:[NSDictionary dictionaryWithObjectsAndKeys:[NSArray arrayWithObjects:@"end", [NSNumber numberWithInt:socketId], nil], @"parameters", server.listener, @"callback", @"1", @"keepCallback", nil]];
+	[nios sendMessage:[NSDictionary dictionaryWithObjectsAndKeys:[NSArray arrayWithObjects:@"close", [NSNumber numberWithInt:socketId], nil], @"parameters", server.listener, @"callback", @"1", @"keepCallback", nil]];
 }
 
 @end
