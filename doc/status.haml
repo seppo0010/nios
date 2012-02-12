@@ -421,18 +421,18 @@
 						%li{:class=>'todo'} Event: 'checkContinue'
 						%li{:class=>'todo'} Event: 'upgrade'
 						%li{:class=>'todo'} Event: 'clientError'
-						%li{:class=>'todo'} http.createServer([requestListener])
-						%li{:class=>'todo'} server.listen(port, [hostname], [callback])
-						%li{:class=>'todo'} server.listen(path, [callback])
-						%li{:class=>'todo'} server.close()
+						%li{:class=>'done'} http.createServer([requestListener])
+						%li{:class=>'done'} server.listen(port, [hostname], [callback])
+						%li{:class=>'impossible'} server.listen(path, [callback])
+						%li{:class=>'done'} server.close()
 				%li
 					http.ServerRequest
 					%ul
-						%li{:class=>'todo'} Event: 'data'
-						%li{:class=>'todo'} Event: 'end'
+						%li{:class=>'done'} Event: 'data'
+						%li{:class=>'done'} Event: 'end'
 						%li{:class=>'todo'} Event: 'close'
-						%li{:class=>'todo'} request.method
-						%li{:class=>'todo'} request.url
+						%li{:class=>'done'} request.method
+						%li{:class=>'done'} request.url
 						%li{:class=>'todo'} request.headers
 						%li{:class=>'todo'} request.trailers
 						%li{:class=>'todo'} request.httpVersion
@@ -445,14 +445,14 @@
 					%ul
 						%li{:class=>'todo'} Event: 'close'
 						%li{:class=>'todo'} response.writeContinue()
-						%li{:class=>'todo'} response.writeHead(statusCode, [reasonPhrase], [headers])
+						%li{:class=>'done'} response.writeHead(statusCode, [reasonPhrase], [headers])
 						%li{:class=>'todo'} response.statusCode
 						%li{:class=>'todo'} response.setHeader(name, value)
 						%li{:class=>'todo'} response.getHeader(name)
 						%li{:class=>'todo'} response.removeHeader(name)
-						%li{:class=>'todo'} response.write(chunk, [encoding])
+						%li{:class=>'done'} response.write(chunk, [encoding])
 						%li{:class=>'todo'} response.addTrailers(headers)
-						%li{:class=>'todo'} response.end([data], [encoding])
+						%li{:class=>'done'} response.end([data], [encoding])
 				%li{:class=>'todo'} http.request(options, callback)
 				%li{:class=>'todo'} http.get(options, callback)
 				%li{:class=>'todo'} http.Agent
