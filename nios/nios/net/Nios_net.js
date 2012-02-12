@@ -21,7 +21,6 @@
 
 var events = require('events');
 var stream = require('stream');
-var timers = require('timers');
 var util = require('util');
 var assert = require('assert');
 
@@ -188,13 +187,14 @@ Socket.prototype.listen = function() {
 
 Socket.prototype.setTimeout = function(msecs, callback) {
 	if (msecs > 0) {
-		timers.enroll(this, msecs);
-		timers.active(this);
-		if (callback) {
-			this.once('timeout', callback);
-		}
+		this.timeoutTimer = setTimeout(function() {
+			this._onTimeout();
+		}, msecs);
 	} else if (msecs === 0) {
-		timers.unenroll(this);
+		if (this.timeoutTimer) {
+			clearTimeout(this.timeoutTimer);
+			this.timeoutTimer = null;
+		}
 	}
 };
 
@@ -353,7 +353,10 @@ Socket.prototype.destroy = function(exception) {
 	
 	this.readable = this.writable = false;
 	
-	timers.unenroll(this);
+	if (this.timeoutTimer) {
+		clearTimeout(this.timeoutTimer);
+		this.timeoutTimer = null;
+	}
 	
 	if (this.server) {
 		this.server.connections--;
@@ -380,8 +383,6 @@ function onread(buffer, offset, length) {
 	var handle = this;
 	var self = handle.socket;
 	assert.equal(handle, self._handle);
-	
-	timers.active(self);
 	
 	var end = offset + length;
 	
@@ -501,8 +502,6 @@ Socket.prototype.write = function(data, arg1, arg2) {
 
 
 Socket.prototype._write = function(data, encoding, cb) {
-	timers.active(this);
-	
 	if (!this._handle) throw new Error('This socket is closed.');
 	
 	// `encoding` is unused right now, `data` is always a buffer.
@@ -533,8 +532,6 @@ function afterWrite(status, handle, req, buffer) {
 		self.destroy(errnoException(errno, 'write'));
 		return;
 	}
-	
-	timers.active(this);
 	
 	self._pendingWriteReqs--;
 	
@@ -599,8 +596,6 @@ Socket.prototype.connect = function(options, cb) {
 		self.on('connect', cb);
 	}
 	
-	timers.active(this);
-	
 	self._connecting = true;
 	self.writable = true;
 	
@@ -629,8 +624,6 @@ Socket.prototype.connect = function(options, cb) {
 											   self.emit('error', err);
 											   });
 							  } else {
-							  timers.active(self);
-							  
 							  addressType = addressType || 4;
 							  
 							  // node_net.cc handles null host names graciously but user land
@@ -662,8 +655,6 @@ function afterConnect(status, handle, req) {
 	
 	if (status == 0) {
 		self.readable = self.writable = true;
-		timers.active(self);
-		
 		handle.readStart();
 		
 		self.emit('connect');

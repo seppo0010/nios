@@ -16,10 +16,12 @@
 	NSMutableArray* fields;
 	NSMutableArray* values;
 
+	NSString* listener;
 	NSString* url;
 }
 
 @property (readonly) http_parser* parser;
+@property (retain) NSString* listener;
 
 - (int) on_message_begin;
 - (int) on_headers_complete;

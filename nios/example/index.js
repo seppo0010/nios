@@ -27,8 +27,17 @@ fs.watchFile('b', { timeout: 10 }, function(curr, prev) {
 	
 	server.listen('8000');
 */
+
 try {
-	Nios_call("Nios", "ping", [], function(p) { console.log(p) }, true);
+//			setTimeout(function() {
+	var http = require("http");
+	
+	http.createServer(function(request, response) {
+					  response.writeHead(200, {"Content-Type": "text/plain"});
+					  response.write("Hello World");
+					  response.end();
+	}).listen(8888);
+//			   }, 2000);
 }catch(e) {
 	alert(e);
 }
