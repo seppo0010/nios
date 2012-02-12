@@ -84,6 +84,12 @@ static int sLastId = 1;
 	return nil;
 }
 
++ (id) close:(NSArray*)params nios:(Nios*)nios {
+	Nios_net* socket = [dict valueForKey:[NSString stringWithFormat:@"%d", [[params objectAtIndex:0] intValue]]];
+	[socket.socket disconnect];
+	return nil;
+}
+
 @end
 
 @implementation Nios_socket

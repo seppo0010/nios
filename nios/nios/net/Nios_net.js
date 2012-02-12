@@ -42,7 +42,9 @@ TCP.prototype.writeQueueSize = 0;
 TCP.prototype.readStart = function() {};
 TCP.prototype.readStop = function() {};
 TCP.prototype.shutdown = function() {};
-TCP.prototype.close = function() {};
+TCP.prototype.close = function() {
+	Nios_call("Nios_net", "close", [this.socketId]);
+};
 TCP.prototype.getpeername = function() {};
 TCP.prototype.write = function() {};
 TCP.prototype.connect = function() {};
@@ -801,7 +803,7 @@ Server.prototype._listen2 = function(address, port, addressType) {
 										 self.clients[params] = clientHandle;
 										 self._handle.onconnection(clientHandle);
 										 }
-										 if (event == "close") {
+										 if (event == "close" && !socketId) {
 										 self.emit("close");
 										 }
 										 if (event == "data") {
