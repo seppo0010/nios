@@ -187,8 +187,9 @@ Socket.prototype.listen = function() {
 
 Socket.prototype.setTimeout = function(msecs, callback) {
 	if (msecs > 0) {
+		var self = this;
 		this.timeoutTimer = setTimeout(function() {
-			this._onTimeout();
+			self._onTimeout();
 		}, msecs);
 	} else if (msecs === 0) {
 		if (this.timeoutTimer) {
