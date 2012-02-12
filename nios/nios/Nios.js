@@ -165,7 +165,7 @@ window.process = {
 		Nios_call("Nios_process", "exit", [code]);
 	},
 	nextTick: function (func) {
-	
+		setTimeout(func, 0);
 	},
 	stdout: {
 		write: function(str) {
@@ -200,16 +200,16 @@ document.addEventListener('WebViewJavascriptBridgeReady', function onBridgeReady
 	WebViewJavascriptBridge.setMessageHandler(function(message) {
 		try {
 			var response = JSON.parse(message);
+
+			if (response.callback) {
+				Nios_callbacks[response.callback].apply(null, response.parameters);
+				if (!response.keepCallback) {
+					delete Nios_callbacks[response.callback];
+				}
+			}
 		} catch (e) {
 			alert(e);
 			return;
-		}
-
-		if (response.callback) {
-			Nios_callbacks[response.callback].apply(null, response.parameters);
-			if (!response.keepCallback) {
-				delete Nios_callbacks[response.callback];
-			}
 		}
 	});
 }, false);
