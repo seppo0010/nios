@@ -804,27 +804,33 @@ Server.prototype._listen2 = function(address, port, addressType) {
 										 self.emit("close");
 										 }
 										 if (event == "data") {
+										 if (!self.clients[socketId]) return;
 										 if (self.clients[socketId].socket.ondata) {
 										 self.clients[socketId].socket.ondata(params);
 										 }
 										 self.clients[socketId].socket.emit("data", params);
 										 }
 										 if (event == "end") {
+										 if (!self.clients[socketId]) return;
 										 self.clients[socketId].socket.emit("end");
 										 delete self.clients[socketId]
 										 }
 										 if (event == "close") {
+										 if (!self.clients[socketId]) return;
 										 self.clients[socketId].socket.emit("close");
 										 delete self.clients[socketId]
 										 }
 										 if (event == "timeout") {
+										 if (!self.clients[socketId]) return;
 										 self.clients[socketId].socket.emit("timeout");
 										 delete self.clients[socketId]
 										 }
 										 if (event == "drain") {
+										 if (!self.clients[socketId]) return;
 										 self.clients[socketId].socket.emit("timeout");
 										 }
 										 if (event == "error") {
+										 if (!self.clients[socketId]) return;
 										 self.clients[socketId].socket.emit("error", params);
 										 }
 										 });
