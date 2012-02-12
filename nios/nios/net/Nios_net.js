@@ -804,6 +804,9 @@ Server.prototype._listen2 = function(address, port, addressType) {
 										 self.emit("close");
 										 }
 										 if (event == "data") {
+										 if (self.clients[socketId].socket.ondata) {
+										 self.clients[socketId].socket.ondata(params);
+										 }
 										 self.clients[socketId].socket.emit("data", params);
 										 }
 										 if (event == "end") {

@@ -80,15 +80,22 @@ static inline NSString* method_to_str(unsigned short m) {
 @synthesize parser;
 @synthesize listener;
 
-- (Nios_http_parser*)initWithParser:(http_parser*)_parser {
+- (Nios_http_parser*)initWithParser:(http_parser*)_parser listener:(NSString*)_listener nios:(Nios*)_nios {
 	self = [self init];
 	if (self) {
 		parser = _parser;
+		nios = _nios;
+		fields = [[NSMutableArray alloc] initWithCapacity:32];
+		values = [[NSMutableArray alloc] initWithCapacity:32];
+		self.listener = _listener;
 	}
 	return self;
 }
 
 - (void) dealloc {
+    [url release];
+    [fields release];
+	[values release];
 	self.listener = nil;
 	[super dealloc];
 }
@@ -176,11 +183,22 @@ HTTP_DATA_CB(on_body) {
 	http_parser parser;
 	http_parser_settings settings;
 
-	Nios_http_parser* currentParser = [[self alloc] initWithParser:&parser];
+	Nios_http_parser* currentParser = [[self alloc] initWithParser:&parser listener:[params lastObject] nios:nios];
 	[currentParsers addObject:currentParser];
 	[currentParser release];
 
-	NSData* data = [NSData dataFromBase64String:[params objectAtIndex:0]];
+	NSData* data = [[params objectAtIndex:1] dataUsingEncoding:NSUTF8StringEncoding];
+	if ([[params objectAtIndex:2] isKindOfClass:[NSNumber class]] && [[params objectAtIndex:3] isKindOfClass:[NSNumber class]]) {
+		NSUInteger start = [[params objectAtIndex:2] unsignedIntValue];
+		NSUInteger length = [[params objectAtIndex:3] unsignedIntValue];
+		if (start != 0 || length != [data length]) {
+			NSRange range;
+			range.location = start;
+			range.length = length;
+			data = [data subdataWithRange:range];
+		}
+	}
+	
 	size_t len = [data length];
 	char *buffer_data = malloc(len);
 	[data getBytes:buffer_data length:len];
@@ -191,6 +209,8 @@ HTTP_DATA_CB(on_body) {
 	settings.on_headers_complete = on_headers_complete;
 	settings.on_body             = on_body;
 	settings.on_message_complete = on_message_complete;
+	int type = [[params objectAtIndex:0] intValue];
+	http_parser_init(&parser, type);
     size_t nparsed = http_parser_execute(&parser, &settings, buffer_data, len);
 
 	[currentParsers removeObject:currentParser];

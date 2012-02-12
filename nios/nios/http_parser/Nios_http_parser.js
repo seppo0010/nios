@@ -10,7 +10,7 @@ exports.HTTPParser.prototype.execute = function (d, start, length) {
 	var listener = function (event, params) {
 		self[event].apply(self, params);
 	}
-	Nios_call("Nios_http_parser", "execute", [ this.type, d, start, length, listener ], this.finish);
+	Nios_call("Nios_http_parser", "execute", [ this.type, d, start, length, Nios_registerCallback(listener) ], this.finish);
 }
 
 exports.HTTPParser.prototype.finish = function () {

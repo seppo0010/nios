@@ -8,6 +8,7 @@
 
 #import "Nios_net.h"
 #import "Nios.h"
+#import "NSData+Base64.h"
 
 static NSMutableDictionary* dict = nil;
 static int lastId = 1;
@@ -78,7 +79,7 @@ static int sLastId = 1;
 
 + (id) write:(NSArray*)params nios:(Nios*)nios {
 	Nios_socket* socket = [sDict valueForKey:[NSString stringWithFormat:@"%d", [[params objectAtIndex:0] intValue]]];
-	NSData* data = [[params objectAtIndex:1] dataUsingEncoding:NSUTF8StringEncoding]; // TODO: use proper encoding
+	NSData* data = [NSData dataFromBase64String:[params objectAtIndex:1]]; // TODO: use proper encoding
 	[socket.socket writeData:data withTimeout:socket.server.timeout tag:0];
 	return nil;
 }

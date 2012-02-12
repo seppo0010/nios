@@ -11,7 +11,10 @@ window.Buffer = exports.Buffer = function(size, encoding) {
 };
 Buffer.prototype = Object.create(ArrayBuffer.prototype);
 
-
+Buffer.byteLength = function(str, encoding) {
+	// FIXME: work properly
+	return str.length;
+}
 
 window.Base64 = {
 	

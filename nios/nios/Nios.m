@@ -77,7 +77,9 @@ static UInt16 nios_webport = 8889;
 }
 
 - (void) sendMessage:(NSDictionary*)message {
-	[javascriptBridge sendMessage:[message JSONRepresentation] toWebView:webView];
+	NSString* jsonMessage = [message JSONRepresentation];
+	NiosLog(@"sendMessage: \n%@", jsonMessage);
+	[javascriptBridge sendMessage:jsonMessage toWebView:webView];
 }
 
 - (void)javascriptBridge:(WebViewJavascriptBridge *)bridge receivedMessage:(NSString *)message fromWebView:(UIWebView *)_webView {
