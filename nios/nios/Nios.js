@@ -24,7 +24,6 @@ function require_fullpath(path) {
 }
 
 function require(filename) {
-	if (filename.substr(-3) == '.js') filename = filename.substr(0, -3);
 	var exports = {};
 	var resolved = require.resolve(filename);
 	if (!resolved) return null;
@@ -36,15 +35,18 @@ function require(filename) {
 require.resolve = function(filename) {
 	var exports = {};
 	var prefix = ['Nios_', ''];
+	var suffix = ['', '.js'];
 	for (var k in NIOS_BASEPATH) {
 		for (var i in prefix) {
-			var path = NIOS_BASEPATH[k] + "/" + prefix[i] + filename + ".js";
-			var xhReq = new XMLHttpRequest();
-			xhReq.open("HEAD", "file://" + encodeURI(path), false);
-			xhReq.send(null);
-			var ret = xhReq.responseText;
-			if (ret == false) continue;
-			return NIOS_BASEPATH[k] + "/" + prefix[i] + filename + ".js";
+			for (var j in suffix) {
+				var path = NIOS_BASEPATH[k] + "/" + prefix[i] + filename + suffix[j];
+				var xhReq = new XMLHttpRequest();
+				xhReq.open("HEAD", "file://" + encodeURI(path), false);
+				xhReq.send(null);
+				var ret = xhReq.responseText;
+				if (ret == false) continue;
+				return NIOS_BASEPATH[k] + "/" + prefix[i] + filename + suffix[j];
+			}
 		}
 	}
 	return null;
