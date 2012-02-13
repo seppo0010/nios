@@ -226,4 +226,4 @@ function Nios_ping(callback) {
 	Nios_call("Nios", "ping", ["PING?"], callback);
 }
 
-require('Buffer')
+require('buffer')
