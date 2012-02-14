@@ -1313,7 +1313,6 @@ ClientRequest.prototype.onSocket = function(socket) {
         req.emit('continue');
         return true;
       }
-
       if (req.shouldKeepAlive && !shouldKeepAlive && !req.upgradeOrConnect) {
         // Server MUST respond with Connection:keep-alive for us to enable it.
         // If we've been upgraded (via WebSockets) we also shouldn't try to

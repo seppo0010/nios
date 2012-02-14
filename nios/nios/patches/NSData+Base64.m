@@ -224,8 +224,8 @@ char *NewBase64Encode(
 		//
 		// Add the newline
 		//
-		outputBuffer[j++] = '\r';
-		outputBuffer[j++] = '\n';
+//		outputBuffer[j++] = '\r';
+//		outputBuffer[j++] = '\n';
 		lineEnd += lineLength;
 	}
 	

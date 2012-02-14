@@ -11,7 +11,7 @@
 #import "HTTPConnection.h"
 #import "HTTPServer.h"
 
-#define NiosLog(...)
+#define NiosLog NSLog
 
 @class NiosHTTPServer;
 @interface Nios : NSObject <WebViewJavascriptBridgeDelegate> {

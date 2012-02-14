@@ -136,6 +136,7 @@ HTTP_CB(on_headers_complete) {
 	[message_info setValue:[NSNumber numberWithInt:parser->http_minor] forKey:@"versionMinor"];
 	[message_info setValue:[NSNumber numberWithBool:http_should_keep_alive(parser)] forKey:@"shouldKeepAlive"];
 	[message_info setValue:[NSNumber numberWithBool:parser->upgrade] forKey:@"upgrade"];
+	[message_info setValue:url forKey:@"url"];
 
 	[nios sendMessage:[NSDictionary dictionaryWithObjectsAndKeys:[NSArray arrayWithObjects:@"onHeadersComplete", [NSArray arrayWithObject:message_info], nil], @"parameters", listener, @"callback", @"1", @"keepCallback", nil]];
 

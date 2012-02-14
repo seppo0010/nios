@@ -32,6 +32,8 @@
 		C92318D714DD6D9F00646E0C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C92318D314DD6D9F00646E0C /* AppDelegate.m */; };
 		C92318D914DD6D9F00646E0C /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C92318D614DD6D9F00646E0C /* ViewController.m */; };
 		C92318DA14DD6DBD00646E0C /* index.js in Resources */ = {isa = PBXBuildFile; fileRef = C92318D414DD6D9F00646E0C /* index.js */; };
+		C9268B6314E9ADE800ACED95 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = C9268B6214E9ADE800ACED95 /* index.html */; };
+		C9268B6514E9B14B00ACED95 /* node_modules in Resources */ = {isa = PBXBuildFile; fileRef = C9268B6414E9B14B00ACED95 /* node_modules */; };
 		C94DBD6214E2FD3300A3A21B /* Nios_buffer.js in Sources */ = {isa = PBXBuildFile; fileRef = C94DBD6114E2FD3300A3A21B /* Nios_buffer.js */; };
 		C94DBD6314E2FD9500A3A21B /* Nios_buffer.js in Resources */ = {isa = PBXBuildFile; fileRef = C94DBD6114E2FD3300A3A21B /* Nios_buffer.js */; };
 		C95DF6C414E7F30900782CB9 /* assert.js in Resources */ = {isa = PBXBuildFile; fileRef = C917827D14E0696D006E8852 /* assert.js */; };
@@ -83,6 +85,7 @@
 		C9C8C5D514E455BF00B412BA /* stream.js in Resources */ = {isa = PBXBuildFile; fileRef = C917829414E0696D006E8852 /* stream.js */; };
 		C9D8977214E720BF00F06DB1 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = C9D8977114E720BF00F06DB1 /* NSData+Base64.m */; };
 		C9EEFD5F14E2FEA6009BFAE1 /* buffer_ieee754.js in Resources */ = {isa = PBXBuildFile; fileRef = C94DBD5914E2FC5F00A3A21B /* buffer_ieee754.js */; };
+		C9F78F7A14E9F17F00D97425 /* url.js in Resources */ = {isa = PBXBuildFile; fileRef = C917829A14E0696D006E8852 /* url.js */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -166,6 +169,8 @@
 		C92318D414DD6D9F00646E0C /* index.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = index.js; sourceTree = "<group>"; };
 		C92318D514DD6D9F00646E0C /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		C92318D614DD6D9F00646E0C /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		C9268B6214E9ADE800ACED95 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
+		C9268B6414E9B14B00ACED95 /* node_modules */ = {isa = PBXFileReference; lastKnownFileType = folder; path = node_modules; sourceTree = "<group>"; };
 		C94DBD5914E2FC5F00A3A21B /* buffer_ieee754.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = buffer_ieee754.js; sourceTree = "<group>"; };
 		C94DBD5A14E2FC5F00A3A21B /* buffer.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = buffer.js; sourceTree = "<group>"; };
 		C94DBD6114E2FD3300A3A21B /* Nios_buffer.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = Nios_buffer.js; sourceTree = "<group>"; };
@@ -456,6 +461,7 @@
 		C92318D114DD6D9E00646E0C /* example */ = {
 			isa = PBXGroup;
 			children = (
+				C9268B6414E9B14B00ACED95 /* node_modules */,
 				C92318D214DD6D9F00646E0C /* AppDelegate.h */,
 				C92318D314DD6D9F00646E0C /* AppDelegate.m */,
 				C92318D414DD6D9F00646E0C /* index.js */,
@@ -463,6 +469,7 @@
 				C92318D614DD6D9F00646E0C /* ViewController.m */,
 				C96C1DA714DD7B8300343FC1 /* ViewController_iPad.xib */,
 				C96C1DA814DD7B8300343FC1 /* ViewController_iPhone.xib */,
+				C9268B6214E9ADE800ACED95 /* index.html */,
 			);
 			path = example;
 			sourceTree = "<group>";
@@ -712,6 +719,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9F78F7A14E9F17F00D97425 /* url.js in Resources */,
 				C95DF6C614E7F4E900782CB9 /* _linklist.js in Resources */,
 				C95DF6C414E7F30900782CB9 /* assert.js in Resources */,
 				C9AA4F0D14E7F2AB0000A563 /* freelist.js in Resources */,
@@ -736,6 +744,8 @@
 				C96C1DA914DD7B8300343FC1 /* ViewController_iPad.xib in Resources */,
 				C96C1DAA14DD7B8300343FC1 /* ViewController_iPhone.xib in Resources */,
 				C97E0B2114E22FB0000CB6A3 /* Nios_net.js in Resources */,
+				C9268B6314E9ADE800ACED95 /* index.html in Resources */,
+				C9268B6514E9B14B00ACED95 /* node_modules in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

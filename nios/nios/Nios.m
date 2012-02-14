@@ -83,11 +83,14 @@ static UInt16 nios_webport = 8889;
 }
 
 - (void)javascriptBridge:(WebViewJavascriptBridge *)bridge receivedMessage:(NSString *)message fromWebView:(UIWebView *)_webView {
+	NiosLog(@"receivedMessage: \n%@", message);
 	NSDictionary* call = [message JSONValue];
 	Class class = NSClassFromString([call valueForKey:@"class"]);
 	id ret = [class performSelector:sel_getUid([[NSString stringWithFormat:@"%@:nios:", [call valueForKey:@"method"]] UTF8String]) withObject:[call valueForKey:@"parameters"] withObject:self];
 	if (![[call valueForKey:@"callback"] isKindOfClass:[NSNull class]]) {
-		[javascriptBridge sendMessage:[[NSDictionary dictionaryWithObjectsAndKeys:ret, @"parameters", [call valueForKey:@"callback"], @"callback", nil] JSONRepresentation] toWebView:_webView];
+		NSString* reply = [[NSDictionary dictionaryWithObjectsAndKeys:ret, @"parameters", [call valueForKey:@"callback"], @"callback", nil] JSONRepresentation];
+		NiosLog(@"replyingMessage: \n%@", reply);
+		[javascriptBridge sendMessage:reply toWebView:_webView];
 	}
 }
 

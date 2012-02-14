@@ -13,13 +13,14 @@ exports.open = function(path, flags, mode, callback) {
 	Nios_call("Nios_fs", "open", [path, flags, mode], callback);
 }
 exports.readFile = function(filename, encoding, callback) {
+	if (typeof encoding === 'function' && typeof callback === 'undefined') {
+		callback = encoding;
+		encoding = null;
+	}
 	var tmp_callback = function(err, data) {
-		if (encoding == null) {
-			var buffer = new Buffer(data.length);
-			for (var i = 0; i < data.length; i++) {
-				buffer[i] = data[i];
-			}
-			data = buffer;
+		if (!err && encoding == null) {
+			var str = data;
+			data = string_to_buffer(data);
 		}
 		callback(err, data);
 	}

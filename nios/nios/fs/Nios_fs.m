@@ -14,10 +14,23 @@
 #include <sys/stat.h>
 #include <sys/time.h>
 #include <sys/event.h>
+#import "NSData+Base64.h"
 
 @implementation Nios_fs
 
 + (NSString*) fullPathforPath:(NSString*)path {
+	NSString* appPath = [[[NSBundle mainBundle] pathForResource:@"Nios" ofType:@"js"] stringByDeletingLastPathComponent];
+	if ([path hasPrefix:appPath]) {
+		return path;
+	}
+	{
+		NSArray* components = [path componentsSeparatedByString:@"."];
+		NSString* retPath = [[NSBundle mainBundle] pathForResource:[components objectAtIndex:0] ofType:[components objectAtIndex:1]];
+		if (retPath) {
+			return retPath;
+		}
+		
+	}
     NSArray* paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString* documentsPath = [paths objectAtIndex:0];
 	return [NSString stringWithFormat:@"%@/%@", documentsPath, path];
@@ -168,6 +181,7 @@
 	
 	id ret = [NSData dataWithContentsOfFile:path];
 	if ([[params objectAtIndex:1] isKindOfClass:[NSNull class]]) {
+		ret = [ret base64EncodedString];
 	} else if ([[params objectAtIndex:1] isEqualToString:@"utf8"]) {
 		ret = [[[NSString alloc] initWithData:ret encoding:NSUTF8StringEncoding] autorelease];
 	} else if ([[params objectAtIndex:1] isEqualToString:@"ascii"]) {
