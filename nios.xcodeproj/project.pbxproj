@@ -59,6 +59,7 @@
 		C97E5DFF14DE178B000A10F1 /* NSData+proxyForJson.m in Sources */ = {isa = PBXBuildFile; fileRef = C97E5DFE14DE178B000A10F1 /* NSData+proxyForJson.m */; };
 		C97E5E0414DEB18F000A10F1 /* Nios_console.m in Sources */ = {isa = PBXBuildFile; fileRef = C97E5E0314DEB18F000A10F1 /* Nios_console.m */; };
 		C997188D14E3680E00610D50 /* Nios_net.m in Sources */ = {isa = PBXBuildFile; fileRef = C997188C14E3680E00610D50 /* Nios_net.m */; };
+		C9A9829314EBE32400EFA587 /* Nios_querystring.js in Resources */ = {isa = PBXBuildFile; fileRef = C9A9829114EBE2F600EFA587 /* Nios_querystring.js */; };
 		C9AA4F0C14E7F1F10000A563 /* Nios_http.js in Resources */ = {isa = PBXBuildFile; fileRef = C9AA4F0A14E7F1CA0000A563 /* Nios_http.js */; };
 		C9AA4F0D14E7F2AB0000A563 /* freelist.js in Resources */ = {isa = PBXBuildFile; fileRef = C917828814E0696D006E8852 /* freelist.js */; };
 		C9BD6AD714E72B6400B26FBD /* DDData.m in Sources */ = {isa = PBXBuildFile; fileRef = C9BD6ABB14E72B6400B26FBD /* DDData.m */; };
@@ -195,6 +196,7 @@
 		C97E5E0314DEB18F000A10F1 /* Nios_console.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Nios_console.m; sourceTree = "<group>"; };
 		C997188B14E3680E00610D50 /* Nios_net.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Nios_net.h; sourceTree = "<group>"; };
 		C997188C14E3680E00610D50 /* Nios_net.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Nios_net.m; sourceTree = "<group>"; };
+		C9A9829114EBE2F600EFA587 /* Nios_querystring.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = Nios_querystring.js; sourceTree = "<group>"; };
 		C9AA4F0A14E7F1CA0000A563 /* Nios_http.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = Nios_http.js; sourceTree = "<group>"; };
 		C9B9C6B014DDA1820038F761 /* cycle.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = cycle.js; sourceTree = "<group>"; };
 		C9B9C6B114DDA1820038F761 /* json.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = json.js; sourceTree = "<group>"; };
@@ -381,8 +383,9 @@
 				C92318BA14DD69C900646E0C /* fs */,
 				C9AA4F0914E7F1CA0000A563 /* http */,
 				C9BD6B1714E735CF00B26FBD /* http_parser */,
-				C916E3BD14DF80B100061D01 /* process */,
 				C97E0B1F14E22FA8000CB6A3 /* net */,
+				C916E3BD14DF80B100061D01 /* process */,
+				C9A9829014EBE2F600EFA587 /* querystring */,
 				C923188814DD670500646E0C /* Nios.h */,
 				C923188914DD670500646E0C /* Nios.m */,
 				C92318CB14DD6D3900646E0C /* Nios.js */,
@@ -556,6 +559,15 @@
 			path = nios/console;
 			sourceTree = "<group>";
 		};
+		C9A9829014EBE2F600EFA587 /* querystring */ = {
+			isa = PBXGroup;
+			children = (
+				C9A9829114EBE2F600EFA587 /* Nios_querystring.js */,
+			);
+			name = querystring;
+			path = nios/querystring;
+			sourceTree = "<group>";
+		};
 		C9AA4F0914E7F1CA0000A563 /* http */ = {
 			isa = PBXGroup;
 			children = (
@@ -719,6 +731,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9A9829314EBE32400EFA587 /* Nios_querystring.js in Resources */,
 				C9F78F7A14E9F17F00D97425 /* url.js in Resources */,
 				C95DF6C614E7F4E900782CB9 /* _linklist.js in Resources */,
 				C95DF6C414E7F30900782CB9 /* assert.js in Resources */,
