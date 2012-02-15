@@ -20,8 +20,18 @@ Buffer.prototype.toString = function() {
 	return str;
 }
 
+Buffer.prototype.slice = function (start, stop) {
+	var len = stop - start + 1;
+	var ret = new Buffer(len);
+	for (var i = 0; i < len; i++) {
+		ret[i] = this[i + start];
+	}
+	return ret;
+}
+
 Buffer.isBuffer = function(obj) { return obj._isBuffer == true; }
 Buffer.byteLength = function(str, encoding) {
 	// FIXME: work properly
 	return str.length;
 }
+
