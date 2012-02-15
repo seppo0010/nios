@@ -90,6 +90,11 @@ static int sLastId = 1;
 	return nil;
 }
 
++ (id) peername:(NSArray*)params nios:(Nios*)nios {
+	Nios_socket* socket = [sDict valueForKey:[NSString stringWithFormat:@"%d", [[params objectAtIndex:0] intValue]]];
+	return [NSArray arrayWithObject:[socket.socket connectedHost]];
+}
+
 @end
 
 @implementation Nios_socket

@@ -45,7 +45,11 @@ TCP.prototype.shutdown = function() {};
 TCP.prototype.close = function() {
 	Nios_call("Nios_net", "close", [this.socketId]);
 };
-TCP.prototype.getpeername = function() {};
+TCP.prototype.getpeername = function() {
+	var ret;
+	Nios_call("Nios_net", "peername", [this.socketId], function(r) { ret = r; }, true);
+	return ret;
+};
 TCP.prototype.write = function() {};
 TCP.prototype.connect = function() {};
 TCP.prototype.connect6 = function() {};
