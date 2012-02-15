@@ -60,6 +60,9 @@
 		C97E5E0414DEB18F000A10F1 /* Nios_console.m in Sources */ = {isa = PBXBuildFile; fileRef = C97E5E0314DEB18F000A10F1 /* Nios_console.m */; };
 		C997188D14E3680E00610D50 /* Nios_net.m in Sources */ = {isa = PBXBuildFile; fileRef = C997188C14E3680E00610D50 /* Nios_net.m */; };
 		C9A9829314EBE32400EFA587 /* Nios_querystring.js in Resources */ = {isa = PBXBuildFile; fileRef = C9A9829114EBE2F600EFA587 /* Nios_querystring.js */; };
+		C9A982A014EBFAE200EFA587 /* Nios_ios.m in Sources */ = {isa = PBXBuildFile; fileRef = C9A9829F14EBFAE100EFA587 /* Nios_ios.m */; };
+		C9A982A314EBFB4300EFA587 /* Nios_ios.js in Resources */ = {isa = PBXBuildFile; fileRef = C9A982A114EBFB3300EFA587 /* Nios_ios.js */; };
+		C9A982A514EBFB5200EFA587 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9A982A414EBFB5200EFA587 /* AudioToolbox.framework */; };
 		C9AA4F0C14E7F1F10000A563 /* Nios_http.js in Resources */ = {isa = PBXBuildFile; fileRef = C9AA4F0A14E7F1CA0000A563 /* Nios_http.js */; };
 		C9AA4F0D14E7F2AB0000A563 /* freelist.js in Resources */ = {isa = PBXBuildFile; fileRef = C917828814E0696D006E8852 /* freelist.js */; };
 		C9BD6AD714E72B6400B26FBD /* DDData.m in Sources */ = {isa = PBXBuildFile; fileRef = C9BD6ABB14E72B6400B26FBD /* DDData.m */; };
@@ -197,6 +200,10 @@
 		C997188B14E3680E00610D50 /* Nios_net.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Nios_net.h; sourceTree = "<group>"; };
 		C997188C14E3680E00610D50 /* Nios_net.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Nios_net.m; sourceTree = "<group>"; };
 		C9A9829114EBE2F600EFA587 /* Nios_querystring.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = Nios_querystring.js; sourceTree = "<group>"; };
+		C9A9829E14EBFAE100EFA587 /* Nios_ios.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Nios_ios.h; sourceTree = "<group>"; };
+		C9A9829F14EBFAE100EFA587 /* Nios_ios.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Nios_ios.m; sourceTree = "<group>"; };
+		C9A982A114EBFB3300EFA587 /* Nios_ios.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = Nios_ios.js; sourceTree = "<group>"; };
+		C9A982A414EBFB5200EFA587 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		C9AA4F0A14E7F1CA0000A563 /* Nios_http.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = Nios_http.js; sourceTree = "<group>"; };
 		C9B9C6B014DDA1820038F761 /* cycle.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = cycle.js; sourceTree = "<group>"; };
 		C9B9C6B114DDA1820038F761 /* json.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = json.js; sourceTree = "<group>"; };
@@ -259,6 +266,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9A982A514EBFB5200EFA587 /* AudioToolbox.framework in Frameworks */,
 				C97E0B0E14E2093B000CB6A3 /* CFNetwork.framework in Frameworks */,
 				C923186814DD661500646E0C /* UIKit.framework in Frameworks */,
 				C923186A14DD661500646E0C /* Foundation.framework in Frameworks */,
@@ -342,6 +350,7 @@
 		C923186614DD661500646E0C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C9A982A414EBFB5200EFA587 /* AudioToolbox.framework */,
 				C97E0B0D14E2093B000CB6A3 /* CFNetwork.framework */,
 				C923186714DD661500646E0C /* UIKit.framework */,
 				C923186914DD661500646E0C /* Foundation.framework */,
@@ -383,6 +392,7 @@
 				C92318BA14DD69C900646E0C /* fs */,
 				C9AA4F0914E7F1CA0000A563 /* http */,
 				C9BD6B1714E735CF00B26FBD /* http_parser */,
+				C9A9829C14EBFAD300EFA587 /* ios */,
 				C97E0B1F14E22FA8000CB6A3 /* net */,
 				C916E3BD14DF80B100061D01 /* process */,
 				C9A9829014EBE2F600EFA587 /* querystring */,
@@ -568,6 +578,17 @@
 			path = nios/querystring;
 			sourceTree = "<group>";
 		};
+		C9A9829C14EBFAD300EFA587 /* ios */ = {
+			isa = PBXGroup;
+			children = (
+				C9A9829E14EBFAE100EFA587 /* Nios_ios.h */,
+				C9A9829F14EBFAE100EFA587 /* Nios_ios.m */,
+				C9A982A114EBFB3300EFA587 /* Nios_ios.js */,
+			);
+			name = ios;
+			path = nios/ios;
+			sourceTree = "<group>";
+		};
 		C9AA4F0914E7F1CA0000A563 /* http */ = {
 			isa = PBXGroup;
 			children = (
@@ -731,6 +752,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9A982A314EBFB4300EFA587 /* Nios_ios.js in Resources */,
 				C9A9829314EBE32400EFA587 /* Nios_querystring.js in Resources */,
 				C9F78F7A14E9F17F00D97425 /* url.js in Resources */,
 				C95DF6C614E7F4E900782CB9 /* _linklist.js in Resources */,
@@ -817,6 +839,7 @@
 				C9BD6AFE14E72F1E00B26FBD /* DDTTYLogger.m in Sources */,
 				C9BD6B1A14E735DA00B26FBD /* Nios_http_parser.m in Sources */,
 				C9BD6B2414E7363C00B26FBD /* http_parser.c in Sources */,
+				C9A982A014EBFAE200EFA587 /* Nios_ios.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
