@@ -11,7 +11,11 @@
 #import "HTTPConnection.h"
 #import "HTTPServer.h"
 
-#define NiosLog NSLog
+#ifdef DEBUG_PRINT
+#define NiosLog(format, ...) NSLog(@"%s: " format, __FUNCTION__, ##__VA_ARGS__)
+#else
+#define NiosLog(format, ...) do {} while(0)
+#endif
 
 @class NiosHTTPServer;
 @interface Nios : NSObject <WebViewJavascriptBridgeDelegate> {
