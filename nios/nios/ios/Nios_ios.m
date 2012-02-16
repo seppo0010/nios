@@ -29,4 +29,11 @@
 //	AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
 }
 
++ (void) alert:(NSArray*)params nios:(Nios*)nios {
+	UIAlertView* alert = [[UIAlertView alloc] init];
+	alert.title = [params objectAtIndex:0];
+	alert.message = [params objectAtIndex:1];
+	[alert addButtonWithTitle:@"OK"];
+}
+
 @end

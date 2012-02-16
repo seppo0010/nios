@@ -5,3 +5,6 @@ exports.vibrate = function(callback) {
 		Nios_call("Nios_ios", "vibrate");
 	}
 }
+exports.alert = function(title, text) {
+	Nios_call("Nios_ios", "alert", [title || "", text || ""]);
+}
