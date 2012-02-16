@@ -22,9 +22,7 @@ function require_fullpath(path) {
 		var __dirname = path.split('/').slice(0, -1).join('/')
 		currentPath.push(__dirname);
 		window._modules.push(module);
-		try {
-			eval(xhReq.responseText);
-		} catch (e) { alert("Unable to import module '" + path + "' " + e); }
+		eval(xhReq.responseText);
 		window._modules.pop();
 		currentPath.pop();
 		for (var k in exports) { module.exports[k] = exports[k]; }

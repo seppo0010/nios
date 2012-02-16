@@ -11,7 +11,7 @@
 #import "HTTPConnection.h"
 #import "HTTPServer.h"
 
-#ifdef DEBUG_PRINT
+#ifdef DEBUG
 #define NiosLog(format, ...) NSLog(@"%s: " format, __FUNCTION__, ##__VA_ARGS__)
 #else
 #define NiosLog(format, ...) do {} while(0)
@@ -20,12 +20,18 @@
 @protocol NiosDelegate;
 @class NiosHTTPServer;
 @interface Nios : NSObject <WebViewJavascriptBridgeDelegate> {
+	NSString* scriptPath;
 	UIWebView* webView;
 	WebViewJavascriptBridge *javascriptBridge;
 
 	NiosHTTPServer* webServer;
 
 	id<NiosDelegate> delegate;
+
+	NSMutableArray* sids;
+	NSMutableArray* lines;
+	NSMutableArray* frames;
+	NSMutableDictionary* sourcesBySid;
 }
 
 - (Nios*) initWithScriptName:(NSString*)fileName;
@@ -56,5 +62,15 @@
 @interface NiosHTTPConnection : HTTPConnection {
 
 }
+
+@end
+
+@interface NiosWebView : UIWebView {
+	Nios* nios;
+	id windowScriptObject;
+	id privateWebView;
+}
+
+- (NiosWebView*)initWithDebugger:(Nios*)_nios;
 
 @end

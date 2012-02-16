@@ -12,6 +12,10 @@
 #import "HTTPMessage.h"
 #import "HTTPDataResponse.h"
 
+@class WebView;
+@class WebScriptCallFrame;
+@class WebFrame;
+
 @implementation Nios
 
 @synthesize delegate;
@@ -52,13 +56,13 @@ static UInt16 nios_webport = 8889;
 	return [self initWithScriptName:fileName];
 }
 
-- (Nios*) initWithScriptPath:(NSString*)scriptPath {
+- (Nios*) initWithScriptPath:(NSString*)_scriptPath {
 	self = [self init];
 	if (self) {
-		webView = [[UIWebView alloc] initWithFrame:CGRectZero];
+		scriptPath = [_scriptPath retain];
+		webView = [[NiosWebView alloc] initWithDebugger:self];
 		javascriptBridge = [[WebViewJavascriptBridge javascriptBridgeWithDelegate:self] retain];
 		webView.delegate = javascriptBridge;
-
 		NSString* architecture = @"unknown";
 #ifdef __i386__
 		architecture = @"i386";
@@ -69,15 +73,112 @@ static UInt16 nios_webport = 8889;
 #ifdef __arm__
 		architecture = @"arm";
 #endif
-
+		
 		NSString* modulesPath = [[[NSBundle mainBundle] pathForResource:@"Nios" ofType:@"js"] stringByDeletingLastPathComponent];
-		NSString* htmlString = [NSString stringWithFormat:@"<script>window.NIOS_BASEPATH = [\"%@\"];</script><script src=\"file://%@\"></script><script src=\"file://%@\"></script><script>document.addEventListener('WebViewJavascriptBridgeReady', function() { Nios_initialize('%@', '%@', %d); require_fullpath(\"%@\"); });</script>", modulesPath, [[[[NSBundle mainBundle] pathForResource:@"Nios" ofType:@"js"]stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding] stringByReplacingOccurrencesOfString:@" " withString:@"%20"], [[[[NSBundle mainBundle] pathForResource:@"json2" ofType:@"js"]stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding] stringByReplacingOccurrencesOfString:@" " withString:@"%20"], architecture, [[UIDevice currentDevice] model], webServer.port, scriptPath];
+		NSString* htmlString = [NSString stringWithFormat:@"<script>window.NIOS_BASEPATH = [\"%@\"];</script><script src=\"file://%@\"></script><script src=\"file://%@\"></script><script>document.addEventListener('WebViewJavascriptBridgeReady', function() { Nios_initialize('%@', '%@', %d); require_fullpath('%@'); });</script>", modulesPath, [[[[NSBundle mainBundle] pathForResource:@"Nios" ofType:@"js"]stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding] stringByReplacingOccurrencesOfString:@" " withString:@"%20"], [[[[NSBundle mainBundle] pathForResource:@"json2" ofType:@"js"]stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding] stringByReplacingOccurrencesOfString:@" " withString:@"%20"], architecture, [[UIDevice currentDevice] model], webServer.port, scriptPath];
 		[webView loadHTMLString:htmlString baseURL:nil];
 	}
 	return self;
 }
 
+#ifdef DEBUG
+- (void) printStackForSourceId:(int)sid line:(int)lineno {
+	@try {
+		NSString* line = [[[sourcesBySid valueForKey:[NSString stringWithFormat:@"%d", sid]] componentsSeparatedByString:@"\n"] objectAtIndex:lineno];
+		NSLog(@"%@", line);
+	}
+	@catch (NSException *exception) {
+		NSLog(@"");
+	}
+}
+- (void)webView:(WebView *)_webView   exceptionWasRaised:(WebScriptCallFrame *)frame
+       sourceId:(int)sid
+           line:(int)lineno
+    forWebFrame:(WebFrame *)webFrame
+{
+	if ([@"require_fullpath" isEqualToString:[frame performSelector:@selector(functionName)]]) {
+		NSLog(@"Probably uncaught exception; stopping javascript");
+		[webView performSelector:@selector(release) withObject:nil afterDelay:0.0f];
+		webView = nil;
+		return;
+	}
+	NSLog(@"NSDD: exception: sid=%d line=%d function=%@, caller=%@, exception=%@", sid, lineno, [frame performSelector:@selector(functionName)], [frame performSelector:@selector(caller)], [[frame performSelector:@selector(exception)] performSelector:@selector(stringRepresentation)]);
+
+	for (int i = 0; i < [lines count]; i++) {
+		int lineno = [[lines objectAtIndex:i] intValue];
+		if (i == [lines count] - 1) lineno++;
+		else lineno--; // magic?
+		[self printStackForSourceId:[[sids objectAtIndex:i] intValue] line:lineno];
+	}
+}
+
+- (void)webView:(WebView *)webView       didParseSource:(NSString *)source
+ baseLineNumber:(unsigned int)lineNumber
+		fromURL:(NSURL *)url
+	   sourceId:(int)sid
+	forWebFrame:(WebFrame *)webFrame {
+	if (sourcesBySid == nil) {
+		sourcesBySid = [[NSMutableDictionary alloc] init];
+	}
+	[sourcesBySid setValue:source forKey:[NSString stringWithFormat:@"%d", sid]];
+}
+
+- (void)webView:(WebView *)webView    didEnterCallFrame:(WebScriptCallFrame *)frame
+	   sourceId:(int)sid
+		   line:(int)lineno
+	forWebFrame:(WebFrame *)webFrame {
+	if (frames == nil) {
+		frames = [[NSMutableArray alloc] init];
+	}
+	[frames addObject:frame];
+}
+
+- (void)webView:(WebView *)webView   willLeaveCallFrame:(WebScriptCallFrame *)frame
+	   sourceId:(int)sid
+		   line:(int)lineno
+	forWebFrame:(WebFrame *)webFrame {
+	int pos = [frames indexOfObject:frame];
+	if (pos >= 0 && pos < [frames count] - 1) {
+		[frames removeObjectAtIndex:pos];
+		[lines removeObjectAtIndex:pos];
+		[sids removeObjectAtIndex:pos];
+	}
+}
+
+- (void)webView:(WebView *)webView willExecuteStatement:(WebScriptCallFrame *)frame
+	   sourceId:(int)sid
+		   line:(int)lineno
+	forWebFrame:(WebFrame *)webFrame {
+	if (lines == nil) {
+		lines = [[NSMutableArray alloc] init];
+	}
+	if (sids == nil) {
+		sids = [[NSMutableArray alloc] init];
+	}
+
+	int pos = [frames indexOfObject:frame];
+	while (pos > [lines count]) {
+		[lines addObject:[NSNumber numberWithInt:0]];
+	}
+	while (pos > [sids count]) {
+		[sids addObject:[NSNumber numberWithInt:0]];
+	}
+	if (pos == [lines count]) {
+		[lines addObject:[NSNumber numberWithInt:lineno]];
+	} else {
+		[lines replaceObjectAtIndex:pos withObject:[NSNumber numberWithInt:lineno]];
+	}
+	if (pos == [sids count]) {
+		[sids addObject:[NSNumber numberWithInt:sid]];
+	} else {
+		[sids replaceObjectAtIndex:pos withObject:[NSNumber numberWithInt:sid]];
+	}
+}
+
+#endif
+
 - (void) dealloc {
+	[scriptPath release];
 	[javascriptBridge setDelegate:nil];
 	[javascriptBridge release];
 	[webView release];
@@ -184,5 +285,19 @@ static UInt16 nios_webport = 8889;
 {
 	[request appendData:postDataChunk];
 }
+
+@end
+
+@implementation NiosWebView
+- (NiosWebView*)initWithDebugger:(Nios*)_nios {
+	nios = _nios;
+	return [self init];
+}
+
+#ifdef DEBUG
+- (void)webView:(id)webView didClearWindowObject:(id)windowObject forFrame:(WebFrame*)frame {
+	[webView performSelector:@selector(setScriptDebugDelegate:) withObject:nios];
+}
+#endif
 
 @end
