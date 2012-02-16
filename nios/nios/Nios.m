@@ -88,7 +88,7 @@ static UInt16 nios_webport = 8889;
 		NSLog(@"%@", line);
 	}
 	@catch (NSException *exception) {
-		NSLog(@"");
+		NSLog(@" ");
 	}
 }
 - (void)webView:(WebView *)_webView   exceptionWasRaised:(WebScriptCallFrame *)frame
