@@ -14,6 +14,8 @@
 
 @implementation Nios
 
+@synthesize delegate;
+
 static UInt16 nios_webport = 8889;
 
 - (Nios*) init {
@@ -30,6 +32,7 @@ static UInt16 nios_webport = 8889;
 	}
 	return self;
 }
+
 - (Nios*) initWithScriptName:(NSString*)fileName {
 	NSArray* components = [fileName componentsSeparatedByString:@"."];
 	if ([components count] > 2) {
@@ -42,6 +45,11 @@ static UInt16 nios_webport = 8889;
 		components = [NSArray arrayWithObjects:[components objectAtIndex:0], @"", nil];
 	}
 	return [self initWithScriptPath:[[NSBundle mainBundle] pathForResource:[components objectAtIndex:0] ofType:[components objectAtIndex:1]]];
+}
+
+- (Nios*) initWithScriptName:(NSString*)fileName delegate:(id<NiosDelegate>)_delegate {
+	delegate = _delegate;
+	return [self initWithScriptName:fileName];
 }
 
 - (Nios*) initWithScriptPath:(NSString*)scriptPath {
@@ -77,20 +85,40 @@ static UInt16 nios_webport = 8889;
 }
 
 - (void) sendMessage:(NSDictionary*)message {
+	if ([delegate respondsToSelector:@selector(nios:shouldSendMessage:)]) {
+		if (![delegate performSelector:@selector(nios:shouldSendMessage:) withObject:self withObject:message]) {
+			return;
+		}
+	}
 	NSString* jsonMessage = [message JSONRepresentation];
 	NiosLog(@"sendMessage: \n%@", jsonMessage);
 	[javascriptBridge sendMessage:jsonMessage toWebView:webView];
+	if ([delegate respondsToSelector:@selector(nios:didSendMessage:)]) {
+		[delegate performSelector:@selector(nios:didSendMessage:) withObject:self withObject:message];
+	}
 }
 
 - (void)javascriptBridge:(WebViewJavascriptBridge *)bridge receivedMessage:(NSString *)message fromWebView:(UIWebView *)_webView {
 	NiosLog(@"receivedMessage: \n%@", message);
 	NSDictionary* call = [message JSONValue];
+
+	if ([delegate respondsToSelector:@selector(nios:shouldProcessReceivedMessage:)]) {
+		if (![delegate performSelector:@selector(nios:shouldProcessReceivedMessage:) withObject:self withObject:message]) {
+			return;
+		}
+	}
+
 	Class class = NSClassFromString([call valueForKey:@"class"]);
 	id ret = [class performSelector:sel_getUid([[NSString stringWithFormat:@"%@:nios:", [call valueForKey:@"method"]] UTF8String]) withObject:[call valueForKey:@"parameters"] withObject:self];
+	
+	if ([delegate respondsToSelector:@selector(nios:didProcessReceivedMessage:)]) {
+		if (![delegate performSelector:@selector(nios:didProcessReceivedMessage:) withObject:self withObject:message]) {
+			return;
+		}
+	}
 	if (![[call valueForKey:@"callback"] isKindOfClass:[NSNull class]]) {
-		NSString* reply = [[NSDictionary dictionaryWithObjectsAndKeys:ret, @"parameters", [call valueForKey:@"callback"], @"callback", nil] JSONRepresentation];
-		NiosLog(@"replyingMessage: \n%@", reply);
-		[javascriptBridge sendMessage:reply toWebView:_webView];
+		NSDictionary* reply = [NSDictionary dictionaryWithObjectsAndKeys:ret, @"parameters", [call valueForKey:@"callback"], @"callback", nil];
+		[self sendMessage:reply];
 	}
 }
 

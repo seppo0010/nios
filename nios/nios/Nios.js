@@ -169,13 +169,18 @@ var Nios_initialize = function (arch, platform, port) {
 var Nios_callbacks = {}
 var Nios_lastcallback = 0;
 
-var Nios_registerCallback = function(callback) {
-	var registered_callback = null;
-	if (callback) {
-		var registered_callback = ++Nios_lastcallback;
-		Nios_callbacks[registered_callback] = callback;
+var Nios_registerCallback = function(_name, _callback) {
+	var callback, name;
+	if (typeof _callback === 'undefined') {
+		callback = _name;
+		name = ++Nios_lastcallback;
+	} else {
+		callback = _callback;
+		name = _name;
 	}
-	return registered_callback;
+
+	Nios_callbacks[name] = callback;
+	return name;
 }
 
 var Nios_call = function(className, method, parameters, callback, syncronic) {

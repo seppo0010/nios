@@ -17,17 +17,33 @@
 #define NiosLog(format, ...) do {} while(0)
 #endif
 
+@protocol NiosDelegate;
 @class NiosHTTPServer;
 @interface Nios : NSObject <WebViewJavascriptBridgeDelegate> {
 	UIWebView* webView;
 	WebViewJavascriptBridge *javascriptBridge;
 
 	NiosHTTPServer* webServer;
+
+	id<NiosDelegate> delegate;
 }
 
 - (Nios*) initWithScriptName:(NSString*)fileName;
+- (Nios*) initWithScriptName:(NSString*)fileName delegate:(id<NiosDelegate>)_delegate;
 - (Nios*) initWithScriptPath:(NSString*)scriptPath;
 - (void) sendMessage:(NSDictionary*)message;
+
+@property (assign) id<NiosDelegate> delegate;
+
+@end
+
+@protocol NiosDelegate <NSObject>
+
+@optional
+- (BOOL) nios:(Nios*)nios shouldSendMessage:(NSDictionary*)dictionary;
+- (void) nios:(Nios*)nios didSendMessage:(NSDictionary*)dictionary;
+- (BOOL) nios:(Nios*)nios shouldProcessReceivedMessage:(NSDictionary*)dictionary;
+- (void) nios:(Nios*)nios didProcessReceivedMessage:(NSDictionary*)dictionary;
 
 @end
 
