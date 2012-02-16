@@ -9,8 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "Nios.h"
 
-@interface ViewController : UIViewController {
+@interface ViewController : UIViewController <UITextViewDelegate, NiosDelegate> {
 	Nios* nios;
+	IBOutlet UITextView* textView;
+	IBOutlet UIButton* startStopButton;
+	BOOL listening;
 }
+
+- (IBAction)startStop;
 
 @end

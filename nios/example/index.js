@@ -1,58 +1,10 @@
-/*
-var fs = require('fs');
-fs.watchFile('b', { timeout: 10 }, function(curr, prev) {
-	fs.readFile('b', 'utf8', function (err, data) {
-		alert(data);
-	});
-	console.log(curr.mtime.getTime() - prev.mtime.getTime());
-});
-*/
-/*
-	var net = require('net');
-	
-	var server = net.createServer(function (socket) {
-		socket.addListener("connect", function () {
-			socket.write('username: ');
-			socket.on('data',function(data){
-				var username = data.toString().replace('\n','');
-				socket.write('password: ');
-				socket.on('data',function(data){
-					var password = data.toString().replace('\n','');
-					// verify authentication here
-					// Do more stuff
-				});
-			});
-		});
-	});
-	
-	server.listen('8000');
-*/
+var app, io, fs, text;
+var sockets = [];
 
-try {
-//			setTimeout(function() {
-/*
-	var http = require("http");
-	
-	http.createServer(function(request, response) {
-					  response.writeHead(200, {"Content-Type": "text/plain"});
-					  response.write("Hello World");
-					  response.end();
-	}).listen(8888);
- */
-	/*
-	var io = require('socket.io').listen(80);
-	
-	io.sockets.on('connection', function (socket) {
-				  socket.emit('news', { hello: 'world' });
-				  socket.on('my other event', function (data) {
-							console.log(data);
-							});
-				  });
-	 
-	 */
-	var app = require('http').createServer(handler, {})
-	, io = require('socket.io').listen(app)
-	, fs = require('fs')
+function start() {
+	app = require('http').createServer(handler);
+	io = require('socket.io').listen(app, {transport: ["xhr-polling"]});
+	fs = require('fs')
 	
 	app.listen(8080);
 	
@@ -76,13 +28,33 @@ try {
 	}
 	
 	io.sockets.on('connection', function (socket) {
-				  socket.emit('news', { hello: 'world' });
-				  socket.on('my other event', function (data) {
-							console.log(data);
+				  socket.on('disconnect', function () {
+							for (var i = 0; i < sockets.length; i++) {
+							if (sockets[i] == socket) {
+							delete sockets[i];
+							break;
+							}
+							}
+							});
+				  sockets.push(socket);
+				  socket.emit('text', text);
+				  socket.on('alert', function (data) {
+							ios.alert(data); // using javascript alert blocks the execution
 							});
 				  });
- /**/
-//			   }, 5000);
-}catch(e) {
-	alert(e);
 }
+
+function stop() {
+	app.close();
+}
+
+function setText(_text) {
+	text = _text;
+	for (var i = 0; i < sockets.length; i++) {
+		sockets[i].emit('text', text);
+	}
+}
+
+Nios_registerCallback("start", start);
+Nios_registerCallback("stop", stop);
+Nios_registerCallback("setText", setText);
