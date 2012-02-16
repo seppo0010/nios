@@ -121,8 +121,9 @@ static int sLastId = 1;
 	}
 	return self;
 }
+
 - (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag {
-	[nios sendMessage:[NSDictionary dictionaryWithObjectsAndKeys:[NSArray arrayWithObjects:@"data", [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease], [NSNumber numberWithInt:socketId], nil], @"parameters", server.listener, @"callback", @"1", @"keepCallback", nil]];
+	[nios sendMessage:[NSDictionary dictionaryWithObjectsAndKeys:[NSArray arrayWithObjects:@"data", data, [NSNumber numberWithInt:socketId], nil], @"parameters", server.listener, @"callback", @"1", @"keepCallback", nil]];
 	[sock readDataWithTimeout:server.timeout tag:0];
 }
 

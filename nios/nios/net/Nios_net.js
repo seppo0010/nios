@@ -811,11 +811,12 @@ Server.prototype._listen2 = function(address, port, addressType) {
 										 self.emit("close");
 										 }
 										 if (event == "data") {
+										 var data = string_to_buffer(params);
 										 if (!self.clients[socketId]) return;
 										 if (self.clients[socketId].socket.ondata) {
-										 self.clients[socketId].socket.ondata(params);
+										 self.clients[socketId].socket.ondata(data);
 										 }
-										 self.clients[socketId].socket.emit("data", params);
+										 self.clients[socketId].socket.emit("data", data);
 										 }
 										 if (event == "end") {
 										 if (!self.clients[socketId]) return;

@@ -188,7 +188,7 @@ HTTP_DATA_CB(on_body) {
 	[currentParsers addObject:currentParser];
 	[currentParser release];
 
-	NSData* data = [[params objectAtIndex:1] dataUsingEncoding:NSUTF8StringEncoding];
+	NSData* data = [NSData dataFromBase64String:[params objectAtIndex:1]];
 	if ([[params objectAtIndex:2] isKindOfClass:[NSNumber class]] && [[params objectAtIndex:3] isKindOfClass:[NSNumber class]]) {
 		NSUInteger start = [[params objectAtIndex:2] unsignedIntValue];
 		NSUInteger length = [[params objectAtIndex:3] unsignedIntValue];
@@ -215,7 +215,9 @@ HTTP_DATA_CB(on_body) {
     size_t nparsed = http_parser_execute(&parser, &settings, buffer_data, len);
 
 	[currentParsers removeObject:currentParser];
-	if (parser.upgrade && nparsed != len) {
+
+	if (!parser.upgrade && nparsed != len) {
+		return [NSArray arrayWithObject:[NSDictionary dictionaryWithObjectsAndKeys:@"Parse Error", @"message", nil]];
 		// TODO : error
 	}
 	return nil;
