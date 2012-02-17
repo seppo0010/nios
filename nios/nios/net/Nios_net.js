@@ -51,7 +51,15 @@ TCP.prototype.getpeername = function() {
 	return ret;
 };
 TCP.prototype.write = function() {};
-TCP.prototype.connect = function() {};
+TCP.prototype.connect = function(address, port) {
+	var self = this;
+	var request = {};
+	Nios_call("Nios_net", "connect", [address, port], function (id) {
+		request.socketId = id;
+		request.oncomplete(0, self);
+	});
+	return request;
+};
 TCP.prototype.connect6 = function() {};
 TCP.prototype.setPendingInstances = function() {};
 TCP.prototype.bind = function() {};
@@ -464,6 +472,15 @@ Socket.prototype.__defineGetter__('remotePort', function() {
 								  return this._getpeername().port;
 								  });
 
+Socket.prototype.__defineSetter__('remoteAddress', function(s) {
+								  this._remoteAddress = s;
+								  });
+
+
+Socket.prototype.__defineSetter__('remotePort', function(s) {
+								  this._remotePort = s;
+								  });
+
 
 /*
  * Arguments data, [encoding], [cb]
@@ -489,7 +506,7 @@ Socket.prototype.write = function(data, arg1, arg2) {
 	} else if (!Buffer.isBuffer(data)) {
 		throw new TypeError("First argument must be a buffer or a string.");
 	}
-	
+
 	this.bytesWritten += data.length;
 	Nios_call("Nios_net", "write", [this._handle.socketId, buffer_to_string(data), encoding], cb);
 /*	
@@ -562,9 +579,7 @@ function connect(self, address, port, addressType) {
 	
 	// TODO return promise from Socket.prototype.connect which
 	// wraps _connectReq.
-	
 	assert.ok(self._connecting);
-	
 	var connectReq;
 	if (addressType == 6) {
 		connectReq = self._handle.connect6(address, port);
