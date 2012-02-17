@@ -11,11 +11,11 @@
 #import "HTTPConnection.h"
 #import "HTTPServer.h"
 
-#ifdef DEBUG
-#define NiosLog(format, ...) NSLog(@"%s: " format, __FUNCTION__, ##__VA_ARGS__)
-#else
+//#ifdef DEBUG
+//#define NiosLog(format, ...) NSLog(@"%s: " format, __FUNCTION__, ##__VA_ARGS__)
+//#else
 #define NiosLog(format, ...) do {} while(0)
-#endif
+//#endif
 
 @protocol NiosDelegate;
 @class NiosHTTPServer;

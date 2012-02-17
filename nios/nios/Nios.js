@@ -188,12 +188,8 @@ var Nios_call = function(className, method, parameters, callback, syncronic) {
 		xhReq.open("POST", "http://127.0.0.1:" + Nios_port + "/", false);
 		xhReq.send(message);
 		if (callback) {
-			try {
-				var response = JSON.parse(xhReq.responseText);
-				callback(response.parameters);
-			} catch (e) {
-				alert('Error processing response from Obj-C ' + e + "\nResponse was " + xhReq.responseText);
-			}
+			var response = JSON.parse(xhReq.responseText);
+			callback(response.parameters);
 		}
 	} else {
 		var message = JSON.stringify({"class": className, "method": method, "parameters": parameters, "callback": Nios_registerCallback(callback)});
@@ -278,18 +274,13 @@ window.process = {
 
 document.addEventListener('WebViewJavascriptBridgeReady', function onBridgeReady() {
 	WebViewJavascriptBridge.setMessageHandler(function(message) {
-		try {
-			var response = JSON.parse(message);
+		var response = JSON.parse(message);
 
-			if (response.callback) {
-				Nios_callbacks[response.callback].apply(null, response.parameters);
-				if (!response.keepCallback) {
-					delete Nios_callbacks[response.callback];
-				}
+		if (response.callback) {
+			Nios_callbacks[response.callback].apply(null, response.parameters);
+			if (!response.keepCallback) {
+				delete Nios_callbacks[response.callback];
 			}
-		} catch (e) {
-			alert('Error processing message from Obj-C ' + e + "\nMessage was " + message);
-			return;
 		}
 	});
 }, false);

@@ -85,10 +85,13 @@ static UInt16 nios_webport = 8889;
 - (void) printStackForSourceId:(int)sid line:(int)lineno {
 	@try {
 		NSString* line = [[[sourcesBySid valueForKey:[NSString stringWithFormat:@"%d", sid]] componentsSeparatedByString:@"\n"] objectAtIndex:lineno];
+		if (line.length > 100) {
+			line = [line substringToIndex:100];
+		}
 		NSLog(@"%@", line);
 	}
 	@catch (NSException *exception) {
-		NSLog(@" ");
+		NSLog(@"Unable to fetch line %d of sourceId %d", lineno, sid);
 	}
 }
 - (void)webView:(WebView *)_webView   exceptionWasRaised:(WebScriptCallFrame *)frame
@@ -102,14 +105,25 @@ static UInt16 nios_webport = 8889;
 		webView = nil;
 		return;
 	}
-	NSLog(@"NSDD: exception: sid=%d line=%d function=%@, caller=%@, exception=%@", sid, lineno, [frame performSelector:@selector(functionName)], [frame performSelector:@selector(caller)], [[frame performSelector:@selector(exception)] performSelector:@selector(stringRepresentation)]);
+	NSString* exceptionText = [[frame performSelector:@selector(exception)] performSelector:@selector(callWebScriptMethod:withArguments:) withObject:@"toString" withObject:[NSArray array]];
+	NSLog(@"NSDD: exception: sid=%d line=%d function=%@, caller=%@, exception=%@", sid, lineno, [frame performSelector:@selector(functionName)], [frame performSelector:@selector(caller)], exceptionText);
+
+	[self printStackForSourceId:sid line:lineno-1];
+	/*
+	int pos = [frames indexOfObject:frame];
+	while (pos < [frames count] - 2) {
+		[frames removeObjectAtIndex:pos + 1];
+		[lines removeObjectAtIndex:pos + 1];
+		[sids removeObjectAtIndex:pos + 1];
+	}
 
 	for (int i = 0; i < [lines count]; i++) {
 		int lineno = [[lines objectAtIndex:i] intValue];
 		if (i == [lines count] - 1) lineno++;
-		else lineno--; // magic?
+		else lineno--; // lineno is 1-based
 		[self printStackForSourceId:[[sids objectAtIndex:i] intValue] line:lineno];
 	}
+	 */
 }
 
 - (void)webView:(WebView *)webView       didParseSource:(NSString *)source
@@ -123,6 +137,7 @@ static UInt16 nios_webport = 8889;
 	[sourcesBySid setValue:source forKey:[NSString stringWithFormat:@"%d", sid]];
 }
 
+/*
 - (void)webView:(WebView *)webView    didEnterCallFrame:(WebScriptCallFrame *)frame
 	   sourceId:(int)sid
 		   line:(int)lineno
@@ -137,7 +152,13 @@ static UInt16 nios_webport = 8889;
 	   sourceId:(int)sid
 		   line:(int)lineno
 	forWebFrame:(WebFrame *)webFrame {
-	int pos = [frames indexOfObject:frame];
+	int pos = -1;
+	for (int i = [frames count] - 1; i >= 0; i--) {
+		if (frame == [frames objectAtIndex:i]) {
+			pos = i;
+			break;
+		}
+	}
 	if (pos >= 0 && pos < [frames count] - 1) {
 		[frames removeObjectAtIndex:pos];
 		[lines removeObjectAtIndex:pos];
@@ -156,7 +177,13 @@ static UInt16 nios_webport = 8889;
 		sids = [[NSMutableArray alloc] init];
 	}
 
-	int pos = [frames indexOfObject:frame];
+	int pos = -1;
+	for (int i = [frames count] - 1; i >= 0; i--) {
+		if (frame == [frames objectAtIndex:i]) {
+			pos = i;
+			break;
+		}
+	}
 	while (pos > [lines count]) {
 		[lines addObject:[NSNumber numberWithInt:0]];
 	}
@@ -174,6 +201,7 @@ static UInt16 nios_webport = 8889;
 		[sids replaceObjectAtIndex:pos withObject:[NSNumber numberWithInt:sid]];
 	}
 }
+*/
 
 #endif
 
@@ -301,3 +329,4 @@ static UInt16 nios_webport = 8889;
 #endif
 
 @end
+
