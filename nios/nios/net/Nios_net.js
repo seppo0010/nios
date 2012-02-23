@@ -507,8 +507,12 @@ Socket.prototype.write = function(data, arg1, arg2) {
 		throw new TypeError("First argument must be a buffer or a string.");
 	}
 
+	var self = this;
 	this.bytesWritten += data.length;
-	Nios_call("Nios_net", "write", [this._handle.socketId, buffer_to_string(data), encoding], cb);
+	Nios_call("Nios_net", "write", [this._handle.socketId || {address: this._remoteAddress, port: this._remotePort}, buffer_to_string(data), encoding], function (err, socketId) {
+		if (socketId) self._handle.socketId = socketId;
+		if (cb) cb(err);
+	});
 /*	
 	// If we are still connecting, then buffer this for later.
 	if (this._connecting) {

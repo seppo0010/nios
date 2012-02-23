@@ -78,10 +78,33 @@ static int sLastId = 1;
 }
 
 + (id) write:(NSArray*)params nios:(Nios*)nios {
-	Nios_socket* socket = [sDict valueForKey:[NSString stringWithFormat:@"%d", [[params objectAtIndex:0] intValue]]];
+	id param = [params objectAtIndex:0];
+	Nios_socket* socket;
+	if ([param isKindOfClass:[NSDictionary class]]) {
+		GCDAsyncSocket* _socket = [[[GCDAsyncSocket alloc] init] autorelease];
+		NSError* error = nil;
+		if (![_socket connectToHost:[param valueForKey:@"address"] onPort:[[param valueForKey:@"port"] intValue] error:&error]) {
+			return [NSArray arrayWithObject:[NSDictionary dictionaryWithObjectsAndKeys:
+											 [error description], @"message",
+											 [NSNumber numberWithInt:error.code], @"errno",
+											 nil]
+					];
+		}
+		socket = [[Nios_socket alloc] initWithSocket:_socket fromServer:nil nios:nios];
+	} else if ([param isKindOfClass:[NSString class]] || [param isKindOfClass:[NSNumber class]]) {
+		socket = [sDict valueForKey:[NSString stringWithFormat:@"%d", [param intValue]]];
+	} else {
+		return [NSArray arrayWithObject:[NSDictionary dictionaryWithObjectsAndKeys:
+										 // TODO: look for a similar error in node
+										 @"Writting to an invalid socket", @"message",
+										 -1, @"errno",
+										 nil]
+				];
+;
+	}
 	NSData* data = [NSData dataFromBase64String:[params objectAtIndex:1]]; // TODO: use proper encoding
-	[socket.socket writeData:data withTimeout:socket.server.timeout tag:0];
-	return nil;
+	[socket.socket writeData:data withTimeout:socket.timeout tag:0];
+	return [NSArray arrayWithObjects:[NSNull null], [NSNumber numberWithInt:socket.socketId], nil];
 }
 
 + (id) connect:(NSArray*)params nios:(Nios*)nios {
@@ -123,14 +146,14 @@ static int sLastId = 1;
 		}
 		self.server = _server;
 		[sDict setValue:self forKey:[NSString stringWithFormat:@"%d", socketId]];
-		[_socket readDataWithTimeout:(server ? server.timeout : -1) tag:0];
+		[_socket readDataWithTimeout:self.timeout tag:0];
 	}
 	return self;
 }
 
 - (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag {
 	[nios sendMessage:[NSDictionary dictionaryWithObjectsAndKeys:[NSArray arrayWithObjects:@"data", data, [NSNumber numberWithInt:socketId], nil], @"parameters", server.listener, @"callback", @"1", @"keepCallback", nil]];
-	[sock readDataWithTimeout:(server ? server.timeout : -1) tag:0];
+	[sock readDataWithTimeout:self.timeout tag:0];
 }
 
 - (void)socket:(GCDAsyncSocket *)sock didWriteDataWithTag:(long)tag {
@@ -153,6 +176,11 @@ static int sLastId = 1;
 	}
 	[nios sendMessage:[NSDictionary dictionaryWithObjectsAndKeys:[NSArray arrayWithObjects:@"end", [NSNumber numberWithInt:socketId], nil], @"parameters", server.listener, @"callback", @"1", @"keepCallback", nil]];
 	[nios sendMessage:[NSDictionary dictionaryWithObjectsAndKeys:[NSArray arrayWithObjects:@"close", [NSNumber numberWithInt:socketId], nil], @"parameters", server.listener, @"callback", @"1", @"keepCallback", nil]];
+}
+
+- (int) timeout {
+	if (server) return server.timeout;
+	return -1;
 }
 
 @end
