@@ -509,7 +509,39 @@ Socket.prototype.write = function(data, arg1, arg2) {
 
 	var self = this;
 	this.bytesWritten += data.length;
-	Nios_call("Nios_net", "write", [this._handle.socketId || {address: this._remoteAddress, port: this._remotePort}, buffer_to_string(data), encoding], function (err, socketId) {
+	Nios_call("Nios_net", "write", [this._handle.socketId ||
+									{
+									address: this._remoteAddress,
+									port: this._remotePort,
+									listener: Nios_registerCallback(function (event, params, socketId) {
+																	if (event == "close") {
+																	self.emit("close");
+																	}
+																	if (event == "data") {
+																	var data = string_to_buffer(params);
+																	if (self.ondata) {
+																	self.ondata(data);
+																	}
+																	self.emit("data", data);
+																	}
+																	if (event == "end") {
+																	self.emit("end");
+																	}
+																	if (event == "close") {
+																	self.emit("close");
+																	}
+																	if (event == "timeout") {
+																	self.emit("timeout");
+																	}
+																	if (event == "drain") {
+																	self.emit("timeout");
+																	}
+																	if (event == "error") {
+																	self.emit("error", params);
+																	}
+																	})
+									},
+	buffer_to_string(data), encoding], function (err, socketId) {
 		if (socketId) self._handle.socketId = socketId;
 		if (cb) cb(err);
 	});
@@ -941,6 +973,7 @@ Server.prototype.address = function() {
 };
 
 window.DTRACE_NET_SERVER_CONNECTION = window.DTRACE_NET_SERVER_CONNECTION || function(){}
+window.DTRACE_NET_STREAM_END = window.DTRACE_NET_STREAM_END || function(){}
 
 function onconnection(clientHandle) {
 	var handle = this;

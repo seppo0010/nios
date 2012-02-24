@@ -84,7 +84,7 @@ static int sLastId = 1;
 		GCDAsyncSocket* _socket = [[[GCDAsyncSocket alloc] init] autorelease];
 		_socket.delegateQueue = dispatch_get_main_queue();
 		NSError* error = nil;
-		socket = [[[Nios_socket alloc] initWithSocket:_socket fromServer:nil nios:nios] autorelease];
+		socket = [[[Nios_socket alloc] initWithSocket:_socket withListener:[param valueForKey:@"listener"] nios:nios] autorelease];
 		if (![_socket connectToHost:[param valueForKey:@"address"] onPort:[[param valueForKey:@"port"] intValue] error:&error]) {
 			return [NSArray arrayWithObject:[NSDictionary dictionaryWithObjectsAndKeys:
 											 [error description], @"message",
@@ -134,23 +134,41 @@ static int sLastId = 1;
 @synthesize socket;
 @synthesize socketId;
 @synthesize server;
+@synthesize listener;
 
-- (Nios_socket*)initWithSocket:(GCDAsyncSocket*)_socket fromServer:(Nios_net*)_server nios:(Nios*)_nios {
-
-	self = [self init];
+- (Nios_socket*) init {
+	self = [super init];
 	if (self) {
-		self.socket = _socket;
-		_socket.delegate = self;
+		socket.delegate = self;
 		socketId = sLastId++;
-		self.nios = _nios;
 		if (sDict == nil) {
 			sDict = [[NSMutableDictionary alloc] initWithCapacity:1];
 		}
-		self.server = _server;
 		[sDict setValue:self forKey:[NSString stringWithFormat:@"%d", socketId]];
 		[self startReading];
 	}
 	return self;
+}
+
+- (void) dealloc {
+	[socket disconnect];
+	self.socket = nil;
+	self.listener = nil;
+	[super dealloc];
+}
+
+- (Nios_socket*)initWithSocket:(GCDAsyncSocket*)_socket withListener:(NSString*)_listener nios:(Nios*)_nios {
+	self.listener = _listener;
+	self.nios = _nios;
+	self.socket = _socket;
+	return [self init];
+}
+
+- (Nios_socket*)initWithSocket:(GCDAsyncSocket*)_socket fromServer:(Nios_net*)_server nios:(Nios*)_nios {
+	self.server = _server;
+	self.nios = _nios;
+	self.socket = _socket;
+	return [self init];
 }
 
 - (void) startReading {
@@ -158,17 +176,17 @@ static int sLastId = 1;
 }
 
 - (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag {
-	[nios sendMessage:[NSDictionary dictionaryWithObjectsAndKeys:[NSArray arrayWithObjects:@"data", data, [NSNumber numberWithInt:socketId], nil], @"parameters", server.listener, @"callback", @"1", @"keepCallback", nil]];
+	[nios sendMessage:[NSDictionary dictionaryWithObjectsAndKeys:[NSArray arrayWithObjects:@"data", data, [NSNumber numberWithInt:socketId], nil], @"parameters", self.listener, @"callback", @"1", @"keepCallback", nil]];
 	[sock readDataWithTimeout:self.timeout tag:0];
 }
 
 - (void)socket:(GCDAsyncSocket *)sock didWriteDataWithTag:(long)tag {
-	[nios sendMessage:[NSDictionary dictionaryWithObjectsAndKeys:[NSArray arrayWithObjects:@"write", [NSNumber numberWithInt:socketId], nil], @"parameters", server.listener, @"callback", @"1", @"keepCallback", nil]];
+	[nios sendMessage:[NSDictionary dictionaryWithObjectsAndKeys:[NSArray arrayWithObjects:@"write", [NSNumber numberWithInt:socketId], nil], @"parameters", self.listener, @"callback", @"1", @"keepCallback", nil]];
 }
 
 - (void)socketDidCloseReadStream:(GCDAsyncSocket *)sock {
-	[nios sendMessage:[NSDictionary dictionaryWithObjectsAndKeys:[NSArray arrayWithObjects:@"end", [NSNumber numberWithInt:socketId], nil], @"parameters", server.listener, @"callback", @"1", @"keepCallback", nil]];
-	[nios sendMessage:[NSDictionary dictionaryWithObjectsAndKeys:[NSArray arrayWithObjects:@"close", [NSNumber numberWithInt:socketId], nil], @"parameters", server.listener, @"callback", @"1", @"keepCallback", nil]];
+	[nios sendMessage:[NSDictionary dictionaryWithObjectsAndKeys:[NSArray arrayWithObjects:@"end", [NSNumber numberWithInt:socketId], nil], @"parameters", self.listener, @"callback", @"1", @"keepCallback", nil]];
+	[nios sendMessage:[NSDictionary dictionaryWithObjectsAndKeys:[NSArray arrayWithObjects:@"close", [NSNumber numberWithInt:socketId], nil], @"parameters", self.listener, @"callback", @"1", @"keepCallback", nil]];
 }
 
 - (void)socketDidDisconnect:(GCDAsyncSocket *)sock withError:(NSError *)error {
@@ -178,15 +196,20 @@ static int sLastId = 1;
 																	   [error description], @"message",
 																	   [NSNumber numberWithInt:error.code], @"errno",
 																	   nil]
-																	  , nil], @"parameters", server.listener, @"callback", @"0", @"keepCallback", nil]];
+																	  , nil], @"parameters", self.listener, @"callback", @"0", @"keepCallback", nil]];
 	}
-	[nios sendMessage:[NSDictionary dictionaryWithObjectsAndKeys:[NSArray arrayWithObjects:@"end", [NSNumber numberWithInt:socketId], nil], @"parameters", server.listener, @"callback", @"1", @"keepCallback", nil]];
-	[nios sendMessage:[NSDictionary dictionaryWithObjectsAndKeys:[NSArray arrayWithObjects:@"close", [NSNumber numberWithInt:socketId], nil], @"parameters", server.listener, @"callback", @"1", @"keepCallback", nil]];
+	[nios sendMessage:[NSDictionary dictionaryWithObjectsAndKeys:[NSArray arrayWithObjects:@"end", [NSNumber numberWithInt:socketId], nil], @"parameters", self.listener, @"callback", @"1", @"keepCallback", nil]];
+	[nios sendMessage:[NSDictionary dictionaryWithObjectsAndKeys:[NSArray arrayWithObjects:@"close", [NSNumber numberWithInt:socketId], nil], @"parameters", self.listener, @"callback", @"1", @"keepCallback", nil]];
 }
 
 - (int) timeout {
 	if (server) return server.timeout;
 	return -1;
+}
+
+- (NSString*)listener {
+	if (listener) return listener;
+	return server.listener;
 }
 
 @end
