@@ -109,7 +109,7 @@ static UInt16 nios_webport = 8889;
 	NSLog(@"NSDD: exception: sid=%d line=%d function=%@, caller=%@, exception=%@", sid, lineno, [frame performSelector:@selector(functionName)], [frame performSelector:@selector(caller)], exceptionText);
 
 	[self printStackForSourceId:sid line:lineno-1];
-	/*
+#ifdef DEBUG_DESPERATE
 	int pos = [frames indexOfObject:frame];
 	while (pos < [frames count] - 2) {
 		[frames removeObjectAtIndex:pos + 1];
@@ -123,7 +123,7 @@ static UInt16 nios_webport = 8889;
 		else lineno--; // lineno is 1-based
 		[self printStackForSourceId:[[sids objectAtIndex:i] intValue] line:lineno];
 	}
-	 */
+#endif
 }
 
 - (void)webView:(WebView *)webView       didParseSource:(NSString *)source
@@ -137,7 +137,7 @@ static UInt16 nios_webport = 8889;
 	[sourcesBySid setValue:source forKey:[NSString stringWithFormat:@"%d", sid]];
 }
 
-/*
+#ifdef DEBUG_DESPERATE
 - (void)webView:(WebView *)webView    didEnterCallFrame:(WebScriptCallFrame *)frame
 	   sourceId:(int)sid
 		   line:(int)lineno
@@ -201,7 +201,7 @@ static UInt16 nios_webport = 8889;
 		[sids replaceObjectAtIndex:pos withObject:[NSNumber numberWithInt:sid]];
 	}
 }
-*/
+#endif
 
 #endif
 
