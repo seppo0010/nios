@@ -1,9 +1,10 @@
-var app, io, fs, text;
+var app, io, fs, ios, text;
 var sockets = [];
 
 function start() {
 	app = require('http').createServer(handler);
-	io = require('socket.io').listen(app, {transport: ["xhr-polling"]});
+	io = require('socket.io').listen(app, {transports: ["xhr-polling"]});
+	ios = require('ios');
 	fs = require('fs')
 	
 	app.listen(8080);
