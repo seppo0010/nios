@@ -170,6 +170,9 @@ var Nios_lastcallback = 0;
 var Nios_registerCallback = function(_name, _callback) {
 	var callback, name;
 	if (typeof _callback === 'undefined') {
+		if (typeof _name === 'undefined') {
+			return null;
+		}
 		callback = _name;
 		name = ++Nios_lastcallback;
 	} else {
@@ -277,6 +280,7 @@ document.addEventListener('WebViewJavascriptBridgeReady', function onBridgeReady
 		var response = JSON.parse(message);
 
 		if (response.callback) {
+			if (typeof Nios_callbacks[response.callback] === 'undefined') { alert("Something bad happened, the callback '" + response.callback + "' does not exist!"); }; // TODO: use assert
 			Nios_callbacks[response.callback].apply(null, response.parameters);
 			if (!response.keepCallback) {
 				delete Nios_callbacks[response.callback];
