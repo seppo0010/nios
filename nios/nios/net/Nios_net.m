@@ -25,7 +25,6 @@ static int sLastId = 1;
 @synthesize timeout;
 
 - (void)socket:(GCDAsyncSocket *)sock didAcceptNewSocket:(GCDAsyncSocket *)newSocket {
-	NSLog(@"socket:(GCDAsyncSocket *)sock didAcceptNewSocket:(GCDAsyncSocket *)newSocket %d", [newSocket isIPv4]);
 //	if (host && [[newSocket connectedHost] isEqualToString:host] == FALSE) {
 //		[newSocket disconnect];
 //	}
@@ -82,7 +81,9 @@ static int sLastId = 1;
 	Nios_socket* socket;
 	if ([param isKindOfClass:[NSDictionary class]]) {
 		GCDAsyncSocket* _socket = [[[GCDAsyncSocket alloc] init] autorelease];
+		_socket.delegateQueue = dispatch_get_main_queue();
 		NSError* error = nil;
+		socket = [[[Nios_socket alloc] initWithSocket:_socket fromServer:nil nios:nios] autorelease];
 		if (![_socket connectToHost:[param valueForKey:@"address"] onPort:[[param valueForKey:@"port"] intValue] error:&error]) {
 			return [NSArray arrayWithObject:[NSDictionary dictionaryWithObjectsAndKeys:
 											 [error description], @"message",
@@ -90,7 +91,6 @@ static int sLastId = 1;
 											 nil]
 					];
 		}
-		socket = [[Nios_socket alloc] initWithSocket:_socket fromServer:nil nios:nios];
 	} else if ([param isKindOfClass:[NSString class]] || [param isKindOfClass:[NSNumber class]]) {
 		socket = [sDict valueForKey:[NSString stringWithFormat:@"%d", [param intValue]]];
 	} else {
