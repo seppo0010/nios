@@ -23,6 +23,7 @@ var events = require('events');
 var stream = require('stream');
 var util = require('util');
 var assert = require('assert');
+var errno = 0;
 
 function noop() {};
 
