@@ -79,6 +79,7 @@ static inline NSString* method_to_str(unsigned short m) {
 
 @synthesize parser;
 @synthesize listener;
+@synthesize messages;
 
 - (Nios_http_parser*)initWithParser:(http_parser*)_parser listener:(NSString*)_listener nios:(Nios*)_nios {
 	self = [self init];
@@ -87,12 +88,14 @@ static inline NSString* method_to_str(unsigned short m) {
 		nios = _nios;
 		fields = [[NSMutableArray alloc] initWithCapacity:32];
 		values = [[NSMutableArray alloc] initWithCapacity:32];
+		messages = [[NSMutableArray alloc] initWithCapacity:5];
 		self.listener = _listener;
 	}
 	return self;
 }
 
 - (void) dealloc {
+	[messages release];
     [url release];
     [fields release];
 	[values release];
@@ -138,13 +141,13 @@ HTTP_CB(on_headers_complete) {
 	[message_info setValue:[NSNumber numberWithBool:parser->upgrade] forKey:@"upgrade"];
 	[message_info setValue:url forKey:@"url"];
 
-	[nios sendMessage:[NSDictionary dictionaryWithObjectsAndKeys:[NSArray arrayWithObjects:@"onHeadersComplete", [NSArray arrayWithObject:message_info], nil], @"parameters", listener, @"callback", @"1", @"keepCallback", nil]];
+	[messages addObject:[NSArray arrayWithObjects:@"onHeadersComplete", [NSArray arrayWithObject:message_info], nil]];
 
 	return 0;
 }
 
 HTTP_CB(on_message_complete) {
-	[nios sendMessage:[NSDictionary dictionaryWithObjectsAndKeys:[NSArray arrayWithObjects:@"onMessageComplete", nil], @"parameters", listener, @"callback", @"0", @"keepCallback", nil]];
+	[messages addObject:[NSArray arrayWithObjects:@"onMessageComplete", nil]];
 	return 0;
 }
 
@@ -170,7 +173,7 @@ HTTP_DATA_CB(on_header_value) {
 
 HTTP_DATA_CB(on_body) {
 	NSData* data = [[NSData alloc] initWithBytes:at length:length];
-	[nios sendMessage:[NSDictionary dictionaryWithObjectsAndKeys:[NSArray arrayWithObjects:@"onBody", [NSArray arrayWithObject:[[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease]], nil], @"parameters", listener, @"callback", @"1", @"keepCallback", nil]];
+	[messages addObject:[NSArray arrayWithObjects:@"onBody", [NSArray arrayWithObject:[[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease]], nil]];
 	[data release];
 	return 0;
 }
@@ -214,13 +217,14 @@ HTTP_DATA_CB(on_body) {
 	http_parser_init(&parser, type);
     size_t nparsed = http_parser_execute(&parser, &settings, buffer_data, len);
 
+	NSArray* messages = [[currentParser.messages copy] autorelease];
 	[currentParsers removeObject:currentParser];
 
 	if (!parser.upgrade && nparsed != len) {
 		return [NSArray arrayWithObject:[NSDictionary dictionaryWithObjectsAndKeys:@"Parse Error", @"message", nil]];
 		// TODO : error
 	}
-	return nil;
+	return [NSArray arrayWithObject:messages];
 }
 
 @end

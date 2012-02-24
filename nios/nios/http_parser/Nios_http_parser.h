@@ -18,10 +18,13 @@
 
 	NSString* listener;
 	NSString* url;
+
+	NSMutableArray* messages;
 }
 
 @property (readonly) http_parser* parser;
 @property (retain) NSString* listener;
+@property (readonly) NSMutableArray* messages;
 
 - (int) on_message_begin;
 - (int) on_headers_complete;
