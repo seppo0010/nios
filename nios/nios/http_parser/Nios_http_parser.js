@@ -15,7 +15,7 @@ exports.HTTPParser.prototype.execute = function (d, start, length) {
 
 exports.HTTPParser.prototype.finish = function (params) {
 	var messages = params[0];
-	for (var i = 0; i < messages; i++) {
+	for (var i = 0; i < messages.length; i++) {
 		var event = messages[i][0];
 		if (this[event]) {
 			this[event].apply(this, messages[i].length >= 2 ? messages[i][1] : null);
