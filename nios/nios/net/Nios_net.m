@@ -29,6 +29,7 @@ static int sLastId = 1;
 //		[newSocket disconnect];
 //	}
 	Nios_socket* nios_socket = [[[Nios_socket alloc] initWithSocket:newSocket fromServer:self nios:nios] autorelease];
+	[nios_socket startReading];
 	[nios sendMessage:[NSDictionary dictionaryWithObjectsAndKeys:[NSArray arrayWithObjects:@"connection", [NSNumber numberWithInt:nios_socket.socketId], nil], @"parameters", listener, @"callback", @"1", @"keepCallback", nil]];
 
 }
@@ -104,6 +105,7 @@ static int sLastId = 1;
 	}
 	NSData* data = [NSData dataFromBase64String:[params objectAtIndex:1]]; // TODO: use proper encoding
 	[socket.socket writeData:data withTimeout:socket.timeout tag:0];
+	[socket startReading];
 	return [NSArray arrayWithObjects:[NSNull null], [NSNumber numberWithInt:socket.socketId], nil];
 }
 
@@ -146,9 +148,13 @@ static int sLastId = 1;
 		}
 		self.server = _server;
 		[sDict setValue:self forKey:[NSString stringWithFormat:@"%d", socketId]];
-		[_socket readDataWithTimeout:self.timeout tag:0];
+		[self startReading];
 	}
 	return self;
+}
+
+- (void) startReading {
+	[socket readDataWithTimeout:self.timeout tag:0];
 }
 
 - (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag {

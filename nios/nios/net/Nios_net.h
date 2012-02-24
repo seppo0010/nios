@@ -42,5 +42,6 @@
 @property (readonly) int timeout;
 
 - (Nios_socket*)initWithSocket:(GCDAsyncSocket*)_socket fromServer:(Nios_net*)_server nios:(Nios*)_nios;
+- (void) startReading;
 
 @end
