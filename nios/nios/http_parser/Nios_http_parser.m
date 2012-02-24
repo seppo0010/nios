@@ -173,7 +173,7 @@ HTTP_DATA_CB(on_header_value) {
 
 HTTP_DATA_CB(on_body) {
 	NSData* data = [[NSData alloc] initWithBytes:at length:length];
-	[messages addObject:[NSArray arrayWithObjects:@"onBody", [NSArray arrayWithObject:[[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease]], nil]];
+	[messages addObject:[NSArray arrayWithObjects:@"onBody", [NSArray arrayWithObjects:[[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease], [NSNumber numberWithInt:0], [NSNumber numberWithInt:[data length]], nil], nil]];
 	[data release];
 	return 0;
 }
