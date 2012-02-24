@@ -34,6 +34,8 @@
 	alert.title = [params objectAtIndex:0];
 	alert.message = [params objectAtIndex:1];
 	[alert addButtonWithTitle:@"OK"];
+	[alert show];
+	[alert release];
 }
 
 @end
