@@ -246,7 +246,7 @@ static UInt16 nios_webport = 8889;
 		}
 	}
 	if (![[call valueForKey:@"callback"] isKindOfClass:[NSNull class]]) {
-		NSDictionary* reply = [NSDictionary dictionaryWithObjectsAndKeys:ret, @"parameters", [call valueForKey:@"callback"], @"callback", nil];
+		NSDictionary* reply = [NSDictionary dictionaryWithObjectsAndKeys:[call valueForKey:@"callback"], @"callback", ret ? ret : [NSArray array], @"parameters", nil];
 		[self sendMessage:reply];
 	}
 }
