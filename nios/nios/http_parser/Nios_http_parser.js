@@ -25,6 +25,6 @@ exports.HTTPParser.prototype.execute = function (d, start, length) {
 exports.HTTPParser.prototype.finish = function () {
 }
 
-exports.HTTPParser.prototype.reinitialize = function () {
-	
+exports.HTTPParser.prototype.reinitialize = function (type) {
+	this.type = type;
 }
