@@ -510,6 +510,7 @@ Socket.prototype.write = function(data, arg1, arg2) {
 
 	var self = this;
 	this.bytesWritten += data.length;
+	var strdata = buffer_to_string(data);
 	Nios_call("Nios_net", "write", [this._handle.socketId ||
 									{
 									address: this._remoteAddress,
@@ -542,7 +543,8 @@ Socket.prototype.write = function(data, arg1, arg2) {
 																	}
 																	})
 									},
-	buffer_to_string(data), encoding], function (err, socketId) {
+	strdata, encoding], function (err, socketId) {
+		if (!self._handle) self._handle = createTCP();
 		if (socketId) self._handle.socketId = socketId;
 		if (cb) cb(err);
 	});
