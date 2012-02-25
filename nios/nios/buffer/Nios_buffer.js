@@ -11,10 +11,26 @@ window.Buffer = exports.Buffer = function(size, encoding) {
 };
 Buffer.prototype = Object.create(ArrayBuffer.prototype);
 Buffer.prototype._isBuffer = true;
-Buffer.prototype.toString = function() {
+Buffer.prototype.dump = function() {
+	var str = "<Buffer";
+	for (var i = 0; i < this.length; i++) {
+		str += " " + this[i].toString(16);
+	}
+	return str + ">";
+}
+
+Buffer.prototype.toString = function(encoding) {
+	// TODO: for some reason, socket.io depends on this returning the utf8 string
+/*	if (!encoding) {
+		var str = "<Buffer";
+		for (var i = 0; i < this.length; i++) {
+			str += " " + this[i].toString(16);
+		}
+		return str + ">";
+	}*/
 	var str = '';
 	for (var i = 0; i < this.length; i++) {
-		if (this[i] == 0) break;
+		if (this[i] == 0) continue;
 		str += String.fromCharCode(this[i]);
 	}
 	return str;
