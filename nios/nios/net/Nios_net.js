@@ -523,8 +523,9 @@ Socket.prototype.write = function(data, arg1, arg2) {
 																	var data = string_to_buffer(params);
 																	if (self.ondata) {
 																	self.ondata(data);
-																	}
+																	} else {
 																	self.emit("data", data);
+																	}
 																	}
 																	if (event == "end") {
 																	self.emit("end");
@@ -869,8 +870,9 @@ Server.prototype._listen2 = function(address, port, addressType) {
 										 if (!self.clients[socketId]) return;
 										 if (self.clients[socketId].socket.ondata) {
 										 self.clients[socketId].socket.ondata(data);
-										 }
+										 } else {
 										 self.clients[socketId].socket.emit("data", data);
+										 }
 										 }
 										 if (event == "end") {
 										 if (!self.clients[socketId]) return;
