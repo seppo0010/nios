@@ -29,6 +29,12 @@ Buffer.prototype.slice = function (start, stop) {
 	return ret;
 }
 
+Buffer.prototype.copy = function(buffer, startOffset) {
+	for (var i = 0; i < this.length; i++) {
+		buffer[startOffset + i] = this[i];
+	}
+}
+
 Buffer.isBuffer = function(obj) { return obj._isBuffer == true; }
 Buffer.byteLength = function(str, encoding) {
 	// FIXME: work properly
