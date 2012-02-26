@@ -50,6 +50,7 @@
 - (void) nios:(Nios*)nios didSendMessage:(NSDictionary*)dictionary;
 - (BOOL) nios:(Nios*)nios shouldProcessReceivedMessage:(NSDictionary*)dictionary;
 - (void) nios:(Nios*)nios didProcessReceivedMessage:(NSDictionary*)dictionary;
+- (void) niosDidFinishLoading:(Nios*)nios;
 
 @end
 

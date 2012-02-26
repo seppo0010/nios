@@ -81,6 +81,12 @@ static UInt16 nios_webport = 8889;
 	return self;
 }
 
++ (void)didFinishLoading:(NSArray*)args nios:(Nios*)_self {
+	if ([_self.delegate respondsToSelector:@selector(niosDidFinishLoading:)]) {
+		[_self.delegate performSelector:@selector(niosDidFinishLoading:) withObject:_self];
+	}
+}
+
 #ifdef DEBUG
 - (void) printStackForSourceId:(int)sid line:(int)lineno {
 	@try {

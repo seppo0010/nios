@@ -276,6 +276,7 @@ window.process = {
 };
 
 document.addEventListener('WebViewJavascriptBridgeReady', function onBridgeReady() {
+	Nios_call("Nios", "didFinishLoading", []);
 	WebViewJavascriptBridge.setMessageHandler(function(message) {
 		var response = JSON.parse(message);
 
