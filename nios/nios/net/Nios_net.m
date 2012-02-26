@@ -133,13 +133,13 @@ static int sLastId = 1;
 }
 
 - (void) dealloc {
+	for (Nios_socket* _socket in clients) {
+		[_socket disconnect];
+	}
 	[socket disconnect];
 	self.socket = nil;
 	self.listener = nil;
 	self.host = nil;
-	for (Nios_socket* _socket in clients) {
-		[_socket disconnect];
-	}
 	[clients release];
 	[super dealloc];
 }
@@ -170,6 +170,7 @@ static int sLastId = 1;
 
 - (void) dealloc {
 	[self disconnect];
+	socket.delegate = nil;
 	self.socket = nil;
 	self.listener = nil;
 	[super dealloc];
@@ -208,16 +209,17 @@ static int sLastId = 1;
 }
 
 - (void)socketDidDisconnect:(GCDAsyncSocket *)sock withError:(NSError *)error {
+	NSString* _listener = [[self.listener retain] autorelease];
 	if (error) {
 		[nios sendMessage:[NSDictionary dictionaryWithObjectsAndKeys:[NSArray arrayWithObjects:@"error",
 																	  [NSDictionary dictionaryWithObjectsAndKeys:
 																	   [error description], @"message",
 																	   [NSNumber numberWithInt:error.code], @"errno",
 																	   nil]
-																	  , nil], @"parameters", self.listener, @"callback", @"0", @"keepCallback", nil]];
+																	  , nil], @"parameters", _listener, @"callback", @"0", @"keepCallback", nil]];
 	}
-	[nios sendMessage:[NSDictionary dictionaryWithObjectsAndKeys:[NSArray arrayWithObjects:@"end", [NSNumber numberWithInt:socketId], nil], @"parameters", self.listener, @"callback", @"1", @"keepCallback", nil]];
-	[nios sendMessage:[NSDictionary dictionaryWithObjectsAndKeys:[NSArray arrayWithObjects:@"close", [NSNumber numberWithInt:socketId], nil], @"parameters", self.listener, @"callback", @"1", @"keepCallback", nil]];
+	[nios sendMessage:[NSDictionary dictionaryWithObjectsAndKeys:[NSArray arrayWithObjects:@"end", [NSNumber numberWithInt:socketId], nil], @"parameters", _listener, @"callback", @"1", @"keepCallback", nil]];
+	[nios sendMessage:[NSDictionary dictionaryWithObjectsAndKeys:[NSArray arrayWithObjects:@"close", [NSNumber numberWithInt:socketId], nil], @"parameters", _listener, @"callback", @"1", @"keepCallback", nil]];
 }
 
 - (int) timeout {
@@ -231,6 +233,8 @@ static int sLastId = 1;
 }
 
 - (void) disconnect {
+	socket.delegate = nil;
+	[self socketDidCloseReadStream:socket];
 	[socket disconnect];
 	[sDict removeObjectForKey:[NSString stringWithFormat:@"%d", socketId]];
 }
