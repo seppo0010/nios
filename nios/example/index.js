@@ -3,7 +3,7 @@ var sockets = [];
 
 function start() {
 	app = require('http').createServer(handler);
-	io = require('socket.io').listen(app, {transports: ["xhr-polling"]});
+	io = require('socket.io').listen(app, {transports: ["websocket"]});
 	ios = require('ios');
 	fs = require('fs')
 	

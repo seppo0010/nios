@@ -30,6 +30,10 @@ static int sLastId = 1;
 //	}
 	Nios_socket* nios_socket = [[[Nios_socket alloc] initWithSocket:newSocket fromServer:self nios:nios] autorelease];
 	[nios_socket startReading];
+	if (!clients) {
+		clients = [[NSMutableSet setWithCapacity:1] retain];
+	}
+	[clients addObject:nios_socket];
 	[nios sendMessage:[NSDictionary dictionaryWithObjectsAndKeys:[NSArray arrayWithObjects:@"connection", [NSNumber numberWithInt:nios_socket.socketId], nil], @"parameters", listener, @"callback", @"1", @"keepCallback", nil]];
 
 }
@@ -47,6 +51,8 @@ static int sLastId = 1;
 	delegate.socketId = lastId;
 	delegate.timeout = -1;
 	[dict setValue:delegate forKey:[NSString stringWithFormat:@"%d", lastId++]];
+	[socket release];
+	[delegate release];
 	return [NSArray arrayWithObjects:[NSNull null], [NSNumber numberWithInt:delegate.socketId], [delegate.socket localHost], nil];
 }
 
@@ -116,14 +122,26 @@ static int sLastId = 1;
 }
 
 + (id) close:(NSArray*)params nios:(Nios*)nios {
-	Nios_net* socket = [dict valueForKey:[NSString stringWithFormat:@"%d", [[params objectAtIndex:0] intValue]]];
-	[socket.socket disconnect];
+	NSString* key = [NSString stringWithFormat:@"%d", [[params objectAtIndex:0] intValue]];
+	[dict removeObjectForKey:key];
 	return nil;
 }
 
 + (id) peername:(NSArray*)params nios:(Nios*)nios {
 	Nios_socket* socket = [sDict valueForKey:[NSString stringWithFormat:@"%d", [[params objectAtIndex:0] intValue]]];
 	return [NSArray arrayWithObject:[NSDictionary dictionaryWithObjectsAndKeys:[socket.socket connectedHost], @"remoteAddress", [NSNumber numberWithInt:[socket.socket connectedPort]], @"remotePort", nil]];
+}
+
+- (void) dealloc {
+	[socket disconnect];
+	self.socket = nil;
+	self.listener = nil;
+	self.host = nil;
+	for (Nios_socket* _socket in clients) {
+		[_socket disconnect];
+	}
+	[clients release];
+	[super dealloc];
 }
 
 @end
@@ -151,7 +169,7 @@ static int sLastId = 1;
 }
 
 - (void) dealloc {
-	[socket disconnect];
+	[self disconnect];
 	self.socket = nil;
 	self.listener = nil;
 	[super dealloc];
@@ -210,6 +228,11 @@ static int sLastId = 1;
 - (NSString*)listener {
 	if (listener) return listener;
 	return server.listener;
+}
+
+- (void) disconnect {
+	[socket disconnect];
+	[sDict removeObjectForKey:[NSString stringWithFormat:@"%d", socketId]];
 }
 
 @end

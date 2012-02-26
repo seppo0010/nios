@@ -17,6 +17,7 @@
 	NSString* host;
 	int socketId;
 	int timeout;
+	NSMutableSet* clients;
 }
 
 @property (retain) GCDAsyncSocket* socket;
@@ -46,5 +47,6 @@
 - (Nios_socket*)initWithSocket:(GCDAsyncSocket*)_socket fromServer:(Nios_net*)_server nios:(Nios*)_nios;
 - (Nios_socket*)initWithSocket:(GCDAsyncSocket*)_socket withListener:(NSString*)_listener nios:(Nios*)_nios;
 - (void) startReading;
+- (void) disconnect;
 
 @end
