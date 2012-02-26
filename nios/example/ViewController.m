@@ -15,6 +15,10 @@
 	nios = [[Nios alloc] initWithScriptName:@"index.js" delegate:self];
 }
 
+- (void) niosDidFinishLoading:(Nios*)nios {
+	[self textViewDidChange:textView];
+}
+
 - (void)textViewDidChange:(UITextView *)_textView {
 	[nios sendMessage:[NSDictionary dictionaryWithObjectsAndKeys:[NSArray arrayWithObject:textView.text], @"parameters", @"setText", @"callback", @"1", @"keepCallback", nil]];
 }
