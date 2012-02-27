@@ -1,0 +1,65 @@
+Nios's license follows:
+
+====
+
+Copyright 2012 Sebastian Waisbrot. All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification, are
+permitted provided that the following conditions are met:
+
+1. Redistributions of source code must retain the above copyright notice, this list of
+conditions and the following disclaimer.
+
+2. Redistributions in binary form must reproduce the above copyright notice, this list
+of conditions and the following disclaimer in the documentation and/or other materials
+provided with the distribution.
+
+THIS SOFTWARE IS PROVIDED BY SEBASTIAN WAISBROT ``AS IS'' AND ANY EXPRESS OR IMPLIED
+WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
+FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL <COPYRIGHT HOLDER> OR
+CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+The views and conclusions contained in the software and documentation are those of the
+authors and should not be interpreted as representing official policies, either expressed
+or implied, of Sebastian Waisbrot.
+
+====
+
+This license applies to all parts of Node that are not externally
+maintained libraries.
+
+The externally maintained libraries used by Nios are:
+
+  - node.js libraries located at nios/nios/lib is copyright Joyent, Inc and
+    released under a MIT license.
+
+  - HTTP Parser, located at nios/nios/deps/http_parser, is a small C library
+    copyright Ryan Lienhart Dahl and released under the MIT license.
+
+  - Browserify buffers located in nios/nios/deps/browserify license is unknown, but also
+    uses node.js libraries. Includes a license in buffer_ieee754.js to
+	Fair Oaks Labs, Inc. under Modified BSD License, and Modifications to writeIEEE754
+	made by Brian White.
+
+  - CocoaAsyncSocket, CocoaHTTPServer and CocoaLumberjack are objective-c libraries
+    used to handle connections. Located each in nios/nios/deps are copyright Deusty, LLC
+	and available under BSD license.
+
+  - json2 located at nios/nios/deps/json2 a json parser in javascript license is unknown.
+    More info can be found at https://github.com/douglascrockford/JSON-js
+
+  - SBJson located at nios/nios/deps/SBJson a json parser in objective-c is copyright
+    Stig Brautaset and available under Modified BSD License.
+
+  - WebViewJavascriptBridge located at nios/nios/deps/WebViewJavascriptBridge
+    is a objective-c/javascript library to allow sending message back and forth between
+	both. It is copyright Marcus Westin and available under MIT license.
+
+  - socket.io located at nios/example/node_modules/socket.io is included for the example
+    but it's not required as dependency. It's copyright Guillermo Rauch and
+	released under MIT license.
