@@ -74,7 +74,7 @@ function basepath(p) {
 require.resolve = function(filename) {
 	var exports = {};
 	var prefix;
-	var suffix = ['-browserify', '-browserify.js', '', '.js'];
+	var suffix = ['', '.js'];
 	var path;
 	if (filename.substr(0,1) == '/') {
 		path = [''];
