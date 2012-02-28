@@ -22,7 +22,17 @@ function require_fullpath(path) {
 		var __dirname = path.split('/').slice(0, -1).join('/')
 		currentPath.push(__dirname);
 		window._modules.push(module);
-		eval(xhReq.responseText);
+		var responseText = xhReq.responseText;
+											
+		// XXX: this is awful, and I'm not proud of it :(
+		// socket.io has that line and seems to have problem with the device parser
+		// I'd rather hard-code it here than patching socket.io at the moment
+		// don't use a generic 'default:' since it breaks the switch structures
+		responseText = responseText.replace("default: require('./default')", "'default': require('./default')");
+		responseText = responseText.replace(/\.in =/g, "['in'] =");
+		responseText = responseText.replace(/\.in\(/g, "['in'](");
+
+		eval(responseText);
 		window._modules.pop();
 		currentPath.pop();
 		for (var k in exports) { module.exports[k] = exports[k]; }
