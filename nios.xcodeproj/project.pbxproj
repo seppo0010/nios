@@ -36,8 +36,7 @@
 		C9268B6514E9B14B00ACED95 /* node_modules in Resources */ = {isa = PBXBuildFile; fileRef = C9268B6414E9B14B00ACED95 /* node_modules */; };
 		C95DF6C414E7F30900782CB9 /* assert.js in Resources */ = {isa = PBXBuildFile; fileRef = C917827D14E0696D006E8852 /* assert.js */; };
 		C95DF6C614E7F4E900782CB9 /* _linklist.js in Resources */ = {isa = PBXBuildFile; fileRef = C917827C14E0696D006E8852 /* _linklist.js */; };
-		C96C1DA914DD7B8300343FC1 /* ViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = C96C1DA714DD7B8300343FC1 /* ViewController_iPad.xib */; };
-		C96C1DAA14DD7B8300343FC1 /* ViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = C96C1DA814DD7B8300343FC1 /* ViewController_iPhone.xib */; };
+		C96C1DAA14DD7B8300343FC1 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C96C1DA814DD7B8300343FC1 /* ViewController.xib */; };
 		C97E0B0914E1EAE6000CB6A3 /* Nios_dgram.m in Sources */ = {isa = PBXBuildFile; fileRef = C97E0B0814E1EAE6000CB6A3 /* Nios_dgram.m */; };
 		C97E0B0C14E1EBC7000CB6A3 /* Nios_dgram.js in Resources */ = {isa = PBXBuildFile; fileRef = C97E0B0A14E1EBB2000CB6A3 /* Nios_dgram.js */; };
 		C97E0B0E14E2093B000CB6A3 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C97E0B0D14E2093B000CB6A3 /* CFNetwork.framework */; };
@@ -179,8 +178,7 @@
 		C9268B6414E9B14B00ACED95 /* node_modules */ = {isa = PBXFileReference; lastKnownFileType = folder; path = node_modules; sourceTree = "<group>"; };
 		C94DBD5914E2FC5F00A3A21B /* buffer_ieee754.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = buffer_ieee754.js; sourceTree = "<group>"; };
 		C94DBD5A14E2FC5F00A3A21B /* buffer.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = buffer.js; sourceTree = "<group>"; };
-		C96C1DA714DD7B8300343FC1 /* ViewController_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewController_iPad.xib; sourceTree = "<group>"; };
-		C96C1DA814DD7B8300343FC1 /* ViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewController_iPhone.xib; sourceTree = "<group>"; };
+		C96C1DA814DD7B8300343FC1 /* ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
 		C97E0B0714E1EAE6000CB6A3 /* Nios_dgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Nios_dgram.h; sourceTree = "<group>"; };
 		C97E0B0814E1EAE6000CB6A3 /* Nios_dgram.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Nios_dgram.m; sourceTree = "<group>"; };
 		C97E0B0A14E1EBB2000CB6A3 /* Nios_dgram.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = Nios_dgram.js; sourceTree = "<group>"; };
@@ -488,8 +486,7 @@
 				C92318D414DD6D9F00646E0C /* index.js */,
 				C92318D514DD6D9F00646E0C /* ViewController.h */,
 				C92318D614DD6D9F00646E0C /* ViewController.m */,
-				C96C1DA714DD7B8300343FC1 /* ViewController_iPad.xib */,
-				C96C1DA814DD7B8300343FC1 /* ViewController_iPhone.xib */,
+				C96C1DA814DD7B8300343FC1 /* ViewController.xib */,
 				C9268B6214E9ADE800ACED95 /* index.html */,
 			);
 			path = example;
@@ -805,8 +802,7 @@
 				C92318DA14DD6DBD00646E0C /* index.js in Resources */,
 				C92318CD14DD6D4200646E0C /* Nios.js in Resources */,
 				C92318C514DD6B5500646E0C /* Nios_fs.js in Resources */,
-				C96C1DA914DD7B8300343FC1 /* ViewController_iPad.xib in Resources */,
-				C96C1DAA14DD7B8300343FC1 /* ViewController_iPhone.xib in Resources */,
+				C96C1DAA14DD7B8300343FC1 /* ViewController.xib in Resources */,
 				C97E0B2114E22FB0000CB6A3 /* Nios_net.js in Resources */,
 				C9268B6314E9ADE800ACED95 /* index.html in Resources */,
 				C9268B6514E9B14B00ACED95 /* node_modules in Resources */,
@@ -927,6 +923,7 @@
 				GCC_PREFIX_HEADER = "nios/nios-Prefix.pch";
 				INFOPLIST_FILE = "nios/nios-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -938,6 +935,7 @@
 				GCC_PREFIX_HEADER = "nios/nios-Prefix.pch";
 				INFOPLIST_FILE = "nios/nios-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
