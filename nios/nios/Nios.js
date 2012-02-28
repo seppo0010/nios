@@ -205,6 +205,10 @@ var Nios_call = function(className, method, parameters, callback, syncronic) {
 			callback(response.parameters);
 		}
 	} else {
+		if (!window.WebViewJavascriptBridge) {
+			Nios_call(className, method, parameters, callback, true);
+			return;
+		}
 		var message = JSON.stringify({"class": className, "method": method, "parameters": parameters, "callback": Nios_registerCallback(callback)});
 		WebViewJavascriptBridge.sendMessage(message);
 	}
