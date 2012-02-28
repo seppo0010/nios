@@ -289,7 +289,7 @@ window.process = {
 	EventEmitter: require('events').EventEmitter
 };
 
-document.addEventListener('WebViewJavascriptBridgeReady', function onBridgeReady() {
+function onBridgeReady() {
 	Nios_call("Nios", "didFinishLoading", []);
 	WebViewJavascriptBridge.setMessageHandler(function(message) {
 		var response = JSON.parse(message);
@@ -302,7 +302,7 @@ document.addEventListener('WebViewJavascriptBridgeReady', function onBridgeReady
 			}
 		}
 	});
-}, false);
+}
 
 function string_to_buffer(data) {
 	var binary = atob(data);
