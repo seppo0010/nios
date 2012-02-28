@@ -41,11 +41,6 @@ The externally maintained libraries used by Nios are:
   - HTTP Parser, located at nios/nios/deps/http_parser, is a small C library
     copyright Ryan Lienhart Dahl and released under the MIT license.
 
-  - Browserify buffers located in nios/nios/deps/browserify license is unknown, but also
-    uses node.js libraries. Includes a license in buffer_ieee754.js to
-	Fair Oaks Labs, Inc. under Modified BSD License, and Modifications to writeIEEE754
-	made by Brian White.
-
   - CocoaAsyncSocket, CocoaHTTPServer and CocoaLumberjack are objective-c libraries
     used to handle connections. Located each in nios/nios/deps are copyright Deusty, LLC
 	and available under BSD license.
