@@ -143,6 +143,16 @@ static UInt16 nios_webport = 8889;
 	[sourcesBySid setValue:source forKey:[NSString stringWithFormat:@"%d", sid]];
 }
 
+
+- (void)webView:(WebView *)webView  failedToParseSource:(NSString *)source
+ baseLineNumber:(unsigned)lineNumber
+        fromURL:(NSURL *)url
+      withError:(NSError *)error
+    forWebFrame:(WebFrame *)webFrame
+{
+    NSLog(@"NSDD: called failedToParseSource: url=%@ line=%d error=%@\nsource=%@", url, lineNumber, error, source);
+}
+
 #ifdef DEBUG_DESPERATE
 - (void)webView:(WebView *)webView    didEnterCallFrame:(WebScriptCallFrame *)frame
 	   sourceId:(int)sid
