@@ -41,11 +41,11 @@ static NSString *QUEUE_HAS_MESSAGE = @"queuehasmessage";
     message = [message stringByReplacingOccurrencesOfString:@"\\" withString:@"\\\\"];
     message = [message stringByReplacingOccurrencesOfString:@"'" withString:@"\\'"];
     message = [message stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""];
-    [webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"WebViewJavascriptBridge._handleMessageFromObjC('%@');", message]];
+    [webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"setTimeout(function() {\nWebViewJavascriptBridge._handleMessageFromObjC('%@');\n},1);", message]];
 }
 
 - (void)_flushMessageQueueFromWebView:(UIWebView *)webView {
-    NSString *messageQueueString = [webView stringByEvaluatingJavaScriptFromString:@"WebViewJavascriptBridge._fetchQueue();"];
+    NSString *messageQueueString = [webView stringByEvaluatingJavaScriptFromString:@"setTimeout(function() {\nWebViewJavascriptBridge._fetchQueue();\n},1)"];
     NSArray* messages = [messageQueueString componentsSeparatedByString:MESSAGE_SEPARATOR];
     for (id message in messages) {
         [self.delegate javascriptBridge:self receivedMessage:message fromWebView:webView];
@@ -115,7 +115,7 @@ static NSString *QUEUE_HAS_MESSAGE = @"queuehasmessage";
         QUEUE_HAS_MESSAGE];
     
     if (![[webView stringByEvaluatingJavaScriptFromString:@"typeof WebViewJavascriptBridge == 'object'"] isEqualToString:@"true"]) {
-        [webView stringByEvaluatingJavaScriptFromString:js];
+        [webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"setTimeout(function() {\n%@\n},1);", js]];
     }
     
     for (id message in self.startupMessageQueue) {

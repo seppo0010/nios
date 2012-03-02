@@ -32,6 +32,8 @@
 	NSMutableArray* lines;
 	NSMutableArray* frames;
 	NSMutableDictionary* sourcesBySid;
+	NSMutableArray* breakpoints;
+	int showPath;
 }
 
 - (Nios*) initWithScriptName:(NSString*)fileName;

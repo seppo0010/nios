@@ -17,5 +17,6 @@
 }
 
 - (IBAction)startStop;
+- (IBAction)debugger;
 
 @end

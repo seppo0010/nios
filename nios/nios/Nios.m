@@ -11,6 +11,10 @@
 #import "HTTPServer.h"
 #import "HTTPMessage.h"
 #import "HTTPDataResponse.h"
+#import <objc/runtime.h>
+#import <objc/objc.h>
+
+#define DEBUG_DESPERATE 1
 
 @class WebView;
 @class WebScriptCallFrame;
@@ -90,7 +94,8 @@ static UInt16 nios_webport = 8889;
 #ifdef DEBUG
 - (void) printStackForSourceId:(int)sid line:(int)lineno {
 	@try {
-		NSString* line = [[[sourcesBySid valueForKey:[NSString stringWithFormat:@"%d", sid]] componentsSeparatedByString:@"\n"] objectAtIndex:lineno];
+		NSString* source = [sourcesBySid valueForKey:[NSString stringWithFormat:@"%d", sid]];
+		NSString* line = [[source componentsSeparatedByString:@"\n"] objectAtIndex:lineno];
 		if (line.length > 100) {
 			line = [line substringToIndex:100];
 		}
@@ -182,7 +187,7 @@ static UInt16 nios_webport = 8889;
 	}
 }
 
-- (void)webView:(WebView *)webView willExecuteStatement:(WebScriptCallFrame *)frame
+- (void)webView:(WebView *)_webView willExecuteStatement:(WebScriptCallFrame *)frame
 	   sourceId:(int)sid
 		   line:(int)lineno
 	forWebFrame:(WebFrame *)webFrame {
@@ -216,7 +221,10 @@ static UInt16 nios_webport = 8889;
 	} else {
 		[sids replaceObjectAtIndex:pos withObject:[NSNumber numberWithInt:sid]];
 	}
+//			NSLog(@"%@", [frame performSelector:@selector(evaluateWebScript:) withObject:@"path"]);
 }
+
+
 #endif
 
 #endif

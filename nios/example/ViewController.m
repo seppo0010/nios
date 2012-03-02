@@ -67,6 +67,10 @@
 	[nios sendMessage:message];
 }
 
+- (IBAction)debugger {
+	
+}
+
 - (void) nios:(Nios*)nios didSendMessage:(NSDictionary*)dictionary {
 	if ([[dictionary valueForKey:@"parameters"] isKindOfClass:[NSArray class]]) {
 		NSArray* params = [dictionary valueForKey:@"parameters"];
