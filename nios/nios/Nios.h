@@ -28,6 +28,9 @@
 
 	id<NiosDelegate> delegate;
 
+	NSMutableData* stdout;
+	NSMutableData* stderr;
+
 	NSMutableArray* sids;
 	NSMutableArray* lines;
 	NSMutableArray* frames;
@@ -38,6 +41,8 @@
 - (Nios*) initWithScriptName:(NSString*)fileName delegate:(id<NiosDelegate>)_delegate;
 - (Nios*) initWithScriptPath:(NSString*)scriptPath;
 - (void) sendMessage:(NSDictionary*)message;
+- (void) writeDataToStdin:(NSData*)data;
+- (void) writeStdin:(NSString*)string;
 
 @property (assign) id<NiosDelegate> delegate;
 

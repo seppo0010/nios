@@ -33,6 +33,8 @@ static UInt16 nios_webport = 8889;
 		if(![webServer start:&error]) {
 			NSLog(@"Failed to start web server");
 		}
+		stdout = [[NSMutableData alloc] init];
+		stderr = [[NSMutableData alloc] init];
 	}
 	return self;
 }
@@ -222,6 +224,8 @@ static UInt16 nios_webport = 8889;
 #endif
 
 - (void) dealloc {
+	[stdout release];
+	[stderr release];
 	[scriptPath release];
 	[javascriptBridge setDelegate:nil];
 	[javascriptBridge release];
@@ -265,6 +269,14 @@ static UInt16 nios_webport = 8889;
 		NSDictionary* reply = [NSDictionary dictionaryWithObjectsAndKeys:[call valueForKey:@"callback"], @"callback", ret ? ret : [NSArray array], @"parameters", nil];
 		[self sendMessage:reply];
 	}
+}
+
+- (void) writeDataToStdin:(NSData*)data {
+	[self sendMessage:[NSDictionary dictionaryWithObjectsAndKeys:[NSArray arrayWithObject:data], @"parameters", @"stdindata", @"callback", @"1", @"keepCallback", nil]];
+}
+
+- (void) writeStdin:(NSString*)string {
+	[self writeDataToStdin:[string dataUsingEncoding:NSUTF8StringEncoding]];
 }
 
 + (id) ping:(NSArray*)params nios:(Nios*)nios {

@@ -168,11 +168,45 @@ var console = {
 }
 
 var Nios_initialize = function (arch, platform, port) {
+	var util = require('util');
+	var events = require('events');
+	var stream = require('stream');
+
 	process.arch = arch;
 	process.platform = platform;
 	process.startDate = new Date();
 	process.env = { NODE_DEBUG: 0 }
 	window.Nios_port = port;
+	var Stdin = function(options) {
+		var self = this;
+		stream.Stream.call(this);
+		this.encoding = 'utf8';
+		this._paused = true;
+		this.resume = function() {
+			self._paused = false;
+			if (self._buffered.length > 0) {
+				self.emit('data', self._buffered);
+			}
+		};
+		this.pause = function() {
+			self._paused = true;
+		};
+		this._buffered = "";
+		this.setEncoding = function(enc) {
+			self.encoding = enc;
+		};
+	}
+	util.inherits(Stdin, events.EventEmitter);
+	process.stdin = new Stdin();
+	Nios_registerCallback('stdindata', function (data) {
+		var buffer = string_to_buffer(data);
+		if (process.stdin._paused) {
+			process.stdin._buffered += buffer.toString(process.stdin.encoding);
+			// FIXME: should use current encoding, or the one when resuming it?
+		} else {
+			process.stdin.emit('data', buffer.toString(process.stdin.encoding));
+		}
+	});									
 }
 var Nios_callbacks = {}
 var Nios_lastcallback = 0;
@@ -213,6 +247,7 @@ var Nios_call = function(className, method, parameters, callback, syncronic) {
 		WebViewJavascriptBridge.sendMessage(message);
 	}
 }
+
 window.process = {
 	onExit: [],
 	onUncaughtException: [],
@@ -264,23 +299,6 @@ window.process = {
 			//TODO
 		}
 	},
-	stdin: {
-		encoding: 'utf8',
-		resume: function() {},
-		pause: function() {},
-		setEncoding: function(enc) {
-			this.encoding = enc;
-		},
-		onData: [],
-		onEnd: [],
-		on: function(evt, func) {
-			if (this[type] instanceof Array) {
-				this[type].push(func);
-			} else {
-				alert('Unknown event \'' + evt + '\'');
-			}
-		}
-	},
 	stderr: {
 		write: function(str) {
 			//TODO
@@ -295,7 +313,7 @@ function onBridgeReady() {
 		var response = JSON.parse(message);
 
 		if (response.callback) {
-			if (typeof Nios_callbacks[response.callback] === 'undefined') { alert("Something bad happened, the callback '" + response.callback + "' does not exist!"); }; // TODO: use assert
+			if (typeof Nios_callbacks[response.callback] === 'undefined') { alert("Something bad happened, the callback '" + response.callback + "' does not exist!"); return; }; // TODO: use assert
 			Nios_callbacks[response.callback].apply(null, response.parameters);
 			if (!response.keepCallback) {
 				delete Nios_callbacks[response.callback];
@@ -324,7 +342,7 @@ function buffer_to_string(buf) {
 function Nios_ping(callback) {
 	Nios_call("Nios", "ping", ["PING?"], callback);
 }
-
+											
 var methods = (function() {
 	var slice = Array.prototype.slice;
 
