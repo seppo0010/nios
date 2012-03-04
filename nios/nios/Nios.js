@@ -164,7 +164,8 @@ var console = {
 		// TODO
 	},
 	assert: function() {
-		// TODO
+		var assert = require('assert');
+		assert.ok.call(this, arguments);
 	}
 }
 
