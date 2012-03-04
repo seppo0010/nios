@@ -171,11 +171,11 @@ exports.closeSync = function(fd) {
 	Nios_call("Nios_fs", "close", [fd], null, true);
 }
 exports.open = function(path, flags, mode, callback) {
-	Nios_call("Nios_fs", "open", [path, flags, mode], callback);
+	Nios_call("Nios_fs", "open", [path, flags, mode || 0666], callback);
 }
 exports.openSync = function(path, flags, mode) {
 	var ret;
-	Nios_call("Nios_fs", "open", [path, flags, mode], function (err, fd) { ret = fd; }, true);
+	Nios_call("Nios_fs", "open", [path, flags, mode || 0666], function (err, fd) { ret = fd; }, true);
 	return ret;
 }
 exports.utimes = function(path, atime, mtime, callback) {
@@ -247,10 +247,10 @@ exports.readFileSync = function(filename, encoding) {
 }
 
 exports.writeFile = function(filename, data, encoding, callback) {
-	Nios_call("Nios_fs", "writeFile", [filename, data, encoding], callback);
+	Nios_call("Nios_fs", "writeFile", [filename, data, encoding, process._umask], callback);
 }
 exports.writeFileSync = function(filename, data, encoding) {
-	Nios_call("Nios_fs", "writeFile", [filename, data, encoding], null, true);
+	Nios_call("Nios_fs", "writeFile", [filename, data, encoding, process._umask], null, true);
 }
 exports.watchFile = function(filename, options, listener) {
 	Nios_call("Nios_fs", "watchFile", [filename, options, Nios_registerCallback(function (curr, prev) {

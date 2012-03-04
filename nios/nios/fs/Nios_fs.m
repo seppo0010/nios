@@ -205,6 +205,7 @@
 	
 	NSError* error;
 	BOOL success = [(NSData*)data writeToFile:path options:NSDataWritingAtomic error:&error];
+	[[NSFileManager defaultManager] setAttributes:[NSDictionary dictionaryWithObject:[NSNumber numberWithInt:0666 - [[params objectAtIndex:3] intValue]] forKey:NSFilePosixPermissions] ofItemAtPath:path error:NULL];
 	if (success) {
 		return [NSArray arrayWithObject:[NSNull null]];
 	} else {
