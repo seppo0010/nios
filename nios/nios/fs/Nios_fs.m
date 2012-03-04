@@ -25,9 +25,11 @@
 	}
 	{
 		NSArray* components = [path componentsSeparatedByString:@"."];
-		NSString* retPath = [[NSBundle mainBundle] pathForResource:[components objectAtIndex:0] ofType:[components objectAtIndex:1]];
-		if (retPath) {
-			return retPath;
+		if ([components count] == 2) {
+			NSString* retPath = [[NSBundle mainBundle] pathForResource:[components objectAtIndex:0] ofType:[components objectAtIndex:1]];
+			if (retPath) {
+				return retPath;
+			}
 		}
 		
 	}
