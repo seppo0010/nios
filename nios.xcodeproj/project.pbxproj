@@ -56,6 +56,8 @@
 		C97E5DF514DDFA67000A10F1 /* json_parse.js in Resources */ = {isa = PBXBuildFile; fileRef = C9B9C6B314DDA1820038F761 /* json_parse.js */; };
 		C97E5DF614DDFA67000A10F1 /* json_parse_state.js in Resources */ = {isa = PBXBuildFile; fileRef = C9B9C6B414DDA1820038F761 /* json_parse_state.js */; };
 		C97E5DFF14DE178B000A10F1 /* NSData+proxyForJson.m in Sources */ = {isa = PBXBuildFile; fileRef = C97E5DFE14DE178B000A10F1 /* NSData+proxyForJson.m */; };
+		C980D7571503FB70002B007C /* Nios_os.m in Sources */ = {isa = PBXBuildFile; fileRef = C980D7561503FB70002B007C /* Nios_os.m */; };
+		C980D75A1503FB8C002B007C /* Nios_os.js in Resources */ = {isa = PBXBuildFile; fileRef = C980D7581503FB7A002B007C /* Nios_os.js */; };
 		C997188D14E3680E00610D50 /* Nios_net.m in Sources */ = {isa = PBXBuildFile; fileRef = C997188C14E3680E00610D50 /* Nios_net.m */; };
 		C9A9829314EBE32400EFA587 /* Nios_querystring.js in Resources */ = {isa = PBXBuildFile; fileRef = C9A9829114EBE2F600EFA587 /* Nios_querystring.js */; };
 		C9A982A014EBFAE200EFA587 /* Nios_ios.m in Sources */ = {isa = PBXBuildFile; fileRef = C9A9829F14EBFAE100EFA587 /* Nios_ios.m */; };
@@ -194,6 +196,9 @@
 		C97E0B2614E2304B000CB6A3 /* Nios_dns.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Nios_dns.m; sourceTree = "<group>"; };
 		C97E5DFE14DE178B000A10F1 /* NSData+proxyForJson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSData+proxyForJson.m"; path = "nios/patches/NSData+proxyForJson.m"; sourceTree = "<group>"; };
 		C97E5E0014DE17B8000A10F1 /* NSData+proxyForJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSData+proxyForJson.h"; path = "nios/patches/NSData+proxyForJson.h"; sourceTree = "<group>"; };
+		C980D7551503FB70002B007C /* Nios_os.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Nios_os.h; sourceTree = "<group>"; };
+		C980D7561503FB70002B007C /* Nios_os.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Nios_os.m; sourceTree = "<group>"; };
+		C980D7581503FB7A002B007C /* Nios_os.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = Nios_os.js; sourceTree = "<group>"; };
 		C997188B14E3680E00610D50 /* Nios_net.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Nios_net.h; sourceTree = "<group>"; };
 		C997188C14E3680E00610D50 /* Nios_net.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Nios_net.m; sourceTree = "<group>"; };
 		C9A9829114EBE2F600EFA587 /* Nios_querystring.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = Nios_querystring.js; sourceTree = "<group>"; };
@@ -394,6 +399,7 @@
 				C9BD6B1714E735CF00B26FBD /* http_parser */,
 				C9A9829C14EBFAD300EFA587 /* ios */,
 				C97E0B1F14E22FA8000CB6A3 /* net */,
+				C980D7541503FB65002B007C /* os */,
 				C916E3BD14DF80B100061D01 /* process */,
 				C9A9829014EBE2F600EFA587 /* querystring */,
 				C923188814DD670500646E0C /* Nios.h */,
@@ -556,6 +562,17 @@
 				C97E5DFE14DE178B000A10F1 /* NSData+proxyForJson.m */,
 			);
 			name = patches;
+			sourceTree = "<group>";
+		};
+		C980D7541503FB65002B007C /* os */ = {
+			isa = PBXGroup;
+			children = (
+				C980D7551503FB70002B007C /* Nios_os.h */,
+				C980D7561503FB70002B007C /* Nios_os.m */,
+				C980D7581503FB7A002B007C /* Nios_os.js */,
+			);
+			name = os;
+			path = nios/os;
 			sourceTree = "<group>";
 		};
 		C9A9829014EBE2F600EFA587 /* querystring */ = {
@@ -752,6 +769,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C980D75A1503FB8C002B007C /* Nios_os.js in Resources */,
 				C9B5698A14F7341100E30814 /* Nios_crypto.js in Resources */,
 				C9A982A314EBFB4300EFA587 /* Nios_ios.js in Resources */,
 				C9A9829314EBE32400EFA587 /* Nios_querystring.js in Resources */,
@@ -840,6 +858,7 @@
 				C9BD6B2414E7363C00B26FBD /* http_parser.c in Sources */,
 				C9A982A014EBFAE200EFA587 /* Nios_ios.m in Sources */,
 				C9B5698714F733CE00E30814 /* Nios_crypto.m in Sources */,
+				C980D7571503FB70002B007C /* Nios_os.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
