@@ -213,8 +213,44 @@ exports.writeSync = function(fd, buffer, offset, length, position) {
 exports.read = function(fd, buffer, offset, length, position, callback) {
 	Nios_call("Nios_fs", "read", [fd, buffer, offset, length, position], callback);
 }
+exports.readSync = function(fd, buffer, offset, length, position) {
+	var encoding = false;
+	if (arguments.length == 4) {
+		encoding = length;
+		position = offset;
+		length = buffer;
+	}
+	var ret;
+	Nios_call("Nios_fs", "read", [fd, buffer, offset, length, position], function (err, bytesRead, buffer) { ret = bytesRead }, true);
+	if (encoding) {
+		return [buffer.toString(encoding), ret];
+	}
+	return ret;
+}
+
+exports.readFileSync = function(filename, encoding) {
+	if (typeof encoding === 'function' && typeof callback === 'undefined') {
+		callback = encoding;
+		encoding = null;
+	}
+	var ret;
+	var tmp_callback = function(err, data) {
+		if (!err && encoding == null) {
+			var str = data;
+			ret = string_to_buffer(data);
+		} else {
+			ret = data;
+		}
+	}
+	Nios_call("Nios_fs", "readFile", [filename, encoding], tmp_callback, true);
+	return ret;
+}
+
 exports.writeFile = function(filename, data, encoding, callback) {
 	Nios_call("Nios_fs", "writeFile", [filename, data, encoding], callback);
+}
+exports.writeFileSync = function(filename, data, encoding) {
+	Nios_call("Nios_fs", "writeFile", [filename, data, encoding], null, true);
 }
 exports.watchFile = function(filename, options, listener) {
 	Nios_call("Nios_fs", "watchFile", [filename, options, Nios_registerCallback(function (curr, prev) {
