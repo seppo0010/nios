@@ -58,6 +58,7 @@
 		C97E5DFF14DE178B000A10F1 /* NSData+proxyForJson.m in Sources */ = {isa = PBXBuildFile; fileRef = C97E5DFE14DE178B000A10F1 /* NSData+proxyForJson.m */; };
 		C980D7571503FB70002B007C /* Nios_os.m in Sources */ = {isa = PBXBuildFile; fileRef = C980D7561503FB70002B007C /* Nios_os.m */; };
 		C980D75A1503FB8C002B007C /* Nios_os.js in Resources */ = {isa = PBXBuildFile; fileRef = C980D7581503FB7A002B007C /* Nios_os.js */; };
+		C980D75B15040A4E002B007C /* punycode.js in Resources */ = {isa = PBXBuildFile; fileRef = C917829014E0696D006E8852 /* punycode.js */; };
 		C997188D14E3680E00610D50 /* Nios_net.m in Sources */ = {isa = PBXBuildFile; fileRef = C997188C14E3680E00610D50 /* Nios_net.m */; };
 		C9A9829314EBE32400EFA587 /* Nios_querystring.js in Resources */ = {isa = PBXBuildFile; fileRef = C9A9829114EBE2F600EFA587 /* Nios_querystring.js */; };
 		C9A982A014EBFAE200EFA587 /* Nios_ios.m in Sources */ = {isa = PBXBuildFile; fileRef = C9A9829F14EBFAE100EFA587 /* Nios_ios.m */; };
@@ -769,6 +770,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C980D75B15040A4E002B007C /* punycode.js in Resources */,
 				C980D75A1503FB8C002B007C /* Nios_os.js in Resources */,
 				C9B5698A14F7341100E30814 /* Nios_crypto.js in Resources */,
 				C9A982A314EBFB4300EFA587 /* Nios_ios.js in Resources */,
