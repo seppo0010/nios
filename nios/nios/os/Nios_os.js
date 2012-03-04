@@ -9,3 +9,11 @@ exports.type = function() {
 	Nios_call("Nios_os", "type", [], function (type) { ret = type; }, true);
 	return ret;
 }
+
+exports.platform = function() {
+	return process.platform;
+}
+
+exports.arch = function() {
+	return process.arch;
+}
