@@ -24,4 +24,8 @@
 	return [NSArray arrayWithObject:[[UIDevice currentDevice] systemName]];
 }
 
++ (id) release:(NSArray*)parameters nios:(Nios*)nios {
+	return [NSArray arrayWithObject:[[UIDevice currentDevice] systemVersion]];
+}
+
 @end
