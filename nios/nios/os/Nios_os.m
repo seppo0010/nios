@@ -9,6 +9,7 @@
 #import "Nios_os.h"
 #import "Nios.h"
 #include <unistd.h>
+#include <sys/sysctl.h>
 
 @implementation Nios_os
 
@@ -26,6 +27,20 @@
 
 + (id) release:(NSArray*)parameters nios:(Nios*)nios {
 	return [NSArray arrayWithObject:[[UIDevice currentDevice] systemVersion]];
+}
+
++ (id) uptime:(NSArray*)parameters nios:(Nios*)nios {
+	struct timeval value;
+	size_t size = sizeof(value);
+	if (sysctlbyname("kern.boottime", &value, &size, NULL, 0) == 0) {
+		struct timeval current_time = {0,0};
+		
+		if (gettimeofday(&current_time,NULL) == 0) {
+			return [NSArray arrayWithObject:[NSNumber numberWithLong:current_time.tv_sec - value.tv_sec]];
+		}
+	}
+	
+	return [NSArray arrayWithObject:[NSNumber numberWithLong:0]];
 }
 
 @end

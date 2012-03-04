@@ -24,3 +24,9 @@ exports.release = function() {
 	return ret;
 }
 
+exports.uptime = function() {
+	var ret;
+	Nios_call("Nios_os", "uptime", [], function (uptime) { ret = uptime; }, true);
+	return ret;
+}
+
