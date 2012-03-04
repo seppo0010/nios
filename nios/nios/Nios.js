@@ -150,7 +150,8 @@ var console = {
 		process.stderr.write(Array.prototype.slice.call(arguments, 0).join(' ') + "\n");
 	},
 	dir: function(obj) {
-		// TODO
+		var util = require('util');
+		process.stderr.write(util.inspect(obj));
 	},
 	timeLabels: {},
 	time: function(label) {
