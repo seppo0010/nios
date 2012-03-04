@@ -43,4 +43,14 @@
 	return [NSArray arrayWithObject:[NSNumber numberWithLong:0]];
 }
 
++ (id) cpus:(NSArray*)parameters nios:(Nios*)nios {
+	int value;
+	size_t size = sizeof(value);
+	if (sysctlbyname("hw.physicalcpu", &value, &size, NULL, 0) == 0) {
+		return [NSArray arrayWithObject:[NSNumber numberWithInt:value]];
+	}
+	
+	return [NSArray arrayWithObject:[NSNumber numberWithInt:0]];
+}
+
 @end

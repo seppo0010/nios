@@ -30,3 +30,9 @@ exports.uptime = function() {
 	return ret;
 }
 
+exports.cpus = function() {
+	var ret;
+	Nios_call("Nios_os", "cpus", [], function (cpus) { ret = cpus; }, true);
+	return ret;
+}
+
