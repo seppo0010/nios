@@ -9,9 +9,6 @@ exports.Stats = function(data) {
 	}
 }
 
-exports.open = function(path, flags, mode, callback) {
-	Nios_call("Nios_fs", "open", [path, flags, mode], callback);
-}
 exports.readFile = function(filename, encoding, callback) {
 	if (typeof encoding === 'function' && typeof callback === 'undefined') {
 		callback = encoding;
@@ -29,17 +26,32 @@ exports.readFile = function(filename, encoding, callback) {
 exports.rename = function(source, target, callback) {
 	Nios_call("Nios_fs", "rename", [source, target], callback);
 }
+exports.renameSync = function(source, target) {
+	Nios_call("Nios_fs", "rename", [source, target], null, true);
+}
 exports.truncate = function(fd, len, callback) {
 	Nios_call("Nios_fs", "truncate", [fd, len], callback);
+}
+exports.truncateSync = function(fd, len) {
+	Nios_call("Nios_fs", "truncate", [fd, len], null, true);
 }
 exports.chown = function(path, uid, gid, callback) {
 	Nios_call("Nios_fs", "chown", [path, uid, gid], callback);
 }
+exports.chownSync = function(path, uid, gid) {
+	Nios_call("Nios_fs", "chown", [path, uid, gid], null, true);
+}
 exports.lchown = function(path, uid, gid, callback) {
 	Nios_call("Nios_fs", "lchown", [path, uid, gid], callback);
 }
+exports.lchownSync = function(path, uid, gid) {
+	Nios_call("Nios_fs", "lchown", [path, uid, gid], null, true);
+}
 exports.fchown = function(fd, uid, gid, callback) {
 	Nios_call("Nios_fs", "fchown", [fd, uid, gid], callback);
+}
+exports.fchownSync = function(fd, uid, gid) {
+	Nios_call("Nios_fs", "fchown", [fd, uid, gid]);
 }
 exports.chmod = function(path, mode, callback) {
 	Nios_call("Nios_fs", "chmod", [path, mode], callback);
@@ -50,62 +62,153 @@ exports.lchmod = function(path, mode, callback) {
 exports.fchmod = function(fd, mode, callback) {
 	Nios_call("Nios_fs", "fchmod", [fd, mode], callback);
 }
+exports.chmodSync = function(path, mode) {
+	Nios_call("Nios_fs", "chmod", [path, mode]);
+}
+exports.lchmodSync = function(path, mode) {
+	Nios_call("Nios_fs", "lchmod", [path, mode]);
+}
+exports.fchmodSync = function(fd, mode) {
+	Nios_call("Nios_fs", "fchmod", [fd, mode]);
+}
 exports.stat = function(path, callback) {
 	Nios_call("Nios_fs", "stat", [path], callback ? function (err, stats) {
-		stats = new exports.Stats(stats);
-		callback(err, stats);
-	} : null);
+			  stats = new exports.Stats(stats);
+			  callback(err, stats);
+			  } : null);
 }
 exports.lstat = function(path, callback) {
 	Nios_call("Nios_fs", "lstat", [path],  callback ? function (err, stats) {
-		stats = new exports.Stats(stats);
-		callback(err, stats);
-	} : null);
+			  stats = new exports.Stats(stats);
+			  callback(err, stats);
+			  } : null);
 }
 exports.fstat = function(path, callback) {
 	Nios_call("Nios_fs", "fstat", [fd],  callback ? function (err, stats) {
-		stats = new exports.Stats(stats);
-		callback(err, stats);
-	} : null);
+			  stats = new exports.Stats(stats);
+			  callback(err, stats);
+			  } : null);
 }
+exports.statSync = function(path) {
+	var stats;
+	Nios_call("Nios_fs", "stat", [path], function (err, stats) {
+			  stats = new exports.Stats(stats);
+			  }, true);
+	return stats;
+}
+
+exports.lstatSync = function(path) {
+	var stats;
+	Nios_call("Nios_fs", "lstat", [path], function (err, stats) {
+			  stats = new exports.Stats(stats);
+			  }, true);
+	return stats;
+}
+
+exports.fstatSync = function(path) {
+	var stats;
+	Nios_call("Nios_fs", "fstat", [fd], function (err, stats) {
+			  stats = new exports.Stats(stats);
+			  }, true);
+	return stats;
+}
+
 exports.link = function(srcpath, dstpath, callback) {
 	Nios_call("Nios_fs", "link", [srcpath, dstpath], callback);
+}
+exports.linkSync = function(srcpath, dstpath) {
+	Nios_call("Nios_fs", "link", [srcpath, dstpath], null, true);
 }
 exports.symlink = function(linkdata, path, type, callback) {
 	Nios_call("Nios_fs", "symlink", [linkdata, path, type], callback);
 }
+exports.symlinkSync = function(linkdata, path, type) {
+	Nios_call("Nios_fs", "symlink", [linkdata, path, type], null, true);
+}
 exports.readlink = function(path, callback) {
 	Nios_call("Nios_fs", "readlink", [path], callback);
+}
+exports.readlinkSync = function(path) {
+	Nios_call("Nios_fs", "readlink", [path], null, true);
 }
 exports.realpath = function(path, callback) {
 	Nios_call("Nios_fs", "realpath", [path], callback);
 }
+exports.realpathSync = function(path) {
+	var ret;
+	Nios_call("Nios_fs", "realpath", [path], function(err, resolvedPath) { ret = resolvedPath; }, true);
+}
 exports.unlink = function(path, callback) {
 	Nios_call("Nios_fs", "unlink", [path], callback);
+}
+exports.unlinkSync = function(path) {
+	Nios_call("Nios_fs", "unlink", [path], null, true);
 }
 exports.rmdir = function(path, callback) {
 	Nios_call("Nios_fs", "rmdir", [path], callback);
 }
+exports.rmdirSync = function(path) {
+	Nios_call("Nios_fs", "rmdir", [path], null, true);
+}
 exports.mkdir = function(path, mode, callback) {
 	Nios_call("Nios_fs", "mkdir", [path, mode], callback);
+}
+exports.mkdirSync = function(path, mode) {
+	Nios_call("Nios_fs", "mkdir", [path, mode], null, true);
 }
 exports.readdir = function(path, callback) {
 	Nios_call("Nios_fs", "readdir", [path], callback);
 }
+exports.readdirSync = function(path) {
+	var ret;
+	Nios_call("Nios_fs", "readdir", [path], function (err, files) { ret = files; }, true);
+	return ret;
+}
 exports.close = function(fd, callback) {
 	Nios_call("Nios_fs", "close", [fd], callback);
+}
+exports.closeSync = function(fd) {
+	Nios_call("Nios_fs", "close", [fd], null, true);
+}
+exports.open = function(path, flags, mode, callback) {
+	Nios_call("Nios_fs", "open", [path, flags, mode], callback);
+}
+exports.openSync = function(path, flags, mode) {
+	var ret;
+	Nios_call("Nios_fs", "open", [path, flags, mode], function (err, fd) { ret = fd; }, true);
+	return ret;
 }
 exports.utimes = function(path, atime, mtime, callback) {
 	Nios_call("Nios_fs", "utimes", [path, atime, mtime], callback);
 }
+exports.utimesSync = function(path, atime, mtime) {
+	Nios_call("Nios_fs", "utimes", [path, atime, mtime], null, true);
+}
 exports.futimes = function(fd, atime, mtime, callback) {
 	Nios_call("Nios_fs", "futimes", [fd, atime, mtime], callback);
+}
+exports.futimesSync = function(fd, atime, mtime) {
+	Nios_call("Nios_fs", "futimes", [fd, atime, mtime], null, true);
 }
 exports.fsync = function(fd, callback) {
 	Nios_call("Nios_fs", "fsync", [fd], callback);
 }
+exports.fsyncSync = function(fd) {
+	Nios_call("Nios_fs", "fsync", [fd], null, true);
+}
 exports.write = function(fd, buffer, offset, length, position, callback) {
 	Nios_call("Nios_fs", "write", [fd, buffer, offset, length, position], callback);
+}
+exports.writeSync = function(fd, buffer, offset, length, position) {
+	if (arguments.length <= 4) {
+		position = offset;
+		buffer = new Buffer(buffer, length || 'utf8');
+		offset = 0;
+		length = buffer.length;
+	}
+	var ret;
+	Nios_call("Nios_fs", "write", [fd, buffer, offset, length, position], function (err, written, buffer) { ret = written; }, true);
+	return ret;
 }
 exports.read = function(fd, buffer, offset, length, position, callback) {
 	Nios_call("Nios_fs", "read", [fd, buffer, offset, length, position], callback);
