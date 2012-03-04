@@ -283,7 +283,15 @@ window.process = {
 	arch: null,
 	platform: null,
 	memoryUsage: function () { return 0; },
-	umask: function (umask) {},
+	_umask: 0022,
+	umask: function (umask) {
+		if (arguments.length == 0) {
+			return this._umask
+		}
+		var old_umask = this._umask;
+		this._umask = umask;
+		return old_umask;
+	},
 	startDate: null,
 	uptime: function () {
 		return ((new Date()).getTime() - startDate.getTime) / 1000;
