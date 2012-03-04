@@ -171,13 +171,13 @@ var console = {
 	}
 }
 
-var Nios_initialize = function (arch, platform, name, pid, port) {
+var Nios_initialize = function (arch, platform, name, env, pid, port) {
 	process.arch = arch;
 	process.platform = platform;
 	process.pid = pid;
+	process.env = env;
 	process.title = name;
 	process.startDate = new Date();
-	process.env = { NODE_DEBUG: 0 }
 	window.Nios_port = port;
 	var Stdin = function(options) {
 		var self = this;

@@ -74,14 +74,20 @@ static UInt16 nios_webport = 8889;
 		architecture = @"arm";
 #endif
 		
+		NSArray* paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+		NSString* documentsPath = [paths objectAtIndex:0];
+		NSString* tempPath = NSTemporaryDirectory();
+		
+
 		NSString* modulesPath = [[[NSBundle mainBundle] pathForResource:@"Nios" ofType:@"js"] stringByDeletingLastPathComponent];
-		NSString* htmlString = [NSString stringWithFormat:@"<script>window.NIOS_BASEPATH = [\"%@\"];</script><script src=\"file://%@\"></script><script src=\"file://%@\"></script><script>document.addEventListener('WebViewJavascriptBridgeReady', function() { Nios_initialize('%@', '%@', '%@', %d, %d); onBridgeReady(); require_fullpath('%@'); });</script>",
+		NSString* htmlString = [NSString stringWithFormat:@"<script>window.NIOS_BASEPATH = [\"%@\"];</script><script src=\"file://%@\"></script><script src=\"file://%@\"></script><script>document.addEventListener('WebViewJavascriptBridgeReady', function() { Nios_initialize('%@', '%@', '%@', '%@', %d, %d); onBridgeReady(); require_fullpath('%@'); });</script>",
 								modulesPath,
 								[[[[NSBundle mainBundle] pathForResource:@"Nios" ofType:@"js"]stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding] stringByReplacingOccurrencesOfString:@" " withString:@"%20"],
 								[[[[NSBundle mainBundle] pathForResource:@"json2" ofType:@"js"]stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding] stringByReplacingOccurrencesOfString:@" " withString:@"%20"],
 								architecture,
 								[[UIDevice currentDevice] model],
 								[[[NSProcessInfo processInfo] processName] stringByReplacingOccurrencesOfString:@"'" withString:@"\\'"],
+								[[[NSDictionary dictionaryWithObjectsAndKeys:documentsPath, @"HOME", tempPath, @"TMPDIR", [NSNumber numberWithInt:DEBUG], @"NODE_DEBUG",nil] JSONRepresentation] stringByReplacingOccurrencesOfString:@"'" withString:@"\\'"],
 								[[NSProcessInfo processInfo] processIdentifier],
 								webServer.port,
 								scriptPath];
