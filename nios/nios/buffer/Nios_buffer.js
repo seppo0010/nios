@@ -1,6 +1,12 @@
 window.Buffer = exports.Buffer = function(size, encoding) {
 	if (typeof size == 'number') {
 		this.length = size;
+	} else if (typeof encoding == 'undefined') {
+		var array = size;
+		this.length = array.length;
+		for (i=0, limiti=this.length; i < limiti; i++) {
+			this[i] = array[i];
+		}
 	} else {
 		var string = size;
 		this.length = string.length;
@@ -45,9 +51,23 @@ Buffer.prototype.slice = function (start, stop) {
 	return ret;
 }
 
-Buffer.prototype.copy = function(buffer, startOffset) {
-	for (var i = 0; i < this.length; i++) {
-		buffer[startOffset + i] = this[i];
+Buffer.prototype.copy = function(targetBuffer, targetStart, sourceStart, sourceEnd) {
+	if (!targetStart) targetStart = 0;
+	if (!sourceStart) sourceStart = 0;
+	if (!sourceEnd) sourceEnd = this.length;
+
+	for (var i = sourceStart; i < sourceEnd; i++) {
+		buffer[targetStart + i] = this[i];
+	}
+}
+
+Buffer.prototype.write = function(string, offset, length, encoding) {
+	// FIXME: use encoding
+	if (!offset) offset = 0;
+	if (!length) length = buffer.length - offset;
+	if (this.length < offset + length) length = this.length - offset;
+	for (var i = 0; i < length; i++) {
+		this[offset + i] = string.charCodeAt(i);
 	}
 }
 

@@ -45,21 +45,21 @@
 				%li{:class=>'done'} console.time(label)
 				%li{:class=>'done'} console.timeEnd(label)
 				%li{:class=>'impossible'} console.trace()
-				%li{:class=>'todo'} console.assert()
+				%li{:class=>'done'} console.assert()
 		%li
 			Buffer
 			%ul
 				%li{:class=>'done'} new Buffer(size)
-				%li{:class=>'todo'} new Buffer(array)
-				%li{:class=>'todo'} new Buffer(str, [encoding])
-				%li{:class=>'todo'} buffer.write(string, [offset], [length], [encoding])
-				%li{:class=>'todo'} buffer.toString(encoding, [start], [end])
+				%li{:class=>'done'} new Buffer(array)
+				%li{:class=>'partially-done'} new Buffer(str, [encoding])
+				%li{:class=>'partially-done'} buffer.write(string, [offset], [length], [encoding])
+				%li{:class=>'partially-done'} buffer.toString(encoding, [start], [end])
 				%li{:class=>'done'} buffer[index]
-				%li{:class=>'todo'} Buffer.isBuffer(obj)
-				%li{:class=>'todo'} Buffer.byteLength(string, [encoding])
-				%li{:class=>'todo'} buffer.length
-				%li{:class=>'todo'} buffer.copy(targetBuffer, [targetStart], [sourceStart], [sourceEnd])
-				%li{:class=>'todo'} buffer.slice([start], [end])
+				%li{:class=>'done'} Buffer.isBuffer(obj)
+				%li{:class=>'partially-done'} Buffer.byteLength(string, [encoding])
+				%li{:class=>'done'} buffer.length
+				%li{:class=>'done'} buffer.copy(targetBuffer, [targetStart], [sourceStart], [sourceEnd])
+				%li{:class=>'done'} buffer.slice([start], [end])
 				%li{:class=>'todo'} buffer.readUInt8(offset, [noAssert])
 				%li{:class=>'todo'} buffer.readUInt16LE(offset, [noAssert])
 				%li{:class=>'todo'} buffer.readUInt16BE(offset, [noAssert])
@@ -91,7 +91,7 @@
 				%li{:class=>'todo'} buffer.fill(value, [offset], [end])
 				%li{:class=>'todo'} INSPECT_MAX_BYTES
 			%li{:class=>'done'} require()
-			%li{:class=>'todo'} require.resolve()
+			%li{:class=>'done'} require.resolve()
 			%li{:class=>'done'} require.cache
 			%li{:class=>'todo'} __filename
 			%li{:class=>'todo'} __dirname
