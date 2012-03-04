@@ -32,6 +32,8 @@ function require_fullpath(path) {
 		responseText = responseText.replace(/\.in =/g, "['in'] =");
 		responseText = responseText.replace(/\.in\(/g, "['in'](");
 
+		var __filename = path;
+		var __dirname = path.substr(0, path.lastIndexOf('/'));
 		eval(responseText);
 		window._modules.pop();
 		currentPath.pop();
