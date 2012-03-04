@@ -28,9 +28,6 @@
 
 	id<NiosDelegate> delegate;
 
-	NSMutableData* stdout;
-	NSMutableData* stderr;
-
 	NSMutableArray* sids;
 	NSMutableArray* lines;
 	NSMutableArray* frames;
@@ -55,6 +52,8 @@
 - (void) nios:(Nios*)nios didSendMessage:(NSDictionary*)dictionary;
 - (BOOL) nios:(Nios*)nios shouldProcessReceivedMessage:(NSDictionary*)dictionary;
 - (void) nios:(Nios*)nios didProcessReceivedMessage:(NSDictionary*)dictionary;
+- (void) nios:(Nios*)nios receivedStdout:(NSString*)stdout;
+- (void) nios:(Nios*)nios receivedStderr:(NSString*)stderr;
 - (void) niosDidFinishLoading:(Nios*)nios;
 
 @end

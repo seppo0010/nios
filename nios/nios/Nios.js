@@ -138,16 +138,16 @@ require.cache = {};
 
 var console = {
 	log: function(str) {
-		Nios_call("Nios_console", "log", [Array.prototype.slice.call(arguments, 0).join(' ')]);
+		process.stdout.write([Array.prototype.slice.call(arguments, 0).join(' ')] + "\n");
 	},
 	info: function(str) {
-		Nios_call("Nios_console", "log", [Array.prototype.slice.call(arguments, 0).join(' ')]);
+		process.stdout.write([Array.prototype.slice.call(arguments, 0).join(' ')] + "\n");
 	},
 	warn: function(str) {
-		Nios_call("Nios_console", "logerror", [Array.prototype.slice.call(arguments, 0).join(' ')]);
+		process.stderr.write([Array.prototype.slice.call(arguments, 0).join(' ')] + "\n");
 	},
 	error: function(str) {
-		Nios_call("Nios_console", "logerror", [Array.prototype.slice.call(arguments, 0).join(' ')]);
+		process.stderr.write([Array.prototype.slice.call(arguments, 0).join(' ')] + "\n");
 	},
 	dir: function(obj) {
 		// TODO
@@ -168,10 +168,6 @@ var console = {
 }
 
 var Nios_initialize = function (arch, platform, port) {
-	var util = require('util');
-	var events = require('events');
-	var stream = require('stream');
-
 	process.arch = arch;
 	process.platform = platform;
 	process.startDate = new Date();
@@ -196,6 +192,11 @@ var Nios_initialize = function (arch, platform, port) {
 			self.encoding = enc;
 		};
 	}
+
+	var util = require('util');
+	var events = require('events');
+	var stream = require('stream');
+											
 	util.inherits(Stdin, events.EventEmitter);
 	process.stdin = new Stdin();
 	Nios_registerCallback('stdindata', function (data) {
@@ -296,12 +297,14 @@ window.process = {
 	},
 	stdout: {
 		write: function(str) {
-			//TODO
+			Nios_call("Nios", "writeStdout", str, null, true);
+			// Note: according to node.js docs, this method is usually blocking
 		}
 	},
 	stderr: {
 		write: function(str) {
-			//TODO
+			Nios_call("Nios", "writeStderr", str, null, true);
+			// Note: according to node.js docs, this method is usually blocking
 		}
 	},
 	EventEmitter: require('events').EventEmitter

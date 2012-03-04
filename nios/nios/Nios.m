@@ -33,8 +33,6 @@ static UInt16 nios_webport = 8889;
 		if(![webServer start:&error]) {
 			NSLog(@"Failed to start web server");
 		}
-		stdout = [[NSMutableData alloc] init];
-		stderr = [[NSMutableData alloc] init];
 	}
 	return self;
 }
@@ -224,8 +222,6 @@ static UInt16 nios_webport = 8889;
 #endif
 
 - (void) dealloc {
-	[stdout release];
-	[stderr release];
 	[scriptPath release];
 	[javascriptBridge setDelegate:nil];
 	[javascriptBridge release];
@@ -277,6 +273,28 @@ static UInt16 nios_webport = 8889;
 
 - (void) writeStdin:(NSString*)string {
 	[self writeDataToStdin:[string dataUsingEncoding:NSUTF8StringEncoding]];
+}
+
++ (id) writeStdout:(NSString*)string nios:(Nios*)nios {
+	id<NiosDelegate> delegate = nios.delegate;
+	if ([delegate respondsToSelector:@selector(nios:receivedStdout:)]) {
+		[delegate performSelector:@selector(nios:receivedStdout:) withObject:nios withObject:string];
+	}
+#ifdef DEBUG
+	printf("%s", [string UTF8String]);
+#endif
+	return nil;
+}
+
++ (id) writeStderr:(NSString*)string nios:(Nios*)nios {
+	id<NiosDelegate> delegate = nios.delegate;
+	if ([delegate respondsToSelector:@selector(nios:receivedStderr:)]) {
+		[delegate performSelector:@selector(nios:receivedStderr:) withObject:nios withObject:string];
+	}
+#ifdef DEBUG
+	fprintf(stderr, "%s", [string UTF8String]);
+#endif
+	return nil;
 }
 
 + (id) ping:(NSArray*)params nios:(Nios*)nios {
