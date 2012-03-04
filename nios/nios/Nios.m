@@ -75,12 +75,13 @@ static UInt16 nios_webport = 8889;
 #endif
 		
 		NSString* modulesPath = [[[NSBundle mainBundle] pathForResource:@"Nios" ofType:@"js"] stringByDeletingLastPathComponent];
-		NSString* htmlString = [NSString stringWithFormat:@"<script>window.NIOS_BASEPATH = [\"%@\"];</script><script src=\"file://%@\"></script><script src=\"file://%@\"></script><script>document.addEventListener('WebViewJavascriptBridgeReady', function() { Nios_initialize('%@', '%@', %d, %d); onBridgeReady(); require_fullpath('%@'); });</script>",
+		NSString* htmlString = [NSString stringWithFormat:@"<script>window.NIOS_BASEPATH = [\"%@\"];</script><script src=\"file://%@\"></script><script src=\"file://%@\"></script><script>document.addEventListener('WebViewJavascriptBridgeReady', function() { Nios_initialize('%@', '%@', '%@', %d, %d); onBridgeReady(); require_fullpath('%@'); });</script>",
 								modulesPath,
 								[[[[NSBundle mainBundle] pathForResource:@"Nios" ofType:@"js"]stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding] stringByReplacingOccurrencesOfString:@" " withString:@"%20"],
 								[[[[NSBundle mainBundle] pathForResource:@"json2" ofType:@"js"]stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding] stringByReplacingOccurrencesOfString:@" " withString:@"%20"],
 								architecture,
 								[[UIDevice currentDevice] model],
+								[[[NSProcessInfo processInfo] processName] stringByReplacingOccurrencesOfString:@"'" withString:@"\\'"],
 								[[NSProcessInfo processInfo] processIdentifier],
 								webServer.port,
 								scriptPath];
