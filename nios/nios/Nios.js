@@ -243,7 +243,7 @@ var Nios_call = function(className, method, parameters, callback, syncronic) {
 		xhReq.send(message);
 		if (callback) {
 			var response = JSON.parse(xhReq.responseText);
-			callback(response.parameters);
+			callback.apply(null, response.parameters);
 		}
 	} else {
 		if (!window.WebViewJavascriptBridge) {
