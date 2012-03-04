@@ -138,16 +138,16 @@ require.cache = {};
 
 var console = {
 	log: function(str) {
-		process.stdout.write([Array.prototype.slice.call(arguments, 0).join(' ')] + "\n");
+		process.stdout.write(Array.prototype.slice.call(arguments, 0).join(' ') + "\n");
 	},
 	info: function(str) {
-		process.stdout.write([Array.prototype.slice.call(arguments, 0).join(' ')] + "\n");
+		process.stdout.write(Array.prototype.slice.call(arguments, 0).join(' ') + "\n");
 	},
 	warn: function(str) {
-		process.stderr.write([Array.prototype.slice.call(arguments, 0).join(' ')] + "\n");
+		process.stderr.write(Array.prototype.slice.call(arguments, 0).join(' ') + "\n");
 	},
 	error: function(str) {
-		process.stderr.write([Array.prototype.slice.call(arguments, 0).join(' ')] + "\n");
+		process.stderr.write(Array.prototype.slice.call(arguments, 0).join(' ') + "\n");
 	},
 	dir: function(obj) {
 		// TODO
@@ -297,13 +297,13 @@ window.process = {
 	},
 	stdout: {
 		write: function(str) {
-			Nios_call("Nios", "writeStdout", str, null, true);
+			Nios_call("Nios", "writeStdout", [str], null, true);
 			// Note: according to node.js docs, this method is usually blocking
 		}
 	},
 	stderr: {
 		write: function(str) {
-			Nios_call("Nios", "writeStderr", str, null, true);
+			Nios_call("Nios", "writeStderr", [str], null, true);
 			// Note: according to node.js docs, this method is usually blocking
 		}
 	},

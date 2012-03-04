@@ -275,24 +275,24 @@ static UInt16 nios_webport = 8889;
 	[self writeDataToStdin:[string dataUsingEncoding:NSUTF8StringEncoding]];
 }
 
-+ (id) writeStdout:(NSString*)string nios:(Nios*)nios {
++ (id) writeStdout:(NSArray*)parameters nios:(Nios*)nios {
 	id<NiosDelegate> delegate = nios.delegate;
 	if ([delegate respondsToSelector:@selector(nios:receivedStdout:)]) {
-		[delegate performSelector:@selector(nios:receivedStdout:) withObject:nios withObject:string];
+		[delegate performSelector:@selector(nios:receivedStdout:) withObject:nios withObject:[parameters objectAtIndex:0]];
 	}
 #ifdef DEBUG
-	printf("%s", [string UTF8String]);
+	printf("%s", [[parameters objectAtIndex:0] UTF8String]);
 #endif
 	return nil;
 }
 
-+ (id) writeStderr:(NSString*)string nios:(Nios*)nios {
++ (id) writeStderr:(NSArray*)parameters nios:(Nios*)nios {
 	id<NiosDelegate> delegate = nios.delegate;
 	if ([delegate respondsToSelector:@selector(nios:receivedStderr:)]) {
-		[delegate performSelector:@selector(nios:receivedStderr:) withObject:nios withObject:string];
+		[delegate performSelector:@selector(nios:receivedStderr:) withObject:nios withObject:[parameters objectAtIndex:0]];
 	}
 #ifdef DEBUG
-	fprintf(stderr, "%s", [string UTF8String]);
+	fprintf(stderr, "%s", [[parameters objectAtIndex:0] UTF8String]);
 #endif
 	return nil;
 }
