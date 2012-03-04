@@ -36,3 +36,8 @@ exports.cpus = function() {
 	return ret;
 }
 
+exports.networkInterfaces = function() {
+	var ret;
+	Nios_call("Nios_os", "networkInterfaces", [], function (networkInterfaces) { ret = networkInterfaces; }, true);
+	return ret;
+}
