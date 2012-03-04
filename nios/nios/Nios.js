@@ -298,13 +298,13 @@ window.process = {
 	},
 	stdout: {
 		write: function(str) {
-			Nios_call("Nios", "writeStdout", [str], null, true);
+			Nios_call("Nios", "writeStdout", ["" + str], null, true);
 			// Note: according to node.js docs, this method is usually blocking
 		}
 	},
 	stderr: {
 		write: function(str) {
-			Nios_call("Nios", "writeStderr", [str], null, true);
+			Nios_call("Nios", "writeStderr", ["" + str], null, true);
 			// Note: according to node.js docs, this method is usually blocking
 		}
 	},
