@@ -91,24 +91,24 @@ exports.fstat = function(path, callback) {
 }
 exports.statSync = function(path) {
 	var stats;
-	Nios_call("Nios_fs", "stat", [path], function (err, stats) {
-			  stats = new exports.Stats(stats);
+	Nios_call("Nios_fs", "stat", [path], function (err, _stats) {
+			  stats = new exports.Stats(_stats);
 			  }, true);
 	return stats;
 }
 
 exports.lstatSync = function(path) {
 	var stats;
-	Nios_call("Nios_fs", "lstat", [path], function (err, stats) {
-			  stats = new exports.Stats(stats);
+	Nios_call("Nios_fs", "lstat", [path], function (err, _stats) {
+			  stats = new exports.Stats(_stats);
 			  }, true);
 	return stats;
 }
 
 exports.fstatSync = function(path) {
 	var stats;
-	Nios_call("Nios_fs", "fstat", [fd], function (err, stats) {
-			  stats = new exports.Stats(stats);
+	Nios_call("Nios_fs", "fstat", [fd], function (err, _stats) {
+			  stats = new exports.Stats(_stats);
 			  }, true);
 	return stats;
 }
