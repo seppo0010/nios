@@ -20,4 +20,8 @@
 	return [NSArray arrayWithObject:@""];
 }
 
++ (id) type:(NSArray*)parameters nios:(Nios*)nios {
+	return [NSArray arrayWithObject:[[UIDevice currentDevice] systemName]];
+}
+
 @end
