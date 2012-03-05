@@ -82,6 +82,7 @@
 
 - (void) dealloc {
 	[nios release];
+	[super dealloc];
 }
 
 @end
