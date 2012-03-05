@@ -196,7 +196,7 @@ inet_ntop6(const unsigned char *src, char *dst, size_t size)
     }
     // Free memory
     freeifaddrs(interfaces);
-    return returnInterfaces;
+    return [NSArray arrayWithObject:returnInterfaces];
 
 }
 
