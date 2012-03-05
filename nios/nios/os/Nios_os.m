@@ -14,6 +14,10 @@
 #include <arpa/inet.h>
 #include <netinet/in.h>
 #include <net/if.h>
+#include <mach/processor_info.h>
+#include <mach/mach_host.h>
+#include <mach/mach_init.h>
+#include <mach/vm_map.h>
 
 #define NS_IN6ADDRSZ    16
 #define NS_INT16SZ      2
@@ -156,13 +160,49 @@ inet_ntop6(const unsigned char *src, char *dst, size_t size)
 }
 
 + (id) cpus:(NSArray*)parameters nios:(Nios*)nios {
-	int value;
-	size_t size = sizeof(value);
-	if (sysctlbyname("hw.physicalcpu", &value, &size, NULL, 0) == 0) {
-		return [NSArray arrayWithObject:[NSNumber numberWithInt:value]];
-	}
+    unsigned int ticks = (unsigned int)sysconf(_SC_CLK_TCK),
+	multiplier = ((uint64_t)1000L / ticks);
+    char model[512];
+    uint64_t cpuspeed;
+    size_t size;
+    unsigned int i;
+    natural_t numcpus;
+    mach_msg_type_number_t msg_type;
+    processor_cpu_load_info_data_t *info;
 	
-	return [NSArray arrayWithObject:[NSNumber numberWithInt:0]];
+    size = sizeof(model);
+    if (sysctlbyname("hw.model", &model, &size, NULL, 0) < 0) {
+		return nil;
+    }
+    size = sizeof(cpuspeed);
+    if (sysctlbyname("hw.cpufrequency", &cpuspeed, &size, NULL, 0) < 0) {
+		return nil;
+    }
+	
+    if (host_processor_info(mach_host_self(), PROCESSOR_CPU_LOAD_INFO, &numcpus,
+                            (processor_info_array_t*)&info,
+                            &msg_type) != KERN_SUCCESS) {
+		return nil;
+    }
+	
+	NSMutableArray* cpu_info = [NSMutableArray arrayWithCapacity:numcpus];
+
+    for (i = 0; i < numcpus; i++) {
+		[cpu_info addObject:[NSDictionary dictionaryWithObjectsAndKeys:
+							 [NSString stringWithFormat:@"%s", model], @"model",
+							 [NSNumber numberWithUnsignedLongLong:cpuspeed/1000000], @"speed",
+							 [NSDictionary dictionaryWithObjectsAndKeys:
+							  [NSNumber numberWithUnsignedLongLong:(uint64_t)(info[i].cpu_ticks[0]) * multiplier], @"user",
+							  [NSNumber numberWithUnsignedLongLong:(uint64_t)(info[i].cpu_ticks[3]) * multiplier], @"nice",
+							  [NSNumber numberWithUnsignedLongLong:(uint64_t)(info[i].cpu_ticks[1]) * multiplier], @"sys",
+							  [NSNumber numberWithUnsignedLongLong:(uint64_t)(info[i].cpu_ticks[2]) * multiplier], @"idle",
+							  [NSNumber numberWithUnsignedLongLong:0], @"irq",
+							  nil], @"times",
+							 nil]];		
+    }
+    vm_deallocate(mach_task_self(), (vm_address_t)info, msg_type);
+	
+	return [NSArray arrayWithObject:cpu_info];
 }
 
 + (id) networkInterfaces:(NSArray*)parameters nios:(Nios*)nios {
