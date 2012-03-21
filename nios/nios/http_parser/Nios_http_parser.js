@@ -8,7 +8,7 @@ exports.HTTPParser.RESPONSE = 1
 exports.HTTPParser.prototype.execute = function (d, start, length) {
 	var self = this;
 	Nios_call("Nios_http_parser", "execute", [ this.type, buffer_to_string(d), start, length ], function (params) {
-		var messages = params[0];
+		var messages = params;
 		for (var i = 0; i < messages.length; i++) {
 			var event = messages[i][0];
 			if (self[event]) {
