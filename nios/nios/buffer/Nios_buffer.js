@@ -57,7 +57,7 @@ Buffer.prototype.copy = function(targetBuffer, targetStart, sourceStart, sourceE
 	if (!sourceEnd) sourceEnd = this.length;
 
 	for (var i = sourceStart; i < sourceEnd; i++) {
-		buffer[targetStart + i] = this[i];
+		targetBuffer[targetStart + i] = this[i];
 	}
 }
 
