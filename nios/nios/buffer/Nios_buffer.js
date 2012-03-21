@@ -1,7 +1,7 @@
 window.Buffer = exports.Buffer = function(size, encoding) {
 	if (typeof size == 'number') {
 		this.length = size;
-	} else if (typeof encoding == 'undefined') {
+	} else if (typeof encoding == 'undefined' && Array.isArray(size)) {
 		var array = size;
 		this.length = array.length;
 		for (i=0, limiti=this.length; i < limiti; i++) {
