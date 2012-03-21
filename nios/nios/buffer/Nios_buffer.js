@@ -37,7 +37,7 @@ Buffer.prototype.toString = function(encoding) {
 	var str = '';
 	for (var i = 0; i < this.length; i++) {
 		if (this[i] == 0) continue;
-		str += String.fromCharCode(this[i]);
+		str += String.fromCharCode(this[i] % 256);
 	}
 	return str;
 }
