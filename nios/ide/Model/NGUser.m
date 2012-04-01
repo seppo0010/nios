@@ -15,6 +15,12 @@
 @implementation NGUser
 
 @synthesize engine;
+@synthesize login;
+
+static NGUser* instance = nil;
++ (NGUser*)loggedInUser {
+	return instance;
+}
 
 + (void)loginUsername:(NSString*)username andPassword:(NSString*)password success:(void(^)(NGUser *))successBlock_ failure:(void(^)(NSError *))failureBlock_  {
 	[NSThread performBlockInBackground:^() {
@@ -23,9 +29,10 @@
 			if ([response isKindOfClass:[NSError class]]) {
 				[[NSThread mainThread] performBlock:^() { failureBlock_(response); }];
 			} else {
-				NGUser* user = [[[NGUser alloc] initWithDictionary_n:[response objectAtIndex:0]] autorelease];
-				user.engine = engine;
-				[[NSThread mainThread] performBlock:^() { successBlock_(user); }];
+				[instance release];
+				instance = [[NGUser alloc] initWithDictionary_n:[response objectAtIndex:0]];
+				instance.engine = engine;
+				[[NSThread mainThread] performBlock:^() { successBlock_(instance); }];
 			}
 			return nil;
 		}];
@@ -41,7 +48,9 @@
 			} else if ([response isKindOfClass:[NSArray class]]) {
 				NSMutableArray* _repositories = [NSMutableArray arrayWithCapacity:[response count]];
 				for (NSDictionary* repository in response) {
-					[_repositories addObject:[[[NGRepository alloc] initWithDictionary_n:repository] autorelease]];
+					NGRepository* repo = [[[NGRepository alloc] initWithDictionary_n:repository] autorelease];
+					repo.user = self;
+					[_repositories addObject:repo];
 				}
 				NSArray* repositories = [_repositories copy];
 				[[NSThread mainThread] performBlock:^() { successBlock_(repositories); }];

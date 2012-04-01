@@ -42,7 +42,9 @@
 }
 
 @property (retain) UAGithubEngine* engine;
+@property (retain) NSString* login;
 
++ (NGUser*)loggedInUser;
 + (void)loginUsername:(NSString*)username andPassword:(NSString*)password success:(void(^)(NGUser *))successBlock_ failure:(void(^)(NSError *))failureBlock_ ;
 - (void) getRepositories:(void(^)(NSArray *))successBlock_ failure:(void(^)(NSError *))failureBlock_;
 

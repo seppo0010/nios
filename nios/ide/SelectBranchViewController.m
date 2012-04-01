@@ -1,29 +1,28 @@
-;//
-//  SelectRepositoryViewController.m
+//
+//  SelectBranchViewController.m
 //  nios
 //
 //  Created by Sebastian Waisbrot on 3/31/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "SelectRepositoryViewController.h"
+#import "SelectBranchViewController.h"
 #import "NGUser.h"
 #import "NGRepository.h"
-#import "SelectBranchViewController.h"
 
-@implementation SelectRepositoryViewController
+@implementation SelectBranchViewController
 
 @synthesize user;
+@synthesize repository;
 
-- (void) viewDidLoad {
-	[super viewDidLoad];
-	self.navigationItem.title = @"Select Repository";
-	if (repositories == nil) {
+- (void)viewDidLoad {
+    [super viewDidLoad];
+	if (!branches) {
 		[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:TRUE];
-		[user getRepositories:^(NSArray* _repositories) {
+		[repository getBranches:^(NSArray* _branches){
 			[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:FALSE];
-			[repositories release];
-			repositories = [_repositories retain];
+			[branches release];
+			branches = [_branches retain];
 			[table reloadData];
 		} failure:^(NSError* error) {
 			[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:FALSE];
@@ -36,38 +35,31 @@
 		}];
 	}
 }
+
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	return [repositories count];
+	return [branches count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	NSString* identifier = @"repository";
+	NSString* identifier = @"branch";
 	UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:identifier];
 	if (cell == nil) {
 		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier] autorelease];
 	}
-	NGRepository* repository = [repositories objectAtIndex:indexPath.row];
-	[[cell textLabel] setText:repository.name];
+	NSString* branch = [branches objectAtIndex:indexPath.row];
+	[[cell textLabel] setText:branch];
 	return cell;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	SelectBranchViewController* controller = [[SelectBranchViewController alloc] init];
-	NGRepository* repository = [repositories objectAtIndex:indexPath.row];
-	controller.user = user;
-	controller.repository = repository;
-	[self.navigationController pushViewController:controller animated:YES];
-	[controller release];
-}
-
-- (void) viewDidUnload {
-	[super viewDidUnload];
+- (void)viewDidUnload {
+    [super viewDidUnload];
 	[table release];
 	table = nil;
 }
 
 - (void) dealloc {
-	self.user = nil;
+	[branches release];
 	[table release];
 	[super dealloc];
 }

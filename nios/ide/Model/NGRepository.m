@@ -9,10 +9,40 @@
 #import "NGRepository.h"
 #import "NGUser.h"
 #import "NSObject+DictionaryInitialization.h"
+#import "UAGithubEngine.h"
+#import "NSThread+BlockAddition.h"
 
 @implementation NGRepository
 
+@synthesize user;
 @synthesize name;
+
+- (void) getBranches:(void(^)(NSArray*))successBlock_ failure:(void(^)(NSError *))failureBlock_ {
+	[NSThread performBlockInBackground:^() {
+		[user.engine branchesForRepository:[NSString stringWithFormat:@"%@/%@", user.login, name] completion:^id(id response) {
+			if ([response isKindOfClass:[NSError class]]) {
+				[[NSThread mainThread] performBlock:^() { failureBlock_(response); }];
+			} else if ([response isKindOfClass:[NSArray class]]) {
+				NSMutableArray* _branches = [NSMutableArray arrayWithCapacity:[response count]];
+				for (NSDictionary* branch in response) {
+					[_branches addObject:[branch valueForKey:@"name"]];
+				}
+				NSArray* branches = [_branches copy];
+				[[NSThread mainThread] performBlock:^() { successBlock_(branches); }];
+			} else {
+				[[NSThread mainThread] performBlock:^() { failureBlock_(nil); }];
+			}
+			return nil;
+		}];
+	}];
+}
+
+- (BOOL) isDownloaded {
+	return FALSE;
+}
+
+- (void) download:(void(^)(NSArray *))successBlock_ failure:(void(^)(NSError *))failureBlock_ {
+}
 
 - (void) setOwner:(id)_owner {
 	[[_owner retain] autorelease];

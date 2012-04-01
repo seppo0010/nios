@@ -10,6 +10,8 @@
 
 @class NGUser;
 @interface NGRepository : NSObject {
+	NGUser* user;
+
 	NSString* clone_url;
 	NSString* created_at;
 	NSString* description;
@@ -38,6 +40,10 @@
 	int watchers;
 }
 
+@property (assign) NGUser* user;
 @property (retain) NSString* name;
+
+- (BOOL) isDownloaded;
+- (void) getBranches:(void(^)(NSArray*))successBlock_ failure:(void(^)(NSError *))failureBlock_;
 
 @end

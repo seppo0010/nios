@@ -182,6 +182,8 @@
 		C9D18558151CEED40043E564 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9D1854D151CEED40043E564 /* ViewController.m */; };
 		C9D18559151CEED40043E564 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9D1854E151CEED40043E564 /* ViewController.xib */; };
 		C9D1855B151CF33C0043E564 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9D1855A151CF33C0043E564 /* SystemConfiguration.framework */; };
+		C9DFA7681527EEDA00339B30 /* SelectBranchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9DFA7631527ED8300339B30 /* SelectBranchViewController.m */; };
+		C9DFA7691527EEDA00339B30 /* SelectBranchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9DFA7641527ED8300339B30 /* SelectBranchViewController.xib */; };
 		C9EEFD5F14E2FEA6009BFAE1 /* buffer_ieee754.js in Resources */ = {isa = PBXBuildFile; fileRef = C94DBD5914E2FC5F00A3A21B /* buffer_ieee754.js */; };
 		C9F78F7A14E9F17F00D97425 /* url.js in Resources */ = {isa = PBXBuildFile; fileRef = C917829A14E0696D006E8852 /* url.js */; };
 		C9FA8BAE1527A6400033AAE8 /* octocat.png in Resources */ = {isa = PBXBuildFile; fileRef = C9FA8BAD1527A6400033AAE8 /* octocat.png */; };
@@ -390,6 +392,9 @@
 		C9D1855A151CF33C0043E564 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		C9D8977014E720BF00F06DB1 /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSData+Base64.h"; path = "nios/patches/NSData+Base64.h"; sourceTree = "<group>"; };
 		C9D8977114E720BF00F06DB1 /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSData+Base64.m"; path = "nios/patches/NSData+Base64.m"; sourceTree = "<group>"; };
+		C9DFA7621527ED8300339B30 /* SelectBranchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectBranchViewController.h; sourceTree = "<group>"; };
+		C9DFA7631527ED8300339B30 /* SelectBranchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectBranchViewController.m; sourceTree = "<group>"; };
+		C9DFA7641527ED8300339B30 /* SelectBranchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectBranchViewController.xib; sourceTree = "<group>"; };
 		C9FA8BAD1527A6400033AAE8 /* octocat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = octocat.png; sourceTree = "<group>"; };
 		C9FA8BB01527AEA30033AAE8 /* NSThread+BlockAddition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSThread+BlockAddition.h"; sourceTree = "<group>"; };
 		C9FA8BB11527AEA40033AAE8 /* NSThread+BlockAddition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSThread+BlockAddition.m"; sourceTree = "<group>"; };
@@ -891,6 +896,9 @@
 				C9FA8BBE1527B9860033AAE8 /* SelectRepositoryViewController.h */,
 				C9FA8BBF1527B9870033AAE8 /* SelectRepositoryViewController.m */,
 				C9FA8BC01527B9870033AAE8 /* SelectRepositoryViewController.xib */,
+				C9DFA7621527ED8300339B30 /* SelectBranchViewController.h */,
+				C9DFA7631527ED8300339B30 /* SelectBranchViewController.m */,
+				C9DFA7641527ED8300339B30 /* SelectBranchViewController.xib */,
 			);
 			path = ide;
 			sourceTree = "<group>";
@@ -1098,6 +1106,7 @@
 				C9D18559151CEED40043E564 /* ViewController.xib in Resources */,
 				C9FA8BAE1527A6400033AAE8 /* octocat.png in Resources */,
 				C9FA8BC21527B9870033AAE8 /* SelectRepositoryViewController.xib in Resources */,
+				C9DFA7691527EEDA00339B30 /* SelectBranchViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1228,6 +1237,7 @@
 				C9FA8BC11527B9870033AAE8 /* SelectRepositoryViewController.m in Sources */,
 				C9FA8BC61527C08D0033AAE8 /* SFHFKeychainUtils.m in Sources */,
 				C9FA8BD21527C95C0033AAE8 /* NGRepository.m in Sources */,
+				C9DFA7681527EEDA00339B30 /* SelectBranchViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
