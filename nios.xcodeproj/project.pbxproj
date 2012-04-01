@@ -192,6 +192,7 @@
 		C9FA8BC21527B9870033AAE8 /* SelectRepositoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9FA8BC01527B9870033AAE8 /* SelectRepositoryViewController.xib */; };
 		C9FA8BC61527C08D0033AAE8 /* SFHFKeychainUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA8BC51527C08D0033AAE8 /* SFHFKeychainUtils.m */; };
 		C9FA8BC81527C2620033AAE8 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9FA8BC71527C2620033AAE8 /* Security.framework */; };
+		C9FA8BD21527C95C0033AAE8 /* NGRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA8BCF1527C6190033AAE8 /* NGRepository.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -402,6 +403,8 @@
 		C9FA8BC41527C08D0033AAE8 /* SFHFKeychainUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFHFKeychainUtils.h; sourceTree = "<group>"; };
 		C9FA8BC51527C08D0033AAE8 /* SFHFKeychainUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFHFKeychainUtils.m; sourceTree = "<group>"; };
 		C9FA8BC71527C2620033AAE8 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		C9FA8BCE1527C6190033AAE8 /* NGRepository.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NGRepository.h; sourceTree = "<group>"; };
+		C9FA8BCF1527C6190033AAE8 /* NGRepository.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NGRepository.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -944,6 +947,8 @@
 			children = (
 				C9FA8BB51527AF050033AAE8 /* NGUser.h */,
 				C9FA8BB61527AF050033AAE8 /* NGUser.m */,
+				C9FA8BCE1527C6190033AAE8 /* NGRepository.h */,
+				C9FA8BCF1527C6190033AAE8 /* NGRepository.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1222,6 +1227,7 @@
 				C9FA8BBD1527B7BE0033AAE8 /* NSObject+DictionaryInitialization.m in Sources */,
 				C9FA8BC11527B9870033AAE8 /* SelectRepositoryViewController.m in Sources */,
 				C9FA8BC61527C08D0033AAE8 /* SFHFKeychainUtils.m in Sources */,
+				C9FA8BD21527C95C0033AAE8 /* NGRepository.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

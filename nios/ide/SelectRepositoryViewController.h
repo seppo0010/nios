@@ -12,6 +12,8 @@
 @interface SelectRepositoryViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
 	NGUser* user;
 	NSArray* repositories;
+
+	IBOutlet UITableView* table;
 }
 
 @property (retain) NGUser* user;

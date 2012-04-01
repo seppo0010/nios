@@ -27,6 +27,7 @@
 }
 
 - (void) startedLogin {
+	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:TRUE];
 	[activityIndicator startAnimating];
 	username.enabled = NO;
 	password.enabled = NO;
@@ -34,6 +35,7 @@
 }
 
 - (void) finishedLogin {
+	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:FALSE];
 	[activityIndicator stopAnimating];
 	username.enabled = YES;
 	password.enabled = YES;
@@ -50,6 +52,7 @@
 			[alert setMessage:[error localizedDescription]];
 			[alert addButtonWithTitle:@"OK"];
 			[alert show];
+			[alert release];
 			return;
 		}
 		[[NSUserDefaults standardUserDefaults] setObject:username.text forKey:@"github.username"];
@@ -57,7 +60,9 @@
 		[self finishedLogin];
 		SelectRepositoryViewController* controller = [[SelectRepositoryViewController alloc] init];
 		controller.user = user;
-		[self presentModalViewController:controller animated:YES];
+		UINavigationController* navController = [[UINavigationController alloc] initWithRootViewController:controller];
+		[self presentModalViewController:navController animated:YES];
+		[navController release];
 		[controller release];
 	} failure:^(NSError* error) {
 		[self finishedLogin];
@@ -66,6 +71,7 @@
 		[alert setMessage:[error localizedDescription]];
 		[alert addButtonWithTitle:@"OK"];
 		[alert show];
+		[alert release];
 	}];
 }
 
