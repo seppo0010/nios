@@ -52,6 +52,20 @@
 	return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+	NSString* branch = [branches objectAtIndex:indexPath.row];
+	[repository downloadBranch:branch success:^void(){
+	} failure:^void(NSError* error){
+		UIAlertView* alert = [[UIAlertView alloc] init];
+		[alert setTitle:@"Ooops..."];
+		[alert setMessage:[error localizedDescription]];
+		[alert addButtonWithTitle:@"OK"];
+		[alert show];
+		[alert release];
+	}];
+}
+
+
 - (void)viewDidUnload {
     [super viewDidUnload];
 	[table release];

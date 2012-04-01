@@ -43,7 +43,7 @@
 @property (assign) NGUser* user;
 @property (retain) NSString* name;
 
-- (BOOL) isDownloaded;
 - (void) getBranches:(void(^)(NSArray*))successBlock_ failure:(void(^)(NSError *))failureBlock_;
+- (void) downloadBranch:(NSString*)branchName success:(void(^)())successBlock_ failure:(void(^)(NSError *))failureBlock_;
 
 @end
